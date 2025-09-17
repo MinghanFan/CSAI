@@ -66,28 +66,38 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_LOW)
     
     def _display_positioning_stats(self, fingerprint: PlayerFingerprint):
-        """Display positioning statistics for a player."""
+        """Display positioning statistics for a player with side breakdown."""
         positioning = fingerprint.positioning
         if positioning:
-            print("  Positioning:")
+            print("  Positioning (Overall):")
             self._print_stat("map_coverage_per_round", positioning.map_coverage_per_round,
                            precision=config.FLOAT_PRECISION_LOW)
             
-            if positioning.position_preferences:
-                # Show top 5 most frequented positions
-                sorted_positions = sorted(positioning.position_preferences.items(), 
-                                        key=lambda x: x[1], reverse=True)
-                print("    Top positions (time spent):")
-                for pos_name, time_fraction in sorted_positions[:5]:
-                    if time_fraction > 0.01:  # Only show positions with >1% time
+            # Show CT side positions
+            ct_positions = positioning.get_ct_positions()
+            if ct_positions:
+                sorted_ct_positions = sorted(ct_positions.items(), key=lambda x: x[1], reverse=True)
+                print("    CT Side - Top positions (time spent):")
+                for pos_name, time_fraction in sorted_ct_positions[:3]:
+                    if time_fraction > 0.01:
+                        self._print_stat(f"  {pos_name}", time_fraction,
+                                       precision=config.FLOAT_PRECISION_HIGH)
+            
+            # Show T side positions
+            t_positions = positioning.get_t_positions()
+            if t_positions:
+                sorted_t_positions = sorted(t_positions.items(), key=lambda x: x[1], reverse=True)
+                print("    T Side - Top positions (time spent):")
+                for pos_name, time_fraction in sorted_t_positions[:3]:
+                    if time_fraction > 0.01:
                         self._print_stat(f"  {pos_name}", time_fraction,
                                        precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_combat_stats(self, fingerprint: PlayerFingerprint):
-        """Display combat statistics for a player."""
+        """Display combat statistics for a player with side breakdown."""
         combat = fingerprint.combat
         if combat:
-            print("  Combat:")
+            print("  Combat (Overall):")
             self._print_stat("kills_per_round", combat.kills_per_round,
                            precision=config.FLOAT_PRECISION_MED)
             self._print_stat("damage_per_round", combat.damage_per_round,
@@ -103,6 +113,22 @@ class ResultsFormatter:
             
             if combat.primary_weapon != 'none':
                 print(f"    primary_weapon: {combat.primary_weapon}")
+            
+            # Show side-specific stats
+            ct_stats = combat.get_ct_stats()
+            t_stats = combat.get_t_stats()
+            
+            if ct_stats:
+                print("  Combat (CT Side):")
+                for key, value in ct_stats.items():
+                    if isinstance(value, (int, float)) and key in ['kills_per_round', 'damage_per_round', 'headshot_ratio']:
+                        self._print_stat(f"ct_{key}", value, precision=config.FLOAT_PRECISION_MED)
+            
+            if t_stats:
+                print("  Combat (T Side):")
+                for key, value in t_stats.items():
+                    if isinstance(value, (int, float)) and key in ['kills_per_round', 'damage_per_round', 'headshot_ratio']:
+                        self._print_stat(f"t_{key}", value, precision=config.FLOAT_PRECISION_MED)
     
     def _display_player_similarities(self, all_players: Dict[str, PlayerFingerprint]):
         """Display player similarity analysis."""

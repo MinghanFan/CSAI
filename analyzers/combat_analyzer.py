@@ -1,5 +1,5 @@
 # analyzers/combat_analyzer.py
-"""Combat performance and style analysis for CS:GO players using detected map."""
+"""Combat performance and style analysis for CS:GO players with side separation."""
 
 import pandas as pd
 from typing import Dict
@@ -7,21 +7,59 @@ from data_structures import CombatSignature
 import config
 
 class CombatAnalyzer:
-    """Analyzes player combat patterns and performance metrics."""
+    """Analyzes player combat patterns and performance metrics by side."""
     
     def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame, 
                 total_rounds: int) -> CombatSignature:
-        """Analyze combat performance and style patterns."""
+        """Analyze combat performance separated by CT and T sides."""
         
         map_name = config.get_current_map_name()
-        kill_areas = config.get_current_map_positions()  # Use same areas as positioning
+        kill_areas = config.get_current_map_positions()
         
         print(f"    CombatAnalyzer: {len(kills_df)} kills, {len(damages_df)} damage events "
               f"across {total_rounds} rounds on {map_name}")
         
-        combat_stats = self._analyze_kills(kills_df, total_rounds, kill_areas)
-        damage_stats = self._analyze_damage(damages_df, total_rounds)
-        combat_stats.update(damage_stats)
+        # Separate by side using the 'player_side' column we added
+        ct_kills = kills_df[kills_df.get('player_side', '') == 'CT'] if 'player_side' in kills_df.columns else pd.DataFrame()
+        t_kills = kills_df[kills_df.get('player_side', '') == 'T'] if 'player_side' in kills_df.columns else pd.DataFrame()
+        ct_damages = damages_df[damages_df.get('player_side', '') == 'CT'] if 'player_side' in damages_df.columns else pd.DataFrame()
+        t_damages = damages_df[damages_df.get('player_side', '') == 'T'] if 'player_side' in damages_df.columns else pd.DataFrame()
+        
+        print(f"    CT: {len(ct_kills)} kills, {len(ct_damages)} damages")
+        print(f"    T: {len(t_kills)} kills, {len(t_damages)} damages")
+        
+        # Analyze each side separately
+        combat_stats = {}
+        
+        # Overall stats (combined)
+        overall_kills = self._analyze_kills(kills_df, total_rounds, kill_areas, "Overall")
+        overall_damage = self._analyze_damage(damages_df, total_rounds, "Overall")
+        combat_stats.update(overall_kills)
+        combat_stats.update(overall_damage)
+        
+        # CT side stats
+        if not ct_kills.empty or not ct_damages.empty:
+            ct_kill_stats = self._analyze_kills(ct_kills, total_rounds, kill_areas, "CT")
+            ct_damage_stats = self._analyze_damage(ct_damages, total_rounds, "CT")
+            
+            # Add CT prefix to stats
+            for key, value in ct_kill_stats.items():
+                if key not in ['primary_weapon']:  # Don't prefix weapon names
+                    combat_stats[f"ct_{key}"] = value
+            for key, value in ct_damage_stats.items():
+                combat_stats[f"ct_{key}"] = value
+        
+        # T side stats
+        if not t_kills.empty or not t_damages.empty:
+            t_kill_stats = self._analyze_kills(t_kills, total_rounds, kill_areas, "T")
+            t_damage_stats = self._analyze_damage(t_damages, total_rounds, "T")
+            
+            # Add T prefix to stats
+            for key, value in t_kill_stats.items():
+                if key not in ['primary_weapon']:  # Don't prefix weapon names
+                    combat_stats[f"t_{key}"] = value
+            for key, value in t_damage_stats.items():
+                combat_stats[f"t_{key}"] = value
         
         # Calculate combined efficiency stats
         if combat_stats['total_damage'] > 0:
@@ -32,11 +70,21 @@ class CombatAnalyzer:
             combat_stats['kill_efficiency'] = 0.0
         
         print(f"    Combat analysis result: {len(combat_stats)} metrics")
-        return CombatSignature(**combat_stats)
+        
+        # Create CombatSignature and add dynamic attributes for side-specific stats
+        signature = CombatSignature(**{k: v for k, v in combat_stats.items() 
+                                     if k in CombatSignature.__dataclass_fields__})
+        
+        # Add side-specific stats as dynamic attributes
+        for key, value in combat_stats.items():
+            if key.startswith(('ct_', 't_')) and key not in CombatSignature.__dataclass_fields__:
+                setattr(signature, key, value)
+        
+        return signature
     
     def _analyze_kills(self, kills_df: pd.DataFrame, total_rounds: int, 
-                      kill_areas: Dict) -> Dict[str, any]:
-        """Analyze kill-related statistics."""
+                      kill_areas: Dict, side: str = "") -> Dict[str, any]:
+        """Analyze kill-related statistics for a specific side."""
         combat_stats = {}
         
         if not kills_df.empty:
@@ -66,10 +114,13 @@ class CombatAnalyzer:
                 combat_stats['multi_kill_rounds'] = int(multi_kills)
                 combat_stats['clutch_potential'] = float(multi_kills / total_rounds)
             
-            # Kill positions analysis (now map-specific)
+            # Kill positions analysis (now map and side specific)
             if 'attacker_X' in kills_df.columns and 'attacker_Y' in kills_df.columns:
-                kill_positions = self._analyze_kill_positions(kills_df, kill_areas)
+                kill_positions = self._analyze_kill_positions(kills_df, kill_areas, side)
                 combat_stats.update(kill_positions)
+                
+            if side:
+                print(f"      {side} side: {total_kills} kills analyzed")
         else:
             combat_stats.update({
                 'kills_per_round': 0.0,
@@ -83,8 +134,9 @@ class CombatAnalyzer:
         
         return combat_stats
     
-    def _analyze_damage(self, damages_df: pd.DataFrame, total_rounds: int) -> Dict[str, any]:
-        """Analyze damage-related statistics."""
+    def _analyze_damage(self, damages_df: pd.DataFrame, total_rounds: int, 
+                       side: str = "") -> Dict[str, any]:
+        """Analyze damage-related statistics for a specific side."""
         damage_stats = {}
         
         if not damages_df.empty and 'dmg_health' in damages_df.columns:
@@ -101,6 +153,9 @@ class CombatAnalyzer:
                     damage_stats['first_shot_damage'] = float(first_damages['dmg_health'].mean())
                 else:
                     damage_stats['first_shot_damage'] = 0.0
+                    
+            if side:
+                print(f"      {side} side: {total_damage} total damage analyzed")
         else:
             damage_stats.update({
                 'damage_per_round': 0.0,
@@ -113,22 +168,22 @@ class CombatAnalyzer:
         return damage_stats
     
     def _analyze_kill_positions(self, kills_df: pd.DataFrame, 
-                               kill_areas: Dict) -> Dict[str, float]:
-        """Analyze where player gets kills to determine playstyle."""
+                               kill_areas: Dict, side: str = "") -> Dict[str, float]:
+        """Analyze where player gets kills to determine playstyle by side."""
         total_kills = len(kills_df)
         
         if total_kills == 0:
             return {'kill_area_diversity': 0.0, 'aggressive_kill_ratio': 0.0, 'kill_position_variance': 0.0}
         
         if not kill_areas:
-            print("      No kill area definitions - using basic position variance only")
             try:
                 position_variance = float(kills_df['attacker_X'].var() + kills_df['attacker_Y'].var())
             except:
                 position_variance = 0.0
             return {'kill_area_diversity': 0.0, 'aggressive_kill_ratio': 0.0, 'kill_position_variance': position_variance}
         
-        print(f"      Analyzing kill positions across {len(kill_areas)} areas")
+        side_prefix = f"{side} " if side else ""
+        print(f"      Analyzing {side_prefix}kill positions across {len(kill_areas)} areas")
         
         # Count kills in each area
         area_kills = {}
@@ -136,7 +191,6 @@ class CombatAnalyzer:
         
         for area_name, coords in kill_areas.items():
             try:
-                # Handle both 2D and 3D coordinate ranges
                 x_range = coords['x_range']
                 y_range = coords['y_range']
                 
@@ -158,24 +212,35 @@ class CombatAnalyzer:
                 
                 if kills_in_area > 0:
                     percentage = (kills_in_area / total_kills) * 100
-                    print(f"        {area_name}: {kills_in_area} kills ({percentage:.1f}%)")
+                    print(f"        {side_prefix}{area_name}: {kills_in_area} kills ({percentage:.1f}%)")
                     
             except Exception as e:
-                print(f"        Error analyzing kills in {area_name}: {e}")
+                print(f"        Error analyzing {side_prefix}kills in {area_name}: {e}")
                 area_kills[area_name] = 0
         
         # Calculate diversity (how spread out kills are)
         non_zero_areas = sum(1 for kills in area_kills.values() if kills > 0)
         kill_area_diversity = float(non_zero_areas / len(area_kills)) if len(area_kills) > 0 else 0.0
         
-        # Calculate aggressive vs defensive based on specific areas if they exist
+        # Calculate aggressive vs defensive based on specific areas and side
         aggressive_kills = 0
-        defensive_areas = ['ctspawn', 'tspawn', 'spawn']  # Common defensive area names
         
-        for area_name, kills in area_kills.items():
-            # Consider areas with "site" in name as potentially aggressive for attackers
-            if any(keyword in area_name.lower() for keyword in ['bombsite', 'site']) and 'ct' not in area_name.lower():
-                aggressive_kills += kills
+        # Different aggression metrics based on side
+        if side == "CT":
+            # For CT: kills in T areas or bomb sites are aggressive
+            for area_name, kills in area_kills.items():
+                if any(keyword in area_name.lower() for keyword in ['tspawn', 'bombsite', 'site']):
+                    aggressive_kills += kills
+        elif side == "T":
+            # For T: kills in CT areas or defensive positions are aggressive
+            for area_name, kills in area_kills.items():
+                if any(keyword in area_name.lower() for keyword in ['ctspawn', 'site']):
+                    aggressive_kills += kills
+        else:
+            # Overall: general aggressive areas
+            for area_name, kills in area_kills.items():
+                if any(keyword in area_name.lower() for keyword in ['bombsite', 'site']) and 'spawn' not in area_name.lower():
+                    aggressive_kills += kills
         
         aggressive_ratio = float(aggressive_kills / total_kills) if total_kills > 0 else 0.0
         
@@ -185,7 +250,7 @@ class CombatAnalyzer:
         except:
             position_variance = 0.0
         
-        print(f"      Kill analysis: {non_zero_areas}/{len(area_kills)} areas used, "
+        print(f"        {side_prefix}Kill analysis: {non_zero_areas}/{len(area_kills)} areas used, "
               f"{total_categorized_kills}/{total_kills} kills categorized")
         
         return {

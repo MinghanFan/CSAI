@@ -1,5 +1,5 @@
 # data_structures.py
-"""Data structures and type definitions for player analysis."""
+"""Data structures and type definitions for player analysis with side separation."""
 
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any
@@ -26,17 +26,36 @@ class MovementSignature:
 
 @dataclass
 class PositioningSignature:
-    """Player's positioning preferences."""
+    """Player's positioning preferences with side-specific data."""
     map_coverage_per_round: float = 0.0
     position_preferences: Dict[str, float] = None
     
     def __post_init__(self):
         if self.position_preferences is None:
             self.position_preferences = {}
+    
+    def get_ct_positions(self) -> Dict[str, float]:
+        """Get CT-side position preferences."""
+        return {k.replace('ct_', ''): v for k, v in self.position_preferences.items() 
+                if k.startswith('ct_') and not k == 'ct_map_coverage'}
+    
+    def get_t_positions(self) -> Dict[str, float]:
+        """Get T-side position preferences."""
+        return {k.replace('t_', ''): v for k, v in self.position_preferences.items() 
+                if k.startswith('t_') and not k == 't_map_coverage'}
+    
+    def get_ct_coverage(self) -> float:
+        """Get CT-side map coverage."""
+        return self.position_preferences.get('ct_map_coverage', 0.0)
+    
+    def get_t_coverage(self) -> float:
+        """Get T-side map coverage."""
+        return self.position_preferences.get('t_map_coverage', 0.0)
 
 @dataclass
 class CombatSignature:
-    """Player's combat statistics."""
+    """Player's combat statistics with side-specific data."""
+    # Overall stats
     kills_per_round: float = 0.0
     total_kills: int = 0
     primary_weapon: str = 'none'
@@ -53,10 +72,37 @@ class CombatSignature:
     kill_area_diversity: float = 0.0
     aggressive_kill_ratio: float = 0.0
     kill_position_variance: float = 0.0
+    
+    # CT-side specific stats (will be populated dynamically)
+    # t_kills_per_round, ct_damage_per_round, etc.
+    
+    def __post_init__(self):
+        """Allow dynamic attributes for side-specific stats."""
+        pass
+    
+    def __setattr__(self, name, value):
+        """Allow setting dynamic attributes."""
+        super().__setattr__(name, value)
+    
+    def get_ct_stats(self) -> Dict[str, Any]:
+        """Get CT-side combat statistics."""
+        ct_stats = {}
+        for key, value in self.__dict__.items():
+            if key.startswith('ct_'):
+                ct_stats[key.replace('ct_', '')] = value
+        return ct_stats
+    
+    def get_t_stats(self) -> Dict[str, Any]:
+        """Get T-side combat statistics."""
+        t_stats = {}
+        for key, value in self.__dict__.items():
+            if key.startswith('t_'):
+                t_stats[key.replace('t_', '')] = value
+        return t_stats
 
 @dataclass
 class PlayerFingerprint:
-    """Complete player style fingerprint."""
+    """Complete player style fingerprint with side separation."""
     movement: MovementSignature
     positioning: PositioningSignature
     combat: CombatSignature
@@ -65,21 +111,53 @@ class PlayerFingerprint:
         """Convert fingerprint to flat feature dictionary."""
         features = {}
         
-        # Movement features
+        # Movement features (same for both sides)
         for key, value in self.movement.__dict__.items():
             features[f"movement_{key}"] = value
             
-        # Positioning features
+        # Positioning features (overall and side-specific)
         features[f"positioning_map_coverage_per_round"] = self.positioning.map_coverage_per_round
-        for pos_name, time_fraction in self.positioning.position_preferences.items():
-            features[f"positioning_{pos_name}"] = time_fraction
-            
-        # Combat features
+        
+        # Add CT positioning
+        ct_positions = self.positioning.get_ct_positions()
+        for pos_name, time_fraction in ct_positions.items():
+            features[f"positioning_ct_{pos_name}"] = time_fraction
+        
+        # Add T positioning
+        t_positions = self.positioning.get_t_positions()
+        for pos_name, time_fraction in t_positions.items():
+            features[f"positioning_t_{pos_name}"] = time_fraction
+        
+        # Add side-specific coverage
+        features[f"positioning_ct_coverage"] = self.positioning.get_ct_coverage()
+        features[f"positioning_t_coverage"] = self.positioning.get_t_coverage()
+        
+        # Combat features (overall and side-specific)
         for key, value in self.combat.__dict__.items():
             if isinstance(value, (int, float)):
                 features[f"combat_{key}"] = value
                 
         return features
+    
+    def get_side_comparison(self) -> Dict[str, Dict]:
+        """Get a comparison of CT vs T side performance."""
+        ct_combat = self.combat.get_ct_stats()
+        t_combat = self.combat.get_t_stats()
+        ct_positions = self.positioning.get_ct_positions()
+        t_positions = self.positioning.get_t_positions()
+        
+        return {
+            'ct_side': {
+                'combat': ct_combat,
+                'positions': ct_positions,
+                'coverage': self.positioning.get_ct_coverage()
+            },
+            't_side': {
+                'combat': t_combat,
+                'positions': t_positions,
+                'coverage': self.positioning.get_t_coverage()
+            }
+        }
 
 @dataclass
 class DemoData:
