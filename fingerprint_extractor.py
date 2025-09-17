@@ -1,5 +1,5 @@
 # fingerprint_extractor.py
-"""Extracts complete player style fingerprints."""
+"""Extracts complete player style fingerprints with automatic map detection."""
 
 from typing import Dict, Optional, List
 from awpy import Demo
@@ -18,17 +18,17 @@ class PlayerStyleFingerprinter:
         self.combat_analyzer = CombatAnalyzer()
         self.demo_processor = DemoProcessor()
         
-    def extract_player_fingerprint(self, demos: List[Demo], player_steamid: str, 
-                                 map_name: str = "de_mirage") -> Optional[PlayerFingerprint]:
+    def extract_player_fingerprint(self, demos: List[Demo], player_steamid: str) -> Optional[PlayerFingerprint]:
         """Extract a complete style fingerprint for a specific player."""
-        player_data = self.demo_processor.aggregate_player_data(demos, player_steamid, map_name)
+        # Fixed: removed the extra map_name parameter
+        player_data = self.demo_processor.aggregate_player_data(demos, player_steamid)
         
         if not player_data or player_data.ticks.empty:
             return None
         
         print(f"Extracting fingerprint for player {player_steamid}")
         
-        # Extract signatures from each analyzer
+        # Extract signatures from each analyzer (they now use global map config)
         movement_signature = self.movement_analyzer.analyze(
             player_data.ticks, player_data.total_rounds
         )
@@ -48,8 +48,7 @@ class PlayerStyleFingerprinter:
         )
     
     def extract_all_player_fingerprints(self, demos: List[Demo], 
-                                      unique_players: Dict[str, PlayerInfo],
-                                      map_name: str = "de_mirage") -> Dict[str, PlayerFingerprint]:
+                                      unique_players: Dict[str, PlayerInfo]) -> Dict[str, PlayerFingerprint]:
         """Extract fingerprints for all players in the demos."""
         all_fingerprints = {}
         processed_count = 0
@@ -59,7 +58,7 @@ class PlayerStyleFingerprinter:
         for steamid, player_info in unique_players.items():
             try:
                 print(f"\nProcessing: {player_info.main_name}")
-                fingerprint = self.extract_player_fingerprint(demos, steamid, map_name)
+                fingerprint = self.extract_player_fingerprint(demos, steamid)
                 
                 if fingerprint:
                     all_fingerprints[player_info.main_name] = fingerprint

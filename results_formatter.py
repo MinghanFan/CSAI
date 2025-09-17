@@ -1,7 +1,7 @@
 # results_formatter.py
 """Formats and displays analysis results."""
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 from data_structures import PlayerFingerprint
 from player_comparison import PlayerComparison
 import config
@@ -13,11 +13,13 @@ class ResultsFormatter:
         self.player_comparison = PlayerComparison()
     
     def display_analysis_results(self, all_players: Dict[str, PlayerFingerprint], 
-                                demos_processed: int):
+                                demos_processed: int, map_name: str):
         """Display comprehensive analysis results."""
         print("\n" + "="*60)
         print("PLAYER STYLE ANALYSIS RESULTS")
         print("="*60)
+        
+        print(f"\n🗺️  Map: {map_name}")
         
         # Show individual fingerprints for key players
         self._display_key_player_fingerprints(all_players)
@@ -28,7 +30,7 @@ class ResultsFormatter:
         
         print(f"\n{'='*60}")
         print("ANALYSIS COMPLETE!")
-        print(f"Analyzed {len(all_players)} professional players across {demos_processed} matches")
+        print(f"Analyzed {len(all_players)} players across {demos_processed} matches on {map_name}")
         print("="*60)
     
     def _display_key_player_fingerprints(self, all_players: Dict[str, PlayerFingerprint]):
@@ -72,9 +74,14 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_LOW)
             
             if positioning.position_preferences:
-                for pos_name, time_fraction in positioning.position_preferences.items():
-                    self._print_stat(f"time_in_{pos_name}", time_fraction,
-                                   precision=config.FLOAT_PRECISION_HIGH)
+                # Show top 5 most frequented positions
+                sorted_positions = sorted(positioning.position_preferences.items(), 
+                                        key=lambda x: x[1], reverse=True)
+                print("    Top positions (time spent):")
+                for pos_name, time_fraction in sorted_positions[:5]:
+                    if time_fraction > 0.01:  # Only show positions with >1% time
+                        self._print_stat(f"  {pos_name}", time_fraction,
+                                       precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_combat_stats(self, fingerprint: PlayerFingerprint):
         """Display combat statistics for a player."""
@@ -90,6 +97,8 @@ class ResultsFormatter:
             self._print_stat("clutch_potential", combat.clutch_potential,
                            precision=config.FLOAT_PRECISION_HIGH)
             self._print_stat("kill_efficiency", combat.kill_efficiency,
+                           precision=config.FLOAT_PRECISION_HIGH)
+            self._print_stat("kill_area_diversity", combat.kill_area_diversity,
                            precision=config.FLOAT_PRECISION_HIGH)
             
             if combat.primary_weapon != 'none':
@@ -107,7 +116,8 @@ class ResultsFormatter:
                 similar_players = self.player_comparison.find_most_similar_players(
                     player, all_players, top_k=3
                 )
-                print(f"\n{player}'s most similar players:")
+                
+                print(f"\n{player} - Most similar players:")
                 for similar in similar_players:
                     print(f"  {similar['player']}: {similar['similarity']:.3f}")
     

@@ -1,29 +1,41 @@
 # demo_processor.py
-"""Demo file loading and basic processing."""
+"""Demo file loading and basic processing with single-map detection."""
 
 import pandas as pd
 from awpy import Demo
 from typing import List, Dict
 from data_structures import DemoData, PlayerInfo
+import config
 
 class DemoProcessor:
     """Handles loading and basic processing of CS:GO demo files."""
     
     def __init__(self):
         self.demos = []
+        self.detected_map = None
     
     def load_demos(self, demo_files: List[str]) -> List[Demo]:
-        """Load demo files and return parsed Demo objects."""
+        """Load demo files and detect the map being used."""
         print(f"Loading {len(demo_files)} demo files...")
         
         demos = []
+        map_names = []
+        
         for demo_file in demo_files:
             try:
                 demo = Demo(demo_file)
-                demo.parse()
+                demo.parse(
+                    player_props=[
+                        "team_name", "X", "Y", "Z", "health", "steamid", "name",
+                        "velocity_X", "velocity_Y", "velocity_Z",
+                        "last_place_name", "pitch", "yaw", "armor_value"
+                    ]
+                )
                 
-                # Display demo information
-                map_name = demo.header["map_name"]
+                # Get map information
+                map_name = demo.header.get("map_name", "unknown")
+                map_names.append(map_name)
+                
                 rounds_df = demo.rounds.to_pandas()
                 kills_df = demo.kills.to_pandas()
                 ticks_df = demo.ticks.to_pandas()
@@ -41,7 +53,30 @@ class DemoProcessor:
         
         if not demos:
             raise RuntimeError("No demos loaded successfully!")
-            
+        
+        # Detect the primary map (should be the same for all demos)
+        unique_maps = list(set(map_names))
+        
+        if len(unique_maps) == 1:
+            self.detected_map = unique_maps[0]
+            print(f"\n🗺️  Detected map: {self.detected_map}")
+        else:
+            # If multiple maps, use the most common one
+            from collections import Counter
+            map_counts = Counter(map_names)
+            self.detected_map = map_counts.most_common(1)[0][0]
+            print(f"\n⚠️  Multiple maps detected, using most common: {self.detected_map}")
+            print(f"   Map distribution: {dict(map_counts)}")
+        
+        # Set the map in config for use by analyzers
+        config.set_current_map(self.detected_map)
+        
+        # Check if map is supported
+        if self.detected_map not in config.MAP_POSITIONS:
+            print(f"⚠️  Warning: {self.detected_map} is not in supported maps!")
+            print(f"   Supported maps: {list(config.MAP_POSITIONS.keys())}")
+            print(f"   Analysis will use basic positioning without map-specific areas.")
+        
         return demos
     
     def extract_unique_players(self, demos: List[Demo]) -> Dict[str, PlayerInfo]:
@@ -82,8 +117,7 @@ class DemoProcessor:
         
         return unique_players
     
-    def aggregate_player_data(self, demos: List[Demo], player_steamid: str, 
-                            map_name: str = "de_mirage") -> DemoData:
+    def aggregate_player_data(self, demos: List[Demo], player_steamid: str) -> DemoData:
         """Aggregate all data for a specific player across demos."""
         all_ticks = []
         all_kills = []
@@ -92,9 +126,7 @@ class DemoProcessor:
         
         for demo in demos:
             try:
-                # Get map name for verification
-                map_name_demo = demo.header["map_name"]
-                print(f"    Processing {map_name_demo} demo")
+                print(f"    Processing {self.detected_map} demo")
                 
                 # Get all demo data
                 ticks_df = demo.ticks.to_pandas()

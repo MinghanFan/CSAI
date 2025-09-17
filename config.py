@@ -2,6 +2,7 @@
 """Configuration and constants for CS:GO Player Style Analysis."""
 
 import pathlib
+from all_maps_3d_positions import *  # Import all position definitions
 
 # Demo file paths
 DEMO_DIR = pathlib.Path("/Users/minghanfan/Documents/Test/test")
@@ -9,27 +10,41 @@ DEMO_FILES = [str(f) for f in sorted(DEMO_DIR.glob("*.dem")) if not f.name.start
 
 # Analysis parameters
 DEFAULT_ROUNDS_ESTIMATE = 20
-COUNTER_STRAFE_MIN_VELOCITY = 200
-COUNTER_STRAFE_THRESHOLD = -100
+COUNTER_STRAFE_MIN_VELOCITY = 50
+COUNTER_STRAFE_THRESHOLD = -30
 SIGNIFICANT_MOVEMENT_THRESHOLD = 50
 MINIMUM_MOVEMENT_VELOCITY = 100
 
-# Mirage map position definitions
-MIRAGE_POSITIONS = {
-    'A_site': {'x_range': (1400, 1800), 'y_range': (-400, 100)},
-    'B_site': {'x_range': (-1400, -800), 'y_range': (400, 800)},
-    'mid': {'x_range': (0, 600), 'y_range': (-200, 400)},
-    'connector': {'x_range': (800, 1200), 'y_range': (200, 600)},
-    'palace': {'x_range': (1000, 1400), 'y_range': (-800, -400)}
+# Map position definitions - automatically use the correct positions based on detected map
+MAP_POSITIONS = {
+    'de_anubis': ANUBIS_POSITIONS,
+    'de_nuke': NUKE_POSITIONS,
+    'de_dust2': DUST2_POSITIONS,
+    'de_mirage': MIRAGE_POSITIONS,
+    'de_ancient': ANCIENT_POSITIONS,
+    'de_inferno': INFERNO_POSITIONS,
+    'de_train': TRAIN_POSITIONS,
+    'de_overpass': OVERPASS_POSITIONS
 }
 
-# Kill area definitions for analysis
-KILL_AREAS = {
-    'A_site': {'x_range': (1400, 1800), 'y_range': (-400, 100)},
-    'B_site': {'x_range': (-1400, -800), 'y_range': (400, 800)},
-    'mid': {'x_range': (0, 600), 'y_range': (-200, 400)},
-    'aggressive_areas': {'x_range': (-2000, 2000), 'y_range': (-1000, 1000)}
-}
+# Global variables to store detected map info (set during demo loading)
+CURRENT_MAP_NAME = None
+CURRENT_MAP_POSITIONS = {}
+
+def set_current_map(map_name: str):
+    """Set the current map being analyzed."""
+    global CURRENT_MAP_NAME, CURRENT_MAP_POSITIONS
+    CURRENT_MAP_NAME = map_name
+    CURRENT_MAP_POSITIONS = MAP_POSITIONS.get(map_name, {})
+    print(f"🗺️  Using position definitions for {map_name} ({len(CURRENT_MAP_POSITIONS)} areas)")
+
+def get_current_map_positions():
+    """Get position definitions for the current map."""
+    return CURRENT_MAP_POSITIONS
+
+def get_current_map_name():
+    """Get the name of the current map."""
+    return CURRENT_MAP_NAME
 
 # PCA and similarity analysis settings
 PCA_COMPONENTS = 2

@@ -12,7 +12,8 @@ class PlayerVisualization:
     def __init__(self):
         self.player_comparison = PlayerComparison()
     
-    def visualize_player_clusters(self, all_players: Dict[str, PlayerFingerprint]):
+    def visualize_player_clusters(self, all_players: Dict[str, PlayerFingerprint], 
+                                map_name: str = "Analysis"):
         """Create and display a 2D visualization of player style clusters."""
         comparison = self.player_comparison.compare_players(all_players)
         if not comparison:
@@ -35,14 +36,15 @@ class PlayerVisualization:
                         xytext=(5, 5), textcoords='offset points',
                         fontsize=8)
         
-        plt.title("Player Style Clusters (de_mirage)")
+        plt.title(f"Player Style Clusters ({map_name})")
         plt.xlabel("Style Component 1")
         plt.ylabel("Style Component 2")
         plt.grid(True, alpha=0.3)
         plt.tight_layout()
         plt.show()
     
-    def create_similarity_heatmap(self, all_players: Dict[str, PlayerFingerprint]):
+    def create_similarity_heatmap(self, all_players: Dict[str, PlayerFingerprint], 
+                                map_name: str = "Analysis"):
         """Create a heatmap showing player similarities."""
         comparison = self.player_comparison.compare_players(all_players)
         if not comparison:
@@ -58,11 +60,12 @@ class PlayerVisualization:
         plt.xticks(range(len(player_names)), player_names, rotation=45)
         plt.yticks(range(len(player_names)), player_names)
         
-        plt.title("Player Style Similarity Matrix")
+        plt.title(f"Player Style Similarity Matrix ({map_name})")
         plt.tight_layout()
         plt.show()
     
     def create_stat_comparison_plot(self, all_players: Dict[str, PlayerFingerprint], 
+                                  map_name: str = "Analysis",
                                   stats_to_compare: list = None):
         """Create a comparison plot for specific statistics across players."""
         if stats_to_compare is None:
@@ -95,7 +98,7 @@ class PlayerVisualization:
         
         for i, stat in enumerate(stats_to_compare):
             axes[i].bar(player_names, stat_values[stat])
-            axes[i].set_title(f'{stat.replace("_", " ").title()}')
+            axes[i].set_title(f'{stat.replace("_", " ").title()} ({map_name})')
             axes[i].tick_params(axis='x', rotation=45)
         
         plt.tight_layout()
