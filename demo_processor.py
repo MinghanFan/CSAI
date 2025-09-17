@@ -5,7 +5,6 @@ import pandas as pd
 from awpy import Demo
 from typing import List, Dict
 from data_structures import DemoData, PlayerInfo
-import config
 
 class DemoProcessor:
     """Handles loading and basic processing of CS:GO demo files."""
@@ -18,8 +17,6 @@ class DemoProcessor:
         print(f"Loading {len(demo_files)} demo files...")
         
         demos = []
-        map_counts = {}
-        
         for demo_file in demo_files:
             try:
                 demo = Demo(demo_file)
@@ -37,9 +34,6 @@ class DemoProcessor:
                 print(f"  Rounds: {len(rounds_df)}, Kills: {len(kills_df)}, "
                       f"Damages: {len(damages_df)}, Ticks: {len(ticks_df)}")
                 
-                # Track map distribution
-                map_counts[map_name] = map_counts.get(map_name, 0) + 1
-                
                 demos.append(demo)
                 
             except Exception as e:
@@ -47,13 +41,6 @@ class DemoProcessor:
         
         if not demos:
             raise RuntimeError("No demos loaded successfully!")
-        
-        # Print map distribution
-        print(f"\nMap distribution in loaded demos:")
-        for map_name, count in sorted(map_counts.items()):
-            has_positions = map_name in config.ALL_MAP_POSITIONS
-            status = "✓" if has_positions else "✗"
-            print(f"  {status} {map_name}: {count} demo(s)")
             
         return demos
     
@@ -107,11 +94,6 @@ class DemoProcessor:
             try:
                 # Get map name for verification
                 map_name_demo = demo.header["map_name"]
-                
-                # Skip demos that don't match the target map
-                if map_name_demo != map_name:
-                    continue
-                    
                 print(f"    Processing {map_name_demo} demo")
                 
                 # Get all demo data
@@ -161,7 +143,7 @@ class DemoProcessor:
         elif not combined_ticks.empty and 'round_num' in combined_ticks.columns:
             total_rounds = combined_ticks['round_num'].nunique()
         else:
-            total_rounds = config.DEFAULT_ROUNDS_ESTIMATE  # Fallback estimate
+            total_rounds = 20  # Fallback estimate
         
         print(f"    Combined: {len(combined_ticks)} ticks, {len(combined_kills)} kills, "
               f"{len(combined_damages)} damages across {total_rounds} rounds")
@@ -173,16 +155,3 @@ class DemoProcessor:
             rounds=combined_rounds,
             total_rounds=total_rounds
         )
-    
-    def get_demo_map_info(self, demos: List[Demo]) -> Dict[str, int]:
-        """Get information about maps in the loaded demos."""
-        map_info = {}
-        
-        for demo in demos:
-            try:
-                map_name = demo.header.get("map_name", "unknown")
-                map_info[map_name] = map_info.get(map_name, 0) + 1
-            except Exception:
-                continue
-        
-        return map_info

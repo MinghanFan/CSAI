@@ -13,15 +13,14 @@ class ResultsFormatter:
         self.player_comparison = PlayerComparison()
     
     def display_analysis_results(self, all_players: Dict[str, PlayerFingerprint], 
-                                demos_processed: int, map_name: str = "de_mirage"):
+                                demos_processed: int):
         """Display comprehensive analysis results."""
         print("\n" + "="*60)
         print("PLAYER STYLE ANALYSIS RESULTS")
         print("="*60)
-        print(f"Map: {map_name}")
         
         # Show individual fingerprints for key players
-        self._display_key_player_fingerprints(all_players, map_name)
+        self._display_key_player_fingerprints(all_players)
         
         # Compare players if we have enough data
         if len(all_players) >= 2:
@@ -29,19 +28,12 @@ class ResultsFormatter:
         
         print(f"\n{'='*60}")
         print("ANALYSIS COMPLETE!")
-        print(f"Analyzed {len(all_players)} professional players across {demos_processed} matches on {map_name}")
+        print(f"Analyzed {len(all_players)} professional players across {demos_processed} matches")
         print("="*60)
     
-    def _display_key_player_fingerprints(self, all_players: Dict[str, PlayerFingerprint], map_name: str):
+    def _display_key_player_fingerprints(self, all_players: Dict[str, PlayerFingerprint]):
         """Display detailed fingerprints for key players."""
-        available_key_players = [player for player in config.KEY_PLAYERS if player in all_players]
-        
-        if not available_key_players:
-            # If no key players found, show top 3 players by sample size
-            print(f"\nNo key players found in data. Showing top players:")
-            available_key_players = list(all_players.keys())[:3]
-        
-        for player_name in available_key_players:
+        for player_name in config.KEY_PLAYERS:
             if player_name in all_players:
                 fingerprint = all_players[player_name]
                 print(f"\n{player_name.upper()}:")
@@ -50,7 +42,7 @@ class ResultsFormatter:
                 self._display_movement_stats(fingerprint)
                 
                 # Display positioning stats  
-                self._display_positioning_stats(fingerprint, map_name)
+                self._display_positioning_stats(fingerprint)
                 
                 # Display combat stats
                 self._display_combat_stats(fingerprint)
@@ -71,7 +63,7 @@ class ResultsFormatter:
             self._print_stat("position_variance_per_round", movement.position_variance_per_round,
                            precision=config.FLOAT_PRECISION_LOW)
     
-    def _display_positioning_stats(self, fingerprint: PlayerFingerprint, map_name: str):
+    def _display_positioning_stats(self, fingerprint: PlayerFingerprint):
         """Display positioning statistics for a player."""
         positioning = fingerprint.positioning
         if positioning:
@@ -80,15 +72,9 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_LOW)
             
             if positioning.position_preferences:
-                # Sort positions by time spent (descending)
-                sorted_positions = sorted(positioning.position_preferences.items(), 
-                                        key=lambda x: x[1], reverse=True)
-                
-                print("    Top positions by time spent:")
-                for pos_name, time_fraction in sorted_positions[:5]:  # Show top 5
-                    if time_fraction > 0.01:  # Only show positions with >1% time
-                        self._print_stat(f"time_in_{pos_name}", time_fraction,
-                                       precision=config.FLOAT_PRECISION_HIGH)
+                for pos_name, time_fraction in positioning.position_preferences.items():
+                    self._print_stat(f"time_in_{pos_name}", time_fraction,
+                                   precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_combat_stats(self, fingerprint: PlayerFingerprint):
         """Display combat statistics for a player."""
@@ -105,8 +91,6 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_HIGH)
             self._print_stat("kill_efficiency", combat.kill_efficiency,
                            precision=config.FLOAT_PRECISION_HIGH)
-            self._print_stat("kill_area_diversity", combat.kill_area_diversity,
-                           precision=config.FLOAT_PRECISION_HIGH)
             
             if combat.primary_weapon != 'none':
                 print(f"    primary_weapon: {combat.primary_weapon}")
@@ -118,14 +102,7 @@ class ResultsFormatter:
         print("="*60)
         
         # Find similar players for some key players
-        available_comparison_players = [player for player in config.COMPARISON_PLAYERS 
-                                      if player in all_players]
-        
-        if not available_comparison_players:
-            # If no comparison players found, use first few players
-            available_comparison_players = list(all_players.keys())[:3]
-        
-        for player in available_comparison_players:
+        for player in config.COMPARISON_PLAYERS:
             if player in all_players:
                 similar_players = self.player_comparison.find_most_similar_players(
                     player, all_players, top_k=3
