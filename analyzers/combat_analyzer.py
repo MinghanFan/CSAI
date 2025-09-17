@@ -9,6 +9,22 @@ import config
 class CombatAnalyzer:
     """Analyzes player combat patterns and performance metrics."""
     
+    def __init__(self, map_name: str = "de_mirage"):
+        self.map_name = map_name
+        self.kill_areas = config.get_positions_for_map(map_name)
+        
+        if not self.kill_areas:
+            print(f"Warning: No positions found for {map_name} in combat analysis")
+            self.kill_areas = config.KILL_AREAS
+    
+    def set_map(self, map_name: str):
+        """Change the map being analyzed."""
+        self.map_name = map_name
+        self.kill_areas = config.get_positions_for_map(map_name)
+        
+        if not self.kill_areas:
+            print(f"Warning: No positions found for {map_name} in combat analysis")
+    
     def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame, 
                 total_rounds: int) -> CombatSignature:
         """Analyze combat performance and style patterns."""
@@ -111,29 +127,46 @@ class CombatAnalyzer:
         """Analyze where player gets kills to determine playstyle."""
         total_kills = len(kills_df)
         
-        if total_kills == 0:
+        if total_kills == 0 or not self.kill_areas:
             return {'kill_area_diversity': 0.0, 'aggressive_kill_ratio': 0.0, 'kill_position_variance': 0.0}
         
         # Count kills in each area
         area_kills = {}
-        for area_name, coords in config.KILL_AREAS.items():
+        for area_name, coords in self.kill_areas.items():
             if area_name == 'aggressive_areas':
                 continue
+            
+            try:
+                # Handle both list and tuple formats for coordinate ranges
+                x_range = coords.get('x_range', [0, 0])
+                y_range = coords.get('y_range', [0, 0])
                 
-            area_filter = (
-                (kills_df['attacker_X'].between(coords['x_range'][0], coords['x_range'][1])) &
-                (kills_df['attacker_Y'].between(coords['y_range'][0], coords['y_range'][1]))
-            )
-            area_kills[area_name] = area_filter.sum()
+                if len(x_range) >= 2 and len(y_range) >= 2:
+                    area_filter = (
+                        (kills_df['attacker_X'].between(x_range[0], x_range[1])) &
+                        (kills_df['attacker_Y'].between(y_range[0], y_range[1]))
+                    )
+                    area_kills[area_name] = area_filter.sum()
+                else:
+                    area_kills[area_name] = 0
+            except Exception:
+                area_kills[area_name] = 0
         
         # Calculate diversity (how spread out kills are)
-        non_zero_areas = sum(1 for kills in area_kills.values() if kills > 0)
-        kill_area_diversity = float(non_zero_areas / len(area_kills))
+        if area_kills:
+            non_zero_areas = sum(1 for kills in area_kills.values() if kills > 0)
+            kill_area_diversity = float(non_zero_areas / len(area_kills))
+        else:
+            kill_area_diversity = 0.0
         
         # Estimate aggressive vs defensive kills based on position variance
-        position_variance = kills_df['attacker_X'].var() + kills_df['attacker_Y'].var()
+        try:
+            position_variance = kills_df['attacker_X'].var() + kills_df['attacker_Y'].var()
+            position_variance = float(position_variance) if position_variance is not None else 0.0
+        except Exception:
+            position_variance = 0.0
         
         return {
             'kill_area_diversity': kill_area_diversity,
-            'kill_position_variance': float(position_variance)
+            'kill_position_variance': position_variance
         }
