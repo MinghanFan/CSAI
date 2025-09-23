@@ -20,7 +20,7 @@ class PlayerStyleFingerprinter:
         
     def extract_player_fingerprint(self, demos: List[Demo], player_steamid: str) -> Optional[PlayerFingerprint]:
         """Extract a complete style fingerprint for a specific player."""
-        # Fixed: removed the extra map_name parameter
+        # Remove the extra map_name parameter
         player_data = self.demo_processor.aggregate_player_data(demos, player_steamid)
         
         if not player_data or player_data.ticks.empty:

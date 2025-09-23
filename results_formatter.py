@@ -19,7 +19,7 @@ class ResultsFormatter:
         print("PLAYER STYLE ANALYSIS RESULTS")
         print("="*60)
         
-        print(f"\n🗺️  Map: {map_name}")
+        print(f"\n  Map: {map_name}")
         
         # Show individual fingerprints for key players
         self._display_key_player_fingerprints(all_players)

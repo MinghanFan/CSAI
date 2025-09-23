@@ -8,7 +8,7 @@ from data_structures import DemoData, PlayerInfo
 import config
 
 class DemoProcessor:
-    """Handles loading and basic processing of CS:GO demo files."""
+    """Handles loading and basic processing of Couter-Strike demo files."""
     
     def __init__(self):
         self.demos = []
@@ -32,12 +32,10 @@ class DemoProcessor:
                     ]
                 )
                 
-                # Try different ways to get map information
-                map_name = None
-                if hasattr(demo, 'header') and demo.header:
-                    map_name = demo.header.get("map_name") or demo.header.get("mapName") or demo.header.get("map")
+                # Get map name from demo header
+                map_name = demo.header["map_name"] if "map_name" in demo.header else None
                 
-                # If still None, try to infer from file name or use default
+                # Backup for map name
                 if not map_name or map_name == "None":
                     # Try to extract from filename
                     filename = demo_file.split('/')[-1].lower()
@@ -46,7 +44,7 @@ class DemoProcessor:
                             map_name = known_map
                             break
                     
-                    # If still no luck, ask user or use default
+                    # If still no, ask user or use default
                     if not map_name:
                         print(f"    Could not detect map from demo header or filename")
                         print(f"     Available maps: {list(config.MAP_POSITIONS.keys())}")
@@ -81,14 +79,14 @@ class DemoProcessor:
                 print(f"✗ Failed to load {demo_file}: {e}")
         
         if not demos:
-            raise RuntimeError("No demos loaded successfully!")
+            raise RuntimeError("No demos loaded successfully")
         
         # Detect the primary map
         unique_maps = list(set(map_names))
         
         if len(unique_maps) == 1:
             self.detected_map = unique_maps[0]
-            print(f"\n🗺️  Detected map: {self.detected_map}")
+            print(f"\n  Detected map: {self.detected_map}")
         else:
             from collections import Counter
             map_counts = Counter(map_names)
@@ -140,6 +138,7 @@ class DemoProcessor:
         
         return unique_players
     
+    # TODO: unitility data aggregation
     def aggregate_player_data(self, demos: List[Demo], player_steamid: str) -> DemoData:
         """Aggregate player data with proper freeze time filtering and side separation."""
         all_ticks_ct = []
@@ -304,7 +303,7 @@ class DemoProcessor:
                     (damages_df['attacker_steamid'] == player_steamid)
                 ]
                 
-                # Separate by side (using lowercase as seen in debug)
+                # Separate by side
                 if player_side.lower() == 'ct':
                     ct_data['ticks'].append(round_ticks)
                     if not round_kills.empty:
