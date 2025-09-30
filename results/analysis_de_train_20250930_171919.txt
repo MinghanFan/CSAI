@@ -1,0 +1,2228 @@
+
+Extracting fingerprints for 11 players
+
+Processing: TeSeS
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: ct side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: ct side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: ct side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 12 CT rounds, 10 T rounds
+    Found 61092 CT gameplay ticks for player
+    Found 57681 T gameplay ticks for player
+    Found 10 CT kills for player
+    Found 9 T kills for player
+    Found 33 CT damage events for player
+    Found 35 T damage events for player
+    Found 8 CT deaths for player
+    Found 8 T deaths for player
+    Found 34 CT damage taken events for player
+    Found 29 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: ct side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: ct side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: ct side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 69693 CT gameplay ticks for player
+    Found 32148 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 3 T kills for player
+    Found 28 CT damage events for player
+    Found 15 T damage events for player
+    Found 7 CT deaths for player
+    Found 7 T deaths for player
+    Found 23 CT damage taken events for player
+    Found 21 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: ct side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: ct side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: ct side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 64124 CT gameplay ticks for player
+    Found 41247 T gameplay ticks for player
+    Found 7 CT kills for player
+    Found 8 T kills for player
+    Found 26 CT damage events for player
+    Found 17 T damage events for player
+    Found 5 CT deaths for player
+    Found 4 T deaths for player
+    Found 18 CT damage taken events for player
+    Found 18 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: t side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: t side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: t side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 4 CT rounds, 12 T rounds
+    Found 18238 CT gameplay ticks for player
+    Found 68050 T gameplay ticks for player
+    Found 4 T kills for player
+    Found 1 CT damage events for player
+    Found 15 T damage events for player
+    Found 1 CT deaths for player
+    Found 3 T deaths for player
+    Found 2 CT damage taken events for player
+    Found 21 T damage taken events for player
+    Combined: 412273 gameplay ticks (213147 CT, 199126 T)
+    47 kills, 170 damage events, 43 deaths, 166 damage taken events across 76 rounds (40 CT, 36 T)
+Extracting fingerprint for player 76561197996678278
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (213147 ticks)
+      CT connector: 0.055 (5.5%)
+      CT alley: 0.025 (2.5%)
+      CT bombsitea: 0.143 (14.3%)
+      CT longdog: 0.020 (2.0%)
+      CT ivy: 0.060 (6.0%)
+      CT electricalbox: 0.032 (3.2%)
+      CT bombsiteb: 0.127 (12.7%)
+      CT tunnels: 0.444 (44.4%)
+      CT ctspawn: 0.057 (5.7%)
+    Enhanced analysis for T side (199126 ticks)
+      T alley: 0.118 (11.8%)
+      T backofb: 0.074 (7.4%)
+      T longdog: 0.036 (3.6%)
+      T bombsitea: 0.072 (7.2%)
+      T ivy: 0.170 (17.0%)
+      T tsideupper: 0.033 (3.3%)
+      T tunnels: 0.063 (6.3%)
+      T bombsiteb: 0.066 (6.6%)
+      T dumpster: 0.104 (10.4%)
+      T tspawn: 0.088 (8.8%)
+      T tmain: 0.146 (14.6%)
+    CombatAnalyzer: 47 kills, 170 damage events, 43 deaths, 166 damage taken events across 76 rounds on de_train
+    CT: 23 kills, 88 damage events, 21 deaths, 77 damage taken
+    T: 24 kills, 82 damage events, 22 deaths, 89 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 1 kills (2.1%)
+        Overall alley: 2 kills (4.3%)
+        Overall backofb: 2 kills (4.3%)
+        Overall dumpster: 1 kills (2.1%)
+        Overall bombsitea: 15 kills (31.9%)
+        Overall electricalbox: 3 kills (6.4%)
+        Overall bombsiteb: 5 kills (10.6%)
+        Overall tunnels: 14 kills (29.8%)
+        Overall tmain: 4 kills (8.5%)
+        Overall Kill analysis: 9/16 areas used, 47/47 kills categorized
+      Overall side: 47 kills analyzed
+      Overall side: 6463 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 1 deaths (2.3%)
+        Overall alley: 1 deaths (2.3%)
+        Overall longdog: 1 deaths (2.3%)
+        Overall backofb: 2 deaths (4.7%)
+        Overall bombsitea: 9 deaths (20.9%)
+        Overall ivy: 2 deaths (4.7%)
+        Overall electricalbox: 3 deaths (7.0%)
+        Overall bombsiteb: 9 deaths (20.9%)
+        Overall tunnels: 8 deaths (18.6%)
+        Overall tmain: 7 deaths (16.3%)
+        Overall Death analysis: 10/16 areas used, 43/43 deaths categorized
+      Overall side: 43 deaths analyzed
+      Overall side: 6765 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT alley: 1 kills (4.3%)
+        CT bombsitea: 8 kills (34.8%)
+        CT electricalbox: 3 kills (13.0%)
+        CT bombsiteb: 2 kills (8.7%)
+        CT tunnels: 9 kills (39.1%)
+        CT Kill analysis: 5/16 areas used, 23/23 kills categorized
+      CT side: 23 kills analyzed
+      CT side: 3254 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 1 deaths (4.8%)
+        CT alley: 1 deaths (4.8%)
+        CT longdog: 1 deaths (4.8%)
+        CT bombsitea: 6 deaths (28.6%)
+        CT ivy: 1 deaths (4.8%)
+        CT electricalbox: 2 deaths (9.5%)
+        CT bombsiteb: 4 deaths (19.0%)
+        CT tunnels: 5 deaths (23.8%)
+        CT Death analysis: 8/16 areas used, 21/21 deaths categorized
+      CT side: 21 deaths analyzed
+      CT side: 2919 total damage received
+      Analyzing T kill positions with enhanced detection
+        T connector: 1 kills (4.2%)
+        T alley: 1 kills (4.2%)
+        T backofb: 2 kills (8.3%)
+        T dumpster: 1 kills (4.2%)
+        T bombsitea: 7 kills (29.2%)
+        T bombsiteb: 3 kills (12.5%)
+        T tunnels: 5 kills (20.8%)
+        T tmain: 4 kills (16.7%)
+        T Kill analysis: 8/16 areas used, 24/24 kills categorized
+      T side: 24 kills analyzed
+      T side: 3209 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T backofb: 2 deaths (9.1%)
+        T bombsitea: 3 deaths (13.6%)
+        T ivy: 1 deaths (4.5%)
+        T electricalbox: 1 deaths (4.5%)
+        T bombsiteb: 5 deaths (22.7%)
+        T tunnels: 3 deaths (13.6%)
+        T tmain: 7 deaths (31.8%)
+        T Death analysis: 7/16 areas used, 22/22 deaths categorized
+      T side: 22 deaths analyzed
+      T side: 3846 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: mezii
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: t side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: t side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: t side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 10 CT rounds, 12 T rounds
+    Found 57681 CT gameplay ticks for player
+    Found 61092 T gameplay ticks for player
+    Found 8 CT kills for player
+    Found 8 T kills for player
+    Found 22 CT damage events for player
+    Found 43 T damage events for player
+    Found 6 CT deaths for player
+    Found 9 T deaths for player
+    Found 21 CT damage taken events for player
+    Found 38 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: t side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: t side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: t side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 32148 CT gameplay ticks for player
+    Found 69693 T gameplay ticks for player
+    Found 8 CT kills for player
+    Found 8 T kills for player
+    Found 23 CT damage events for player
+    Found 25 T damage events for player
+    Found 1 CT deaths for player
+    Found 7 T deaths for player
+    Found 13 CT damage taken events for player
+    Found 28 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: t side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: t side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: t side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 41247 CT gameplay ticks for player
+    Found 64124 T gameplay ticks for player
+    Found 5 CT kills for player
+    Found 10 T kills for player
+    Found 17 CT damage events for player
+    Found 24 T damage events for player
+    Found 5 CT deaths for player
+    Found 8 T deaths for player
+    Found 20 CT damage taken events for player
+    Found 27 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: ct side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: ct side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: ct side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 12 CT rounds, 4 T rounds
+    Found 68050 CT gameplay ticks for player
+    Found 18238 T gameplay ticks for player
+    Found 5 CT kills for player
+    Found 22 CT damage events for player
+    Found 2 T damage events for player
+    Found 11 CT deaths for player
+    Found 4 T deaths for player
+    Found 33 CT damage taken events for player
+    Found 8 T damage taken events for player
+    Combined: 412273 gameplay ticks (199126 CT, 213147 T)
+    52 kills, 178 damage events, 51 deaths, 188 damage taken events across 76 rounds (36 CT, 40 T)
+Extracting fingerprint for player 76561197973140692
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (199126 ticks)
+      CT entrance: 0.026 (2.6%)
+      CT connector: 0.054 (5.4%)
+      CT longdog: 0.023 (2.3%)
+      CT bombsitea: 0.193 (19.3%)
+      CT ivy: 0.114 (11.4%)
+      CT bombsiteb: 0.097 (9.7%)
+      CT tunnels: 0.422 (42.2%)
+      CT ctspawn: 0.045 (4.5%)
+    Enhanced analysis for T side (213147 ticks)
+      T alley: 0.083 (8.3%)
+      T longdog: 0.112 (11.2%)
+      T backofb: 0.043 (4.3%)
+      T bombsitea: 0.093 (9.3%)
+      T ivy: 0.147 (14.7%)
+      T tsideupper: 0.058 (5.8%)
+      T tunnels: 0.037 (3.7%)
+      T bombsiteb: 0.061 (6.1%)
+      T dumpster: 0.085 (8.5%)
+      T tspawn: 0.071 (7.1%)
+      T tmain: 0.169 (16.9%)
+    CombatAnalyzer: 52 kills, 178 damage events, 51 deaths, 188 damage taken events across 76 rounds on de_train
+    CT: 26 kills, 84 damage events, 23 deaths, 87 damage taken
+    T: 26 kills, 94 damage events, 28 deaths, 101 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall longdog: 8 kills (15.4%)
+        Overall dumpster: 1 kills (1.9%)
+        Overall bombsitea: 13 kills (25.0%)
+        Overall ivy: 6 kills (11.5%)
+        Overall bombsiteb: 10 kills (19.2%)
+        Overall tunnels: 8 kills (15.4%)
+        Overall tmain: 6 kills (11.5%)
+        Overall Kill analysis: 7/16 areas used, 52/52 kills categorized
+      Overall side: 52 kills analyzed
+      Overall side: 6888 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall entrance: 2 deaths (3.9%)
+        Overall connector: 1 deaths (2.0%)
+        Overall longdog: 4 deaths (7.8%)
+        Overall backofb: 1 deaths (2.0%)
+        Overall bombsitea: 14 deaths (27.5%)
+        Overall dumpster: 1 deaths (2.0%)
+        Overall ivy: 4 deaths (7.8%)
+        Overall electricalbox: 1 deaths (2.0%)
+        Overall tstairs: 1 deaths (2.0%)
+        Overall bombsiteb: 14 deaths (27.5%)
+        Overall tunnels: 4 deaths (7.8%)
+        Overall tmain: 4 deaths (7.8%)
+        Overall Death analysis: 12/16 areas used, 51/51 deaths categorized
+      Overall side: 51 deaths analyzed
+      Overall side: 7215 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT longdog: 3 kills (11.5%)
+        CT dumpster: 1 kills (3.8%)
+        CT bombsitea: 7 kills (26.9%)
+        CT ivy: 4 kills (15.4%)
+        CT bombsiteb: 6 kills (23.1%)
+        CT tunnels: 5 kills (19.2%)
+        CT Kill analysis: 6/16 areas used, 26/26 kills categorized
+      CT side: 26 kills analyzed
+      CT side: 3309 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT entrance: 2 deaths (8.7%)
+        CT connector: 1 deaths (4.3%)
+        CT longdog: 1 deaths (4.3%)
+        CT bombsitea: 6 deaths (26.1%)
+        CT ivy: 3 deaths (13.0%)
+        CT bombsiteb: 8 deaths (34.8%)
+        CT tunnels: 2 deaths (8.7%)
+        CT Death analysis: 7/16 areas used, 23/23 deaths categorized
+      CT side: 23 deaths analyzed
+      CT side: 3250 total damage received
+      Analyzing T kill positions with enhanced detection
+        T longdog: 5 kills (19.2%)
+        T bombsitea: 6 kills (23.1%)
+        T ivy: 2 kills (7.7%)
+        T bombsiteb: 4 kills (15.4%)
+        T tunnels: 3 kills (11.5%)
+        T tmain: 6 kills (23.1%)
+        T Kill analysis: 6/16 areas used, 26/26 kills categorized
+      T side: 26 kills analyzed
+      T side: 3579 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 3 deaths (10.7%)
+        T backofb: 1 deaths (3.6%)
+        T bombsitea: 8 deaths (28.6%)
+        T dumpster: 1 deaths (3.6%)
+        T ivy: 1 deaths (3.6%)
+        T electricalbox: 1 deaths (3.6%)
+        T tstairs: 1 deaths (3.6%)
+        T bombsiteb: 6 deaths (21.4%)
+        T tunnels: 2 deaths (7.1%)
+        T tmain: 4 deaths (14.3%)
+        T Death analysis: 10/16 areas used, 28/28 deaths categorized
+      T side: 28 deaths analyzed
+      T side: 3965 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: flameZ
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: t side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: t side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: t side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 10 CT rounds, 12 T rounds
+    Found 57681 CT gameplay ticks for player
+    Found 61092 T gameplay ticks for player
+    Found 8 CT kills for player
+    Found 8 T kills for player
+    Found 53 CT damage events for player
+    Found 36 T damage events for player
+    Found 6 CT deaths for player
+    Found 9 T deaths for player
+    Found 29 CT damage taken events for player
+    Found 43 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: t side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: t side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: t side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 32148 CT gameplay ticks for player
+    Found 69693 T gameplay ticks for player
+    Found 11 CT kills for player
+    Found 9 T kills for player
+    Found 42 CT damage events for player
+    Found 59 T damage events for player
+    Found 4 CT deaths for player
+    Found 9 T deaths for player
+    Found 32 CT damage taken events for player
+    Found 36 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: t side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: t side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: t side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 41247 CT gameplay ticks for player
+    Found 64124 T gameplay ticks for player
+    Found 2 CT kills for player
+    Found 8 T kills for player
+    Found 17 CT damage events for player
+    Found 38 T damage events for player
+    Found 7 CT deaths for player
+    Found 9 T deaths for player
+    Found 22 CT damage taken events for player
+    Found 37 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: ct side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: ct side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: ct side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 12 CT rounds, 4 T rounds
+    Found 68050 CT gameplay ticks for player
+    Found 18238 T gameplay ticks for player
+    Found 5 CT kills for player
+    Found 3 T kills for player
+    Found 29 CT damage events for player
+    Found 7 T damage events for player
+    Found 9 CT deaths for player
+    Found 4 T deaths for player
+    Found 36 CT damage taken events for player
+    Found 16 T damage taken events for player
+    Combined: 412273 gameplay ticks (199126 CT, 213147 T)
+    54 kills, 281 damage events, 57 deaths, 251 damage taken events across 76 rounds (36 CT, 40 T)
+Extracting fingerprint for player 76561197978835160
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (199126 ticks)
+      CT connector: 0.084 (8.4%)
+      CT longdog: 0.165 (16.5%)
+      CT bombsitea: 0.305 (30.5%)
+      CT backofb: 0.037 (3.7%)
+      CT electricalbox: 0.103 (10.3%)
+      CT bombsiteb: 0.089 (8.9%)
+      CT tunnels: 0.044 (4.4%)
+      CT ctspawn: 0.023 (2.3%)
+      CT tmain: 0.097 (9.7%)
+    Enhanced analysis for T side (213147 ticks)
+      T longdog: 0.053 (5.3%)
+      T backofb: 0.092 (9.2%)
+      T bombsitea: 0.129 (12.9%)
+      T tsideupper: 0.037 (3.7%)
+      T bombsiteb: 0.044 (4.4%)
+      T dumpster: 0.057 (5.7%)
+      T tspawn: 0.102 (10.2%)
+      T tmain: 0.427 (42.7%)
+    CombatAnalyzer: 54 kills, 281 damage events, 57 deaths, 251 damage taken events across 76 rounds on de_train
+    CT: 26 kills, 141 damage events, 26 deaths, 119 damage taken
+    T: 28 kills, 140 damage events, 31 deaths, 132 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 1 kills (1.9%)
+        Overall longdog: 11 kills (20.4%)
+        Overall backofb: 2 kills (3.7%)
+        Overall bombsitea: 20 kills (37.0%)
+        Overall electricalbox: 3 kills (5.6%)
+        Overall bombsiteb: 4 kills (7.4%)
+        Overall tunnels: 1 kills (1.9%)
+        Overall tspawn: 1 kills (1.9%)
+        Overall tmain: 11 kills (20.4%)
+        Overall Kill analysis: 9/16 areas used, 54/54 kills categorized
+      Overall side: 54 kills analyzed
+      Overall side: 8091 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 2 deaths (3.5%)
+        Overall longdog: 8 deaths (14.0%)
+        Overall backofb: 5 deaths (8.8%)
+        Overall bombsitea: 11 deaths (19.3%)
+        Overall dumpster: 1 deaths (1.8%)
+        Overall ivy: 1 deaths (1.8%)
+        Overall electricalbox: 5 deaths (8.8%)
+        Overall bombsiteb: 9 deaths (15.8%)
+        Overall tunnels: 2 deaths (3.5%)
+        Overall tmain: 13 deaths (22.8%)
+        Overall Death analysis: 10/16 areas used, 57/57 deaths categorized
+      Overall side: 57 deaths analyzed
+      Overall side: 8784 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT connector: 1 kills (3.8%)
+        CT longdog: 11 kills (42.3%)
+        CT backofb: 2 kills (7.7%)
+        CT bombsitea: 9 kills (34.6%)
+        CT tunnels: 1 kills (3.8%)
+        CT tmain: 2 kills (7.7%)
+        CT Kill analysis: 6/16 areas used, 26/26 kills categorized
+      CT side: 26 kills analyzed
+      CT side: 3804 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 2 deaths (7.7%)
+        CT longdog: 6 deaths (23.1%)
+        CT backofb: 2 deaths (7.7%)
+        CT bombsitea: 3 deaths (11.5%)
+        CT ivy: 1 deaths (3.8%)
+        CT electricalbox: 4 deaths (15.4%)
+        CT bombsiteb: 4 deaths (15.4%)
+        CT tunnels: 1 deaths (3.8%)
+        CT tmain: 3 deaths (11.5%)
+        CT Death analysis: 9/16 areas used, 26/26 deaths categorized
+      CT side: 26 deaths analyzed
+      CT side: 3801 total damage received
+      Analyzing T kill positions with enhanced detection
+        T bombsitea: 11 kills (39.3%)
+        T electricalbox: 3 kills (10.7%)
+        T bombsiteb: 4 kills (14.3%)
+        T tspawn: 1 kills (3.6%)
+        T tmain: 9 kills (32.1%)
+        T Kill analysis: 5/16 areas used, 28/28 kills categorized
+      T side: 28 kills analyzed
+      T side: 4287 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 2 deaths (6.5%)
+        T backofb: 3 deaths (9.7%)
+        T bombsitea: 8 deaths (25.8%)
+        T dumpster: 1 deaths (3.2%)
+        T electricalbox: 1 deaths (3.2%)
+        T bombsiteb: 5 deaths (16.1%)
+        T tunnels: 1 deaths (3.2%)
+        T tmain: 10 deaths (32.3%)
+        T Death analysis: 8/16 areas used, 31/31 deaths categorized
+      T side: 31 deaths analyzed
+      T side: 4983 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: kyxsan
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: ct side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: ct side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: ct side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 12 CT rounds, 10 T rounds
+    Found 61092 CT gameplay ticks for player
+    Found 57681 T gameplay ticks for player
+    Found 4 CT kills for player
+    Found 4 T kills for player
+    Found 25 CT damage events for player
+    Found 27 T damage events for player
+    Found 9 CT deaths for player
+    Found 10 T deaths for player
+    Found 38 CT damage taken events for player
+    Found 34 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: ct side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: ct side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: ct side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 69693 CT gameplay ticks for player
+    Found 32148 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 4 T kills for player
+    Found 37 CT damage events for player
+    Found 43 T damage events for player
+    Found 9 CT deaths for player
+    Found 6 T deaths for player
+    Found 42 CT damage taken events for player
+    Found 17 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: ct side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: ct side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: ct side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 64124 CT gameplay ticks for player
+    Found 41247 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 2 T kills for player
+    Found 24 CT damage events for player
+    Found 17 T damage events for player
+    Found 7 CT deaths for player
+    Found 4 T deaths for player
+    Found 24 CT damage taken events for player
+    Found 9 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: t side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: t side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: t side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 4 CT rounds, 12 T rounds
+    Found 18238 CT gameplay ticks for player
+    Found 68050 T gameplay ticks for player
+    Found 7 CT kills for player
+    Found 5 T kills for player
+    Found 16 CT damage events for player
+    Found 40 T damage events for player
+    Found 5 T deaths for player
+    Found 7 CT damage taken events for player
+    Found 18 T damage taken events for player
+    Combined: 412273 gameplay ticks (213147 CT, 199126 T)
+    38 kills, 229 damage events, 50 deaths, 189 damage taken events across 76 rounds (40 CT, 36 T)
+Extracting fingerprint for player 76561198057282432
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (213147 ticks)
+      CT connector: 0.094 (9.4%)
+      CT longdog: 0.124 (12.4%)
+      CT backofb: 0.025 (2.5%)
+      CT bombsitea: 0.342 (34.2%)
+      CT electricalbox: 0.067 (6.7%)
+      CT bombsiteb: 0.076 (7.6%)
+      CT tunnels: 0.086 (8.6%)
+      CT ctspawn: 0.028 (2.8%)
+      CT tmain: 0.118 (11.8%)
+    Enhanced analysis for T side (199126 ticks)
+      T longdog: 0.094 (9.4%)
+      T backofb: 0.097 (9.7%)
+      T bombsitea: 0.066 (6.6%)
+      T tsideupper: 0.137 (13.7%)
+      T tstairs: 0.040 (4.0%)
+      T tunnels: 0.031 (3.1%)
+      T bombsiteb: 0.060 (6.0%)
+      T dumpster: 0.036 (3.6%)
+      T tspawn: 0.120 (12.0%)
+      T tmain: 0.257 (25.7%)
+    CombatAnalyzer: 38 kills, 229 damage events, 50 deaths, 189 damage taken events across 76 rounds on de_train
+    CT: 23 kills, 102 damage events, 25 deaths, 111 damage taken
+    T: 15 kills, 127 damage events, 25 deaths, 78 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall entrance: 1 kills (2.6%)
+        Overall connector: 1 kills (2.6%)
+        Overall longdog: 4 kills (10.5%)
+        Overall backofb: 2 kills (5.3%)
+        Overall bombsitea: 12 kills (31.6%)
+        Overall electricalbox: 1 kills (2.6%)
+        Overall bombsiteb: 8 kills (21.1%)
+        Overall tunnels: 4 kills (10.5%)
+        Overall tspawn: 2 kills (5.3%)
+        Overall tmain: 3 kills (7.9%)
+        Overall Kill analysis: 10/16 areas used, 38/38 kills categorized
+      Overall side: 38 kills analyzed
+      Overall side: 5995 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 3 deaths (6.0%)
+        Overall longdog: 6 deaths (12.0%)
+        Overall backofb: 4 deaths (8.0%)
+        Overall bombsitea: 19 deaths (38.0%)
+        Overall electricalbox: 2 deaths (4.0%)
+        Overall bombsiteb: 5 deaths (10.0%)
+        Overall tunnels: 2 deaths (4.0%)
+        Overall tmain: 9 deaths (18.0%)
+        Overall Death analysis: 8/16 areas used, 50/50 deaths categorized
+      Overall side: 50 deaths analyzed
+      Overall side: 7215 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT entrance: 1 kills (4.3%)
+        CT connector: 1 kills (4.3%)
+        CT longdog: 3 kills (13.0%)
+        CT bombsitea: 10 kills (43.5%)
+        CT bombsiteb: 3 kills (13.0%)
+        CT tunnels: 3 kills (13.0%)
+        CT tspawn: 2 kills (8.7%)
+        CT Kill analysis: 7/16 areas used, 23/23 kills categorized
+      CT side: 23 kills analyzed
+      CT side: 3295 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 3 deaths (12.0%)
+        CT longdog: 4 deaths (16.0%)
+        CT backofb: 2 deaths (8.0%)
+        CT bombsitea: 11 deaths (44.0%)
+        CT electricalbox: 1 deaths (4.0%)
+        CT tunnels: 1 deaths (4.0%)
+        CT tmain: 3 deaths (12.0%)
+        CT Death analysis: 7/16 areas used, 25/25 deaths categorized
+      CT side: 25 deaths analyzed
+      CT side: 3829 total damage received
+      Analyzing T kill positions with enhanced detection
+        T longdog: 1 kills (6.7%)
+        T backofb: 2 kills (13.3%)
+        T bombsitea: 2 kills (13.3%)
+        T electricalbox: 1 kills (6.7%)
+        T bombsiteb: 5 kills (33.3%)
+        T tunnels: 1 kills (6.7%)
+        T tmain: 3 kills (20.0%)
+        T Kill analysis: 7/16 areas used, 15/15 kills categorized
+      T side: 15 kills analyzed
+      T side: 2700 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 2 deaths (8.0%)
+        T backofb: 2 deaths (8.0%)
+        T bombsitea: 8 deaths (32.0%)
+        T electricalbox: 1 deaths (4.0%)
+        T bombsiteb: 5 deaths (20.0%)
+        T tunnels: 1 deaths (4.0%)
+        T tmain: 6 deaths (24.0%)
+        T Death analysis: 7/16 areas used, 25/25 deaths categorized
+      T side: 25 deaths analyzed
+      T side: 3386 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: apEX
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: t side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: t side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: t side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 10 CT rounds, 12 T rounds
+    Found 57681 CT gameplay ticks for player
+    Found 61092 T gameplay ticks for player
+    Found 9 CT kills for player
+    Found 7 T kills for player
+    Found 50 CT damage events for player
+    Found 23 T damage events for player
+    Found 6 CT deaths for player
+    Found 8 T deaths for player
+    Found 26 CT damage taken events for player
+    Found 23 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: t side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: t side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: t side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 32148 CT gameplay ticks for player
+    Found 69693 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 4 T kills for player
+    Found 22 CT damage events for player
+    Found 12 T damage events for player
+    Found 3 CT deaths for player
+    Found 8 T deaths for player
+    Found 15 CT damage taken events for player
+    Found 24 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: t side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: t side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: t side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 41247 CT gameplay ticks for player
+    Found 64124 T gameplay ticks for player
+    Found 3 CT kills for player
+    Found 3 T kills for player
+    Found 10 CT damage events for player
+    Found 23 T damage events for player
+    Found 5 CT deaths for player
+    Found 10 T deaths for player
+    Found 16 CT damage taken events for player
+    Found 31 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: ct side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: ct side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: ct side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 12 CT rounds, 4 T rounds
+    Found 68050 CT gameplay ticks for player
+    Found 18238 T gameplay ticks for player
+    Found 2 CT kills for player
+    Found 37 CT damage events for player
+    Found 11 CT deaths for player
+    Found 4 T deaths for player
+    Found 44 CT damage taken events for player
+    Found 13 T damage taken events for player
+    Combined: 412273 gameplay ticks (199126 CT, 213147 T)
+    34 kills, 177 damage events, 55 deaths, 192 damage taken events across 76 rounds (36 CT, 40 T)
+Extracting fingerprint for player 76561197989744167
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (199126 ticks)
+      CT entrance: 0.024 (2.4%)
+      CT connector: 0.121 (12.1%)
+      CT longdog: 0.047 (4.7%)
+      CT backofb: 0.025 (2.5%)
+      CT bombsitea: 0.347 (34.7%)
+      CT electricalbox: 0.021 (2.1%)
+      CT bombsiteb: 0.199 (19.9%)
+      CT tunnels: 0.167 (16.7%)
+      CT ctspawn: 0.036 (3.6%)
+    Enhanced analysis for T side (213147 ticks)
+      T alley: 0.055 (5.5%)
+      T longdog: 0.112 (11.2%)
+      T backofb: 0.094 (9.4%)
+      T bombsitea: 0.059 (5.9%)
+      T ivy: 0.118 (11.8%)
+      T tsideupper: 0.048 (4.8%)
+      T tunnels: 0.044 (4.4%)
+      T bombsiteb: 0.030 (3.0%)
+      T dumpster: 0.183 (18.3%)
+      T tspawn: 0.109 (10.9%)
+      T tmain: 0.114 (11.4%)
+    CombatAnalyzer: 34 kills, 177 damage events, 55 deaths, 192 damage taken events across 76 rounds on de_train
+    CT: 20 kills, 119 damage events, 25 deaths, 101 damage taken
+    T: 14 kills, 58 damage events, 30 deaths, 91 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall entrance: 1 kills (2.9%)
+        Overall connector: 6 kills (17.6%)
+        Overall longdog: 2 kills (5.9%)
+        Overall bombsitea: 14 kills (41.2%)
+        Overall tunnels: 1 kills (2.9%)
+        Overall bombsiteb: 6 kills (17.6%)
+        Overall dumpster: 1 kills (2.9%)
+        Overall tmain: 3 kills (8.8%)
+        Overall Kill analysis: 8/16 areas used, 34/34 kills categorized
+      Overall side: 34 kills analyzed
+      Overall side: 5211 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 2 deaths (3.6%)
+        Overall backofb: 6 deaths (10.9%)
+        Overall longdog: 8 deaths (14.5%)
+        Overall bombsitea: 14 deaths (25.5%)
+        Overall dumpster: 1 deaths (1.8%)
+        Overall ivy: 2 deaths (3.6%)
+        Overall electricalbox: 1 deaths (1.8%)
+        Overall bombsiteb: 9 deaths (16.4%)
+        Overall tunnels: 8 deaths (14.5%)
+        Overall tmain: 4 deaths (7.3%)
+        Overall Death analysis: 10/16 areas used, 55/55 deaths categorized
+      Overall side: 55 deaths analyzed
+      Overall side: 8422 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT bombsitea: 9 kills (45.0%)
+        CT entrance: 1 kills (5.0%)
+        CT connector: 5 kills (25.0%)
+        CT bombsiteb: 5 kills (25.0%)
+        CT Kill analysis: 4/16 areas used, 20/20 kills categorized
+      CT side: 20 kills analyzed
+      CT side: 3443 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 1 deaths (4.0%)
+        CT backofb: 1 deaths (4.0%)
+        CT longdog: 3 deaths (12.0%)
+        CT bombsitea: 9 deaths (36.0%)
+        CT bombsiteb: 7 deaths (28.0%)
+        CT tunnels: 4 deaths (16.0%)
+        CT Death analysis: 6/16 areas used, 25/25 deaths categorized
+      CT side: 25 deaths analyzed
+      CT side: 4317 total damage received
+      Analyzing T kill positions with enhanced detection
+        T connector: 1 kills (7.1%)
+        T longdog: 2 kills (14.3%)
+        T bombsitea: 5 kills (35.7%)
+        T tunnels: 1 kills (7.1%)
+        T bombsiteb: 1 kills (7.1%)
+        T dumpster: 1 kills (7.1%)
+        T tmain: 3 kills (21.4%)
+        T Kill analysis: 7/16 areas used, 14/14 kills categorized
+      T side: 14 kills analyzed
+      T side: 1768 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T connector: 1 deaths (3.3%)
+        T longdog: 5 deaths (16.7%)
+        T backofb: 5 deaths (16.7%)
+        T bombsitea: 5 deaths (16.7%)
+        T ivy: 2 deaths (6.7%)
+        T electricalbox: 1 deaths (3.3%)
+        T tunnels: 4 deaths (13.3%)
+        T bombsiteb: 2 deaths (6.7%)
+        T dumpster: 1 deaths (3.3%)
+        T tmain: 4 deaths (13.3%)
+        T Death analysis: 10/16 areas used, 30/30 deaths categorized
+      T side: 30 deaths analyzed
+      T side: 4105 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: ZywOo
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: t side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: t side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: t side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 10 CT rounds, 12 T rounds
+    Found 57681 CT gameplay ticks for player
+    Found 61092 T gameplay ticks for player
+    Found 15 CT kills for player
+    Found 9 T kills for player
+    Found 46 CT damage events for player
+    Found 38 T damage events for player
+    Found 4 CT deaths for player
+    Found 10 T deaths for player
+    Found 20 CT damage taken events for player
+    Found 34 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: t side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: t side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: t side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 32148 CT gameplay ticks for player
+    Found 69693 T gameplay ticks for player
+    Found 3 CT kills for player
+    Found 7 T kills for player
+    Found 17 CT damage events for player
+    Found 20 T damage events for player
+    Found 3 CT deaths for player
+    Found 6 T deaths for player
+    Found 17 CT damage taken events for player
+    Found 29 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: t side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: t side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: t side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 41247 CT gameplay ticks for player
+    Found 64124 T gameplay ticks for player
+    Found 7 CT kills for player
+    Found 5 T kills for player
+    Found 22 CT damage events for player
+    Found 12 T damage events for player
+    Found 6 CT deaths for player
+    Found 10 T deaths for player
+    Found 24 CT damage taken events for player
+    Found 27 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: ct side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: ct side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: ct side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 12 CT rounds, 4 T rounds
+    Found 68050 CT gameplay ticks for player
+    Found 18238 T gameplay ticks for player
+    Found 7 CT kills for player
+    Found 3 T kills for player
+    Found 24 CT damage events for player
+    Found 5 T damage events for player
+    Found 9 CT deaths for player
+    Found 4 T deaths for player
+    Found 38 CT damage taken events for player
+    Found 12 T damage taken events for player
+    Combined: 412273 gameplay ticks (199126 CT, 213147 T)
+    56 kills, 184 damage events, 52 deaths, 201 damage taken events across 76 rounds (36 CT, 40 T)
+Extracting fingerprint for player 76561198113666193
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (199126 ticks)
+      CT entrance: 0.026 (2.6%)
+      CT connector: 0.109 (10.9%)
+      CT longdog: 0.040 (4.0%)
+      CT backofb: 0.065 (6.5%)
+      CT bombsitea: 0.341 (34.1%)
+      CT electricalbox: 0.056 (5.6%)
+      CT bombsiteb: 0.137 (13.7%)
+      CT tunnels: 0.168 (16.8%)
+      CT ctspawn: 0.039 (3.9%)
+    Enhanced analysis for T side (213147 ticks)
+      T alley: 0.020 (2.0%)
+      T longdog: 0.276 (27.6%)
+      T backofb: 0.116 (11.6%)
+      T bombsitea: 0.070 (7.0%)
+      T ivy: 0.050 (5.0%)
+      T electricalbox: 0.032 (3.2%)
+      T tsideupper: 0.077 (7.7%)
+      T bombsiteb: 0.051 (5.1%)
+      T dumpster: 0.030 (3.0%)
+      T tspawn: 0.072 (7.2%)
+      T tmain: 0.173 (17.3%)
+    CombatAnalyzer: 56 kills, 184 damage events, 52 deaths, 201 damage taken events across 76 rounds on de_train
+    CT: 32 kills, 109 damage events, 22 deaths, 99 damage taken
+    T: 24 kills, 75 damage events, 30 deaths, 102 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 6 kills (10.7%)
+        Overall longdog: 10 kills (17.9%)
+        Overall backofb: 4 kills (7.1%)
+        Overall bombsitea: 19 kills (33.9%)
+        Overall ivy: 3 kills (5.4%)
+        Overall electricalbox: 1 kills (1.8%)
+        Overall tsideupper: 1 kills (1.8%)
+        Overall bombsiteb: 8 kills (14.3%)
+        Overall tunnels: 2 kills (3.6%)
+        Overall tmain: 2 kills (3.6%)
+        Overall Kill analysis: 10/16 areas used, 56/56 kills categorized
+      Overall side: 56 kills analyzed
+      Overall side: 8051 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 3 deaths (5.8%)
+        Overall backofb: 5 deaths (9.6%)
+        Overall longdog: 11 deaths (21.2%)
+        Overall bombsitea: 14 deaths (26.9%)
+        Overall ivy: 1 deaths (1.9%)
+        Overall electricalbox: 2 deaths (3.8%)
+        Overall bombsiteb: 8 deaths (15.4%)
+        Overall tunnels: 3 deaths (5.8%)
+        Overall ctspawn: 1 deaths (1.9%)
+        Overall tmain: 4 deaths (7.7%)
+        Overall Death analysis: 10/16 areas used, 52/52 deaths categorized
+      Overall side: 52 deaths analyzed
+      Overall side: 7847 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT connector: 5 kills (15.6%)
+        CT longdog: 5 kills (15.6%)
+        CT backofb: 1 kills (3.1%)
+        CT bombsitea: 13 kills (40.6%)
+        CT ivy: 1 kills (3.1%)
+        CT electricalbox: 1 kills (3.1%)
+        CT bombsiteb: 5 kills (15.6%)
+        CT tunnels: 1 kills (3.1%)
+        CT Kill analysis: 8/16 areas used, 32/32 kills categorized
+      CT side: 32 kills analyzed
+      CT side: 4643 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 3 deaths (13.6%)
+        CT backofb: 2 deaths (9.1%)
+        CT longdog: 1 deaths (4.5%)
+        CT bombsitea: 9 deaths (40.9%)
+        CT bombsiteb: 3 deaths (13.6%)
+        CT tunnels: 3 deaths (13.6%)
+        CT ctspawn: 1 deaths (4.5%)
+        CT Death analysis: 7/16 areas used, 22/22 deaths categorized
+      CT side: 22 deaths analyzed
+      CT side: 3283 total damage received
+      Analyzing T kill positions with enhanced detection
+        T connector: 1 kills (4.2%)
+        T longdog: 5 kills (20.8%)
+        T backofb: 3 kills (12.5%)
+        T bombsitea: 6 kills (25.0%)
+        T ivy: 2 kills (8.3%)
+        T tsideupper: 1 kills (4.2%)
+        T bombsiteb: 3 kills (12.5%)
+        T tunnels: 1 kills (4.2%)
+        T tmain: 2 kills (8.3%)
+        T Kill analysis: 9/16 areas used, 24/24 kills categorized
+      T side: 24 kills analyzed
+      T side: 3408 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 10 deaths (33.3%)
+        T backofb: 3 deaths (10.0%)
+        T bombsitea: 5 deaths (16.7%)
+        T ivy: 1 deaths (3.3%)
+        T electricalbox: 2 deaths (6.7%)
+        T bombsiteb: 5 deaths (16.7%)
+        T tmain: 4 deaths (13.3%)
+        T Death analysis: 7/16 areas used, 30/30 deaths categorized
+      T side: 30 deaths analyzed
+      T side: 4564 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: ropz
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: t side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: t side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: t side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 10 CT rounds, 12 T rounds
+    Found 57681 CT gameplay ticks for player
+    Found 61092 T gameplay ticks for player
+    Found 7 CT kills for player
+    Found 6 T kills for player
+    Found 38 CT damage events for player
+    Found 18 T damage events for player
+    Found 4 CT deaths for player
+    Found 7 T deaths for player
+    Found 20 CT damage taken events for player
+    Found 23 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: t side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: t side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: t side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 32148 CT gameplay ticks for player
+    Found 69693 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 9 T kills for player
+    Found 20 CT damage events for player
+    Found 45 T damage events for player
+    Found 3 CT deaths for player
+    Found 6 T deaths for player
+    Found 14 CT damage taken events for player
+    Found 32 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: t side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: t side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: t side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 7 CT rounds, 12 T rounds
+    Found 41247 CT gameplay ticks for player
+    Found 64124 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 3 T kills for player
+    Found 19 CT damage events for player
+    Found 21 T damage events for player
+    Found 6 CT deaths for player
+    Found 10 T deaths for player
+    Found 27 CT damage taken events for player
+    Found 44 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: ct side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: ct side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: ct side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 12 CT rounds, 4 T rounds
+    Found 68050 CT gameplay ticks for player
+    Found 18238 T gameplay ticks for player
+    Found 4 CT kills for player
+    Found 22 CT damage events for player
+    Found 10 T damage events for player
+    Found 12 CT deaths for player
+    Found 4 T deaths for player
+    Found 36 CT damage taken events for player
+    Found 11 T damage taken events for player
+    Combined: 412273 gameplay ticks (199126 CT, 213147 T)
+    41 kills, 193 damage events, 52 deaths, 207 damage taken events across 76 rounds (36 CT, 40 T)
+Extracting fingerprint for player 76561197991272318
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (199126 ticks)
+      CT entrance: 0.026 (2.6%)
+      CT connector: 0.048 (4.8%)
+      CT backofb: 0.161 (16.1%)
+      CT longdog: 0.033 (3.3%)
+      CT bombsitea: 0.058 (5.8%)
+      CT bombsiteb: 0.571 (57.1%)
+      CT tunnels: 0.034 (3.4%)
+      CT ctspawn: 0.027 (2.7%)
+    Enhanced analysis for T side (213147 ticks)
+      T longdog: 0.441 (44.1%)
+      T backofb: 0.189 (18.9%)
+      T bombsitea: 0.040 (4.0%)
+      T tsideupper: 0.125 (12.5%)
+      T tstairs: 0.036 (3.6%)
+      T bombsiteb: 0.049 (4.9%)
+      T tspawn: 0.072 (7.2%)
+    CombatAnalyzer: 41 kills, 193 damage events, 52 deaths, 207 damage taken events across 76 rounds on de_train
+    CT: 23 kills, 99 damage events, 25 deaths, 97 damage taken
+    T: 18 kills, 94 damage events, 27 deaths, 110 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 6 kills (14.6%)
+        Overall backofb: 6 kills (14.6%)
+        Overall longdog: 12 kills (29.3%)
+        Overall bombsitea: 3 kills (7.3%)
+        Overall electricalbox: 1 kills (2.4%)
+        Overall bombsiteb: 12 kills (29.3%)
+        Overall tunnels: 1 kills (2.4%)
+        Overall Kill analysis: 7/16 areas used, 41/41 kills categorized
+      Overall side: 41 kills analyzed
+      Overall side: 6598 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall entrance: 1 deaths (1.9%)
+        Overall connector: 2 deaths (3.8%)
+        Overall backofb: 10 deaths (19.2%)
+        Overall longdog: 13 deaths (25.0%)
+        Overall bombsitea: 6 deaths (11.5%)
+        Overall ivy: 1 deaths (1.9%)
+        Overall electricalbox: 1 deaths (1.9%)
+        Overall tstairs: 1 deaths (1.9%)
+        Overall bombsiteb: 13 deaths (25.0%)
+        Overall tunnels: 3 deaths (5.8%)
+        Overall tmain: 1 deaths (1.9%)
+        Overall Death analysis: 11/16 areas used, 52/52 deaths categorized
+      Overall side: 52 deaths analyzed
+      Overall side: 7417 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT connector: 5 kills (21.7%)
+        CT backofb: 4 kills (17.4%)
+        CT longdog: 2 kills (8.7%)
+        CT bombsitea: 1 kills (4.3%)
+        CT electricalbox: 1 kills (4.3%)
+        CT bombsiteb: 10 kills (43.5%)
+        CT Kill analysis: 6/16 areas used, 23/23 kills categorized
+      CT side: 23 kills analyzed
+      CT side: 3619 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT entrance: 1 deaths (4.0%)
+        CT connector: 2 deaths (8.0%)
+        CT backofb: 4 deaths (16.0%)
+        CT longdog: 3 deaths (12.0%)
+        CT bombsitea: 4 deaths (16.0%)
+        CT ivy: 1 deaths (4.0%)
+        CT electricalbox: 1 deaths (4.0%)
+        CT bombsiteb: 7 deaths (28.0%)
+        CT tunnels: 2 deaths (8.0%)
+        CT Death analysis: 9/16 areas used, 25/25 deaths categorized
+      CT side: 25 deaths analyzed
+      CT side: 3583 total damage received
+      Analyzing T kill positions with enhanced detection
+        T connector: 1 kills (5.6%)
+        T backofb: 2 kills (11.1%)
+        T longdog: 10 kills (55.6%)
+        T bombsitea: 2 kills (11.1%)
+        T bombsiteb: 2 kills (11.1%)
+        T tunnels: 1 kills (5.6%)
+        T Kill analysis: 6/16 areas used, 18/18 kills categorized
+      T side: 18 kills analyzed
+      T side: 2979 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 10 deaths (37.0%)
+        T backofb: 6 deaths (22.2%)
+        T bombsitea: 2 deaths (7.4%)
+        T tstairs: 1 deaths (3.7%)
+        T bombsiteb: 6 deaths (22.2%)
+        T tunnels: 1 deaths (3.7%)
+        T tmain: 1 deaths (3.7%)
+        T Death analysis: 7/16 areas used, 27/27 deaths categorized
+      T side: 27 deaths analyzed
+      T side: 3834 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: NiKo
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: ct side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: ct side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: ct side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 12 CT rounds, 10 T rounds
+    Found 61092 CT gameplay ticks for player
+    Found 57681 T gameplay ticks for player
+    Found 9 CT kills for player
+    Found 6 T kills for player
+    Found 27 CT damage events for player
+    Found 26 T damage events for player
+    Found 5 CT deaths for player
+    Found 10 T deaths for player
+    Found 24 CT damage taken events for player
+    Found 65 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: ct side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: ct side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: ct side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 69693 CT gameplay ticks for player
+    Found 32148 T gameplay ticks for player
+    Found 9 CT kills for player
+    Found 2 T kills for player
+    Found 34 CT damage events for player
+    Found 12 T damage events for player
+    Found 9 CT deaths for player
+    Found 7 T deaths for player
+    Found 42 CT damage taken events for player
+    Found 27 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: ct side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: ct side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: ct side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 64124 CT gameplay ticks for player
+    Found 41247 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 8 T kills for player
+    Found 28 CT damage events for player
+    Found 23 T damage events for player
+    Found 4 CT deaths for player
+    Found 5 T deaths for player
+    Found 11 CT damage taken events for player
+    Found 23 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: t side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: t side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: t side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 4 CT rounds, 12 T rounds
+    Found 18238 CT gameplay ticks for player
+    Found 68050 T gameplay ticks for player
+    Found 5 CT kills for player
+    Found 20 T kills for player
+    Found 15 CT damage events for player
+    Found 57 T damage events for player
+    Found 2 CT deaths for player
+    Found 4 T deaths for player
+    Found 4 CT damage taken events for player
+    Found 38 T damage taken events for player
+    Combined: 412273 gameplay ticks (213147 CT, 199126 T)
+    65 kills, 222 damage events, 46 deaths, 234 damage taken events across 76 rounds (40 CT, 36 T)
+Extracting fingerprint for player 76561198041683378
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (213147 ticks)
+      CT entrance: 0.021 (2.1%)
+      CT connector: 0.033 (3.3%)
+      CT longdog: 0.050 (5.0%)
+      CT backofb: 0.075 (7.5%)
+      CT bombsitea: 0.434 (43.4%)
+      CT electricalbox: 0.030 (3.0%)
+      CT bombsiteb: 0.116 (11.6%)
+      CT tunnels: 0.151 (15.1%)
+      CT ctspawn: 0.034 (3.4%)
+      CT tmain: 0.035 (3.5%)
+    Enhanced analysis for T side (199126 ticks)
+      T longdog: 0.355 (35.5%)
+      T backofb: 0.146 (14.6%)
+      T bombsitea: 0.057 (5.7%)
+      T tsideupper: 0.113 (11.3%)
+      T tstairs: 0.023 (2.3%)
+      T bombsiteb: 0.097 (9.7%)
+      T tspawn: 0.071 (7.1%)
+      T tmain: 0.074 (7.4%)
+    CombatAnalyzer: 65 kills, 222 damage events, 46 deaths, 234 damage taken events across 76 rounds on de_train
+    CT: 29 kills, 104 damage events, 20 deaths, 81 damage taken
+    T: 36 kills, 118 damage events, 26 deaths, 153 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 2 kills (3.1%)
+        Overall backofb: 6 kills (9.2%)
+        Overall longdog: 16 kills (24.6%)
+        Overall bombsitea: 11 kills (16.9%)
+        Overall ivy: 2 kills (3.1%)
+        Overall electricalbox: 1 kills (1.5%)
+        Overall tunnels: 5 kills (7.7%)
+        Overall bombsiteb: 16 kills (24.6%)
+        Overall dumpster: 1 kills (1.5%)
+        Overall ctspawn: 1 kills (1.5%)
+        Overall tmain: 4 kills (6.2%)
+        Overall Kill analysis: 11/16 areas used, 65/65 kills categorized
+      Overall side: 65 kills analyzed
+      Overall side: 9289 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall longdog: 10 deaths (21.7%)
+        Overall backofb: 4 deaths (8.7%)
+        Overall bombsitea: 16 deaths (34.8%)
+        Overall electricalbox: 1 deaths (2.2%)
+        Overall tsideupper: 1 deaths (2.2%)
+        Overall bombsiteb: 6 deaths (13.0%)
+        Overall tunnels: 3 deaths (6.5%)
+        Overall ctspawn: 1 deaths (2.2%)
+        Overall tmain: 4 deaths (8.7%)
+        Overall Death analysis: 9/16 areas used, 46/46 deaths categorized
+      Overall side: 46 deaths analyzed
+      Overall side: 6462 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT connector: 2 kills (6.9%)
+        CT backofb: 2 kills (6.9%)
+        CT bombsitea: 7 kills (24.1%)
+        CT tunnels: 5 kills (17.2%)
+        CT bombsiteb: 8 kills (27.6%)
+        CT dumpster: 1 kills (3.4%)
+        CT tmain: 4 kills (13.8%)
+        CT Kill analysis: 7/16 areas used, 29/29 kills categorized
+      CT side: 29 kills analyzed
+      CT side: 4155 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT longdog: 2 deaths (10.0%)
+        CT backofb: 2 deaths (10.0%)
+        CT bombsitea: 13 deaths (65.0%)
+        CT bombsiteb: 1 deaths (5.0%)
+        CT tunnels: 2 deaths (10.0%)
+        CT Death analysis: 5/16 areas used, 20/20 deaths categorized
+      CT side: 20 deaths analyzed
+      CT side: 2818 total damage received
+      Analyzing T kill positions with enhanced detection
+        T backofb: 4 kills (11.1%)
+        T longdog: 16 kills (44.4%)
+        T bombsitea: 4 kills (11.1%)
+        T ivy: 2 kills (5.6%)
+        T electricalbox: 1 kills (2.8%)
+        T bombsiteb: 8 kills (22.2%)
+        T ctspawn: 1 kills (2.8%)
+        T Kill analysis: 7/16 areas used, 36/36 kills categorized
+      T side: 36 kills analyzed
+      T side: 5134 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 8 deaths (30.8%)
+        T backofb: 2 deaths (7.7%)
+        T bombsitea: 3 deaths (11.5%)
+        T electricalbox: 1 deaths (3.8%)
+        T tsideupper: 1 deaths (3.8%)
+        T bombsiteb: 5 deaths (19.2%)
+        T tunnels: 1 deaths (3.8%)
+        T ctspawn: 1 deaths (3.8%)
+        T tmain: 4 deaths (15.4%)
+        T Death analysis: 9/16 areas used, 26/26 deaths categorized
+      T side: 26 deaths analyzed
+      T side: 3644 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: m0NESY
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: ct side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: ct side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: ct side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 12 CT rounds, 10 T rounds
+    Found 61092 CT gameplay ticks for player
+    Found 57681 T gameplay ticks for player
+    Found 14 CT kills for player
+    Found 7 T kills for player
+    Found 35 CT damage events for player
+    Found 17 T damage events for player
+    Found 8 CT deaths for player
+    Found 9 T deaths for player
+    Found 32 CT damage taken events for player
+    Found 41 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: ct side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: ct side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: ct side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 69693 CT gameplay ticks for player
+    Found 32148 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 3 T kills for player
+    Found 17 CT damage events for player
+    Found 10 T damage events for player
+    Found 7 CT deaths for player
+    Found 7 T deaths for player
+    Found 25 CT damage taken events for player
+    Found 27 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: ct side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: ct side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: ct side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 64124 CT gameplay ticks for player
+    Found 41247 T gameplay ticks for player
+    Found 17 CT kills for player
+    Found 5 T kills for player
+    Found 31 CT damage events for player
+    Found 15 T damage events for player
+    Found 8 CT deaths for player
+    Found 4 T deaths for player
+    Found 42 CT damage taken events for player
+    Found 14 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: t side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: t side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: t side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 4 CT rounds, 12 T rounds
+    Found 18238 CT gameplay ticks for player
+    Found 68050 T gameplay ticks for player
+    Found 3 CT kills for player
+    Found 12 T kills for player
+    Found 8 CT damage events for player
+    Found 18 T damage events for player
+    Found 1 CT deaths for player
+    Found 2 T deaths for player
+    Found 2 CT damage taken events for player
+    Found 30 T damage taken events for player
+    Combined: 412273 gameplay ticks (213147 CT, 199126 T)
+    67 kills, 151 damage events, 46 deaths, 213 damage taken events across 76 rounds (40 CT, 36 T)
+Extracting fingerprint for player 76561198074762801
+    Movement analysis for 76 rounds
+    Enhanced positioning analysis for 76 rounds on de_train
+    Enhanced analysis for CT side (213147 ticks)
+      CT entrance: 0.038 (3.8%)
+      CT connector: 0.132 (13.2%)
+      CT longdog: 0.083 (8.3%)
+      CT bombsitea: 0.323 (32.3%)
+      CT ivy: 0.021 (2.1%)
+      CT bombsiteb: 0.136 (13.6%)
+      CT tunnels: 0.184 (18.4%)
+      CT ctspawn: 0.036 (3.6%)
+    Enhanced analysis for T side (199126 ticks)
+      T alley: 0.024 (2.4%)
+      T longdog: 0.171 (17.1%)
+      T backofb: 0.125 (12.5%)
+      T bombsitea: 0.056 (5.6%)
+      T ivy: 0.081 (8.1%)
+      T electricalbox: 0.023 (2.3%)
+      T tsideupper: 0.160 (16.0%)
+      T tstairs: 0.022 (2.2%)
+      T tunnels: 0.030 (3.0%)
+      T bombsiteb: 0.048 (4.8%)
+      T dumpster: 0.038 (3.8%)
+      T tspawn: 0.062 (6.2%)
+      T tmain: 0.145 (14.5%)
+    CombatAnalyzer: 67 kills, 151 damage events, 46 deaths, 213 damage taken events across 76 rounds on de_train
+    CT: 40 kills, 91 damage events, 24 deaths, 101 damage taken
+    T: 27 kills, 60 damage events, 22 deaths, 112 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall entrance: 3 kills (4.5%)
+        Overall connector: 2 kills (3.0%)
+        Overall longdog: 12 kills (17.9%)
+        Overall backofb: 4 kills (6.0%)
+        Overall bombsitea: 19 kills (28.4%)
+        Overall dumpster: 1 kills (1.5%)
+        Overall ivy: 2 kills (3.0%)
+        Overall electricalbox: 5 kills (7.5%)
+        Overall bombsiteb: 9 kills (13.4%)
+        Overall tunnels: 5 kills (7.5%)
+        Overall ctspawn: 1 kills (1.5%)
+        Overall tmain: 4 kills (6.0%)
+        Overall Kill analysis: 12/16 areas used, 67/67 kills categorized
+      Overall side: 67 kills analyzed
+      Overall side: 9326 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall entrance: 1 deaths (2.2%)
+        Overall connector: 5 deaths (10.9%)
+        Overall longdog: 3 deaths (6.5%)
+        Overall backofb: 5 deaths (10.9%)
+        Overall bombsitea: 17 deaths (37.0%)
+        Overall electricalbox: 2 deaths (4.3%)
+        Overall bombsiteb: 4 deaths (8.7%)
+        Overall tunnels: 3 deaths (6.5%)
+        Overall ctspawn: 1 deaths (2.2%)
+        Overall tmain: 5 deaths (10.9%)
+        Overall Death analysis: 10/16 areas used, 46/46 deaths categorized
+      Overall side: 46 deaths analyzed
+      Overall side: 6897 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT entrance: 3 kills (7.5%)
+        CT connector: 2 kills (5.0%)
+        CT longdog: 5 kills (12.5%)
+        CT bombsitea: 16 kills (40.0%)
+        CT electricalbox: 4 kills (10.0%)
+        CT bombsiteb: 6 kills (15.0%)
+        CT tunnels: 3 kills (7.5%)
+        CT ctspawn: 1 kills (2.5%)
+        CT Kill analysis: 8/16 areas used, 40/40 kills categorized
+      CT side: 40 kills analyzed
+      CT side: 5908 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT entrance: 1 deaths (4.2%)
+        CT connector: 4 deaths (16.7%)
+        CT longdog: 2 deaths (8.3%)
+        CT bombsitea: 11 deaths (45.8%)
+        CT electricalbox: 1 deaths (4.2%)
+        CT bombsiteb: 2 deaths (8.3%)
+        CT tunnels: 2 deaths (8.3%)
+        CT ctspawn: 1 deaths (4.2%)
+        CT Death analysis: 8/16 areas used, 24/24 deaths categorized
+      CT side: 24 deaths analyzed
+      CT side: 3352 total damage received
+      Analyzing T kill positions with enhanced detection
+        T longdog: 7 kills (25.9%)
+        T backofb: 4 kills (14.8%)
+        T bombsitea: 3 kills (11.1%)
+        T dumpster: 1 kills (3.7%)
+        T ivy: 2 kills (7.4%)
+        T electricalbox: 1 kills (3.7%)
+        T bombsiteb: 3 kills (11.1%)
+        T tunnels: 2 kills (7.4%)
+        T tmain: 4 kills (14.8%)
+        T Kill analysis: 9/16 areas used, 27/27 kills categorized
+      T side: 27 kills analyzed
+      T side: 3418 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T connector: 1 deaths (4.5%)
+        T backofb: 5 deaths (22.7%)
+        T longdog: 1 deaths (4.5%)
+        T bombsitea: 6 deaths (27.3%)
+        T electricalbox: 1 deaths (4.5%)
+        T bombsiteb: 2 deaths (9.1%)
+        T tunnels: 1 deaths (4.5%)
+        T tmain: 5 deaths (22.7%)
+        T Death analysis: 8/16 areas used, 22/22 deaths categorized
+      T side: 22 deaths analyzed
+      T side: 3545 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: Magisk
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+      Round 1: ct side, ticks 1275-4401 (3127 gameplay ticks)
+      Round 2: ct side, ticks 6001-13193 (7193 gameplay ticks)
+      Round 3: ct side, ticks 14793-20798 (6006 gameplay ticks)
+    Processed 12 CT rounds, 10 T rounds
+    Found 61092 CT gameplay ticks for player
+    Found 57681 T gameplay ticks for player
+    Found 6 CT kills for player
+    Found 40 CT damage events for player
+    Found 9 T damage events for player
+    Found 8 CT deaths for player
+    Found 10 T deaths for player
+    Found 32 CT damage taken events for player
+    Found 39 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+      Round 1: ct side, ticks 23529-27079 (3551 gameplay ticks)
+      Round 2: ct side, ticks 28807-33120 (4314 gameplay ticks)
+      Round 3: ct side, ticks 34848-41546 (6699 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 69693 CT gameplay ticks for player
+    Found 32148 T gameplay ticks for player
+    Found 9 CT kills for player
+    Found 2 T kills for player
+    Found 23 CT damage events for player
+    Found 10 T damage events for player
+    Found 5 CT deaths for player
+    Found 7 T deaths for player
+    Found 28 CT damage taken events for player
+    Found 31 T damage taken events for player
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+      Round 1: ct side, ticks 1264-9672 (8409 gameplay ticks)
+      Round 2: ct side, ticks 11272-13566 (2295 gameplay ticks)
+      Round 3: ct side, ticks 15166-20185 (5020 gameplay ticks)
+    Processed 12 CT rounds, 7 T rounds
+    Found 64124 CT gameplay ticks for player
+    Found 41247 T gameplay ticks for player
+    Found 11 CT kills for player
+    Found 6 T kills for player
+    Found 56 CT damage events for player
+    Found 41 T damage events for player
+    Found 6 CT deaths for player
+    Found 6 T deaths for player
+    Found 26 CT damage taken events for player
+    Found 25 T damage taken events for player
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+    Processed 0 CT rounds, 0 T rounds
+    Combined: 325985 gameplay ticks (194909 CT, 131076 T)
+    34 kills, 179 damage events, 42 deaths, 181 damage taken events across 60 rounds (36 CT, 24 T)
+Extracting fingerprint for player 76561197983956651
+    Movement analysis for 60 rounds
+    Enhanced positioning analysis for 60 rounds on de_train
+    Enhanced analysis for CT side (194909 ticks)
+      CT entrance: 0.048 (4.8%)
+      CT connector: 0.081 (8.1%)
+      CT backofb: 0.137 (13.7%)
+      CT longdog: 0.037 (3.7%)
+      CT bombsiteb: 0.566 (56.6%)
+      CT tunnels: 0.026 (2.6%)
+      CT ctspawn: 0.072 (7.2%)
+    Enhanced analysis for T side (131076 ticks)
+      T longdog: 0.415 (41.5%)
+      T backofb: 0.163 (16.3%)
+      T bombsitea: 0.046 (4.6%)
+      T ivy: 0.022 (2.2%)
+      T tsideupper: 0.117 (11.7%)
+      T tstairs: 0.023 (2.3%)
+      T bombsiteb: 0.071 (7.1%)
+      T tspawn: 0.060 (6.0%)
+      T tmain: 0.023 (2.3%)
+    CombatAnalyzer: 34 kills, 179 damage events, 42 deaths, 181 damage taken events across 60 rounds on de_train
+    CT: 26 kills, 119 damage events, 19 deaths, 86 damage taken
+    T: 8 kills, 60 damage events, 23 deaths, 95 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall connector: 7 kills (20.6%)
+        Overall backofb: 7 kills (20.6%)
+        Overall longdog: 6 kills (17.6%)
+        Overall bombsitea: 3 kills (8.8%)
+        Overall bombsiteb: 9 kills (26.5%)
+        Overall tunnels: 2 kills (5.9%)
+        Overall Kill analysis: 6/16 areas used, 34/34 kills categorized
+      Overall side: 34 kills analyzed
+      Overall side: 5559 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall connector: 6 deaths (14.3%)
+        Overall backofb: 5 deaths (11.9%)
+        Overall longdog: 10 deaths (23.8%)
+        Overall bombsitea: 3 deaths (7.1%)
+        Overall electricalbox: 1 deaths (2.4%)
+        Overall bombsiteb: 10 deaths (23.8%)
+        Overall tunnels: 5 deaths (11.9%)
+        Overall ctspawn: 1 deaths (2.4%)
+        Overall tmain: 1 deaths (2.4%)
+        Overall Death analysis: 9/16 areas used, 42/42 deaths categorized
+      Overall side: 42 deaths analyzed
+      Overall side: 5743 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT connector: 6 kills (23.1%)
+        CT backofb: 6 kills (23.1%)
+        CT longdog: 2 kills (7.7%)
+        CT bombsitea: 1 kills (3.8%)
+        CT bombsiteb: 9 kills (34.6%)
+        CT tunnels: 2 kills (7.7%)
+        CT Kill analysis: 6/16 areas used, 26/26 kills categorized
+      CT side: 26 kills analyzed
+      CT side: 3991 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT connector: 5 deaths (26.3%)
+        CT backofb: 3 deaths (15.8%)
+        CT longdog: 1 deaths (5.3%)
+        CT bombsitea: 2 deaths (10.5%)
+        CT bombsiteb: 4 deaths (21.1%)
+        CT tunnels: 3 deaths (15.8%)
+        CT ctspawn: 1 deaths (5.3%)
+        CT Death analysis: 7/16 areas used, 19/19 deaths categorized
+      CT side: 19 deaths analyzed
+      CT side: 2735 total damage received
+      Analyzing T kill positions with enhanced detection
+        T longdog: 4 kills (50.0%)
+        T backofb: 1 kills (12.5%)
+        T bombsitea: 2 kills (25.0%)
+        T connector: 1 kills (12.5%)
+        T Kill analysis: 4/16 areas used, 8/8 kills categorized
+      T side: 8 kills analyzed
+      T side: 1568 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T connector: 1 deaths (4.3%)
+        T backofb: 2 deaths (8.7%)
+        T longdog: 9 deaths (39.1%)
+        T bombsitea: 1 deaths (4.3%)
+        T electricalbox: 1 deaths (4.3%)
+        T bombsiteb: 6 deaths (26.1%)
+        T tunnels: 2 deaths (8.7%)
+        T tmain: 1 deaths (4.3%)
+        T Death analysis: 8/16 areas used, 23/23 deaths categorized
+      T side: 23 deaths analyzed
+      T side: 3008 total damage received
+    Combat analysis result: 68 metrics
+
+Processing: kyousuke
+    Processing None demo
+    Demo has 22 rounds, 1559770 total ticks
+    Processed 0 CT rounds, 0 T rounds
+    Processing None demo
+    Demo has 19 rounds, 1355530 total ticks
+    Processed 0 CT rounds, 0 T rounds
+    Processing None demo
+    Demo has 19 rounds, 1366410 total ticks
+    Processed 0 CT rounds, 0 T rounds
+    Processing None demo
+    Demo has 16 rounds, 1123660 total ticks
+      Round 1: t side, ticks 1247-6427 (5181 gameplay ticks)
+      Round 2: t side, ticks 8027-10938 (2912 gameplay ticks)
+      Round 3: t side, ticks 12537-21335 (8799 gameplay ticks)
+    Processed 4 CT rounds, 12 T rounds
+    Found 18238 CT gameplay ticks for player
+    Found 68050 T gameplay ticks for player
+    Found 5 CT kills for player
+    Found 11 T kills for player
+    Found 18 CT damage events for player
+    Found 68 T damage events for player
+    Found 2 CT deaths for player
+    Found 9 T deaths for player
+    Found 7 CT damage taken events for player
+    Found 39 T damage taken events for player
+    Combined: 86288 gameplay ticks (18238 CT, 68050 T)
+    16 kills, 86 damage events, 11 deaths, 46 damage taken events across 16 rounds (4 CT, 12 T)
+Extracting fingerprint for player 76561199032006224
+    Movement analysis for 16 rounds
+    Enhanced positioning analysis for 16 rounds on de_train
+    Enhanced analysis for CT side (18238 ticks)
+      CT entrance: 0.021 (2.1%)
+      CT connector: 0.086 (8.6%)
+      CT longdog: 0.171 (17.1%)
+      CT backofb: 0.026 (2.6%)
+      CT bombsitea: 0.393 (39.3%)
+      CT electricalbox: 0.251 (25.1%)
+      CT bombsiteb: 0.026 (2.6%)
+      CT ctspawn: 0.025 (2.5%)
+    Enhanced analysis for T side (68050 ticks)
+      T longdog: 0.411 (41.1%)
+      T backofb: 0.069 (6.9%)
+      T bombsitea: 0.046 (4.6%)
+      T ivy: 0.031 (3.1%)
+      T tsideupper: 0.103 (10.3%)
+      T tunnels: 0.105 (10.5%)
+      T bombsiteb: 0.091 (9.1%)
+      T tspawn: 0.059 (5.9%)
+    CombatAnalyzer: 16 kills, 86 damage events, 11 deaths, 46 damage taken events across 16 rounds on de_train
+    CT: 5 kills, 18 damage events, 2 deaths, 7 damage taken
+    T: 11 kills, 68 damage events, 9 deaths, 39 damage taken
+      Analyzing Overall kill positions with enhanced detection
+        Overall longdog: 4 kills (25.0%)
+        Overall bombsitea: 5 kills (31.2%)
+        Overall ivy: 2 kills (12.5%)
+        Overall bombsiteb: 4 kills (25.0%)
+        Overall tunnels: 1 kills (6.2%)
+        Overall Kill analysis: 5/16 areas used, 16/16 kills categorized
+      Overall side: 16 kills analyzed
+      Overall side: 2996 total damage analyzed
+      Analyzing Overall death positions with enhanced detection
+        Overall longdog: 4 deaths (36.4%)
+        Overall bombsitea: 3 deaths (27.3%)
+        Overall tunnels: 1 deaths (9.1%)
+        Overall bombsiteb: 3 deaths (27.3%)
+        Overall Death analysis: 4/16 areas used, 11/11 deaths categorized
+      Overall side: 11 deaths analyzed
+      Overall side: 1963 total damage received
+      Analyzing CT kill positions with enhanced detection
+        CT longdog: 1 kills (20.0%)
+        CT bombsitea: 4 kills (80.0%)
+        CT Kill analysis: 2/16 areas used, 5/5 kills categorized
+      CT side: 5 kills analyzed
+      CT side: 605 total damage analyzed
+      Analyzing CT death positions with enhanced detection
+        CT bombsitea: 1 deaths (50.0%)
+        CT bombsiteb: 1 deaths (50.0%)
+        CT Death analysis: 2/16 areas used, 2/2 deaths categorized
+      CT side: 2 deaths analyzed
+      CT side: 380 total damage received
+      Analyzing T kill positions with enhanced detection
+        T longdog: 3 kills (27.3%)
+        T bombsitea: 1 kills (9.1%)
+        T ivy: 2 kills (18.2%)
+        T bombsiteb: 4 kills (36.4%)
+        T tunnels: 1 kills (9.1%)
+        T Kill analysis: 5/16 areas used, 11/11 kills categorized
+      T side: 11 kills analyzed
+      T side: 2391 total damage analyzed
+      Analyzing T death positions with enhanced detection
+        T longdog: 4 deaths (44.4%)
+        T tunnels: 1 deaths (11.1%)
+        T bombsitea: 2 deaths (22.2%)
+        T bombsiteb: 2 deaths (22.2%)
+        T Death analysis: 4/16 areas used, 9/9 deaths categorized
+      T side: 9 deaths analyzed
+      T side: 1583 total damage received
+    Combat analysis result: 68 metrics
+
+✓ Successfully processed 11 players
+
+============================================================
+PLAYER STYLE ANALYSIS RESULTS
+============================================================
+
+  Map: de_train
+
+M0NESY:
+  Movement (per round):
+    counter_strafe_frequency: 45.671
+    avg_velocity: 98.94
+    max_velocity: 398.83
+    movement_smoothness: 0.235
+    movement_distance_per_round: 11043
+    position_variance_per_round: 961549
+    avg_peek_distance_per_round: 36427
+    max_peek_distance_per_round: 2956
+    total_peek_events_per_round: 3.409
+  Positioning (Overall):
+    map_coverage_per_round: 3493373802
+    CT Side - Top positions (time spent):
+      bombsitea: 0.323
+      tunnels: 0.184
+      bombsiteb: 0.136
+    T Side - Top positions (time spent):
+      longdog: 0.171
+      tsideupper: 0.160
+      tmain: 0.145
+  Combat (Overall):
+    kills_per_round: 0.88
+    damage_per_round: 122.71
+    deaths_per_round: 0.61
+    damage_received_per_round: 90.75
+    headshot_ratio: 0.388
+    clutch_potential: 0.197
+    kill_efficiency: 0.718
+    kill_area_diversity: 0.750
+    primary_weapon: awp
+    total_rounds_played: 76
+  Combat (CT Side):
+    ct_rounds_played: 40
+    ct_kills_per_round: 1.00
+    ct_damage_per_round: 147.70
+    ct_deaths_per_round: 0.60
+    ct_damage_received_per_round: 83.80
+    ct_headshot_ratio: 0.425
+  Combat (T Side):
+    t_rounds_played: 36
+    t_kills_per_round: 0.75
+    t_damage_per_round: 94.94
+    t_deaths_per_round: 0.61
+    t_damage_received_per_round: 98.47
+    t_headshot_ratio: 0.333
+  Utility (per round):
+    flashes_thrown_per_round: 0.99
+    enemies_flashed_per_round: 0.04
+    flash_assists_per_round: 0.04
+    flash_to_frag_rate: 0.040
+    smokes_thrown_per_round: 1.26
+    smoke_coverage_seconds_per_round: 6.26
+    kills_through_smoke_per_round: 0.11
+    molotovs_thrown_per_round: 0.96
+    area_denial_seconds_per_round: 1.21
+    he_damage_per_round: 0.17
+    utility_damage_per_grenade: 0.171
+
+ZYWOO:
+  Movement (per round):
+    counter_strafe_frequency: 31.789
+    avg_velocity: 87.94
+    max_velocity: 298.10
+    movement_smoothness: 0.280
+    movement_distance_per_round: 9874
+    position_variance_per_round: 994224
+    avg_peek_distance_per_round: 32678
+    max_peek_distance_per_round: 2506
+    total_peek_events_per_round: 3.409
+  Positioning (Overall):
+    map_coverage_per_round: 3290367227
+    CT Side - Top positions (time spent):
+      bombsitea: 0.341
+      tunnels: 0.168
+      bombsiteb: 0.137
+    T Side - Top positions (time spent):
+      longdog: 0.276
+      tmain: 0.173
+      backofb: 0.116
+  Combat (Overall):
+    kills_per_round: 0.74
+    damage_per_round: 105.93
+    deaths_per_round: 0.68
+    damage_received_per_round: 103.25
+    headshot_ratio: 0.554
+    clutch_potential: 0.184
+    kill_efficiency: 0.696
+    kill_area_diversity: 0.625
+    primary_weapon: ak47
+    total_rounds_played: 76
+  Combat (CT Side):
+    ct_rounds_played: 36
+    ct_kills_per_round: 0.89
+    ct_damage_per_round: 128.97
+    ct_deaths_per_round: 0.61
+    ct_damage_received_per_round: 91.19
+    ct_headshot_ratio: 0.625
+  Combat (T Side):
+    t_rounds_played: 40
+    t_kills_per_round: 0.60
+    t_damage_per_round: 85.20
+    t_deaths_per_round: 0.75
+    t_damage_received_per_round: 114.10
+    t_headshot_ratio: 0.458
+  Utility (per round):
+    flashes_thrown_per_round: 0.99
+    enemies_flashed_per_round: 0.03
+    flash_assists_per_round: 0.03
+    flash_to_frag_rate: 0.027
+    smokes_thrown_per_round: 1.33
+    smoke_coverage_seconds_per_round: 7.70
+    kills_through_smoke_per_round: 0.04
+    molotovs_thrown_per_round: 0.86
+    area_denial_seconds_per_round: 0.97
+    he_damage_per_round: 3.49
+    utility_damage_per_grenade: 2.690
+
+NIKO:
+  Movement (per round):
+    counter_strafe_frequency: 42.605
+    avg_velocity: 87.99
+    max_velocity: 309.84
+    movement_smoothness: 0.238
+    movement_distance_per_round: 10113
+    position_variance_per_round: 991026
+    avg_peek_distance_per_round: 33648
+    max_peek_distance_per_round: 2997
+    total_peek_events_per_round: 3.409
+  Positioning (Overall):
+    map_coverage_per_round: 3471004577
+    CT Side - Top positions (time spent):
+      bombsitea: 0.434
+      tunnels: 0.151
+      bombsiteb: 0.116
+    T Side - Top positions (time spent):
+      longdog: 0.355
+      backofb: 0.146
+      tsideupper: 0.113
+  Combat (Overall):
+    kills_per_round: 0.86
+    damage_per_round: 122.22
+    deaths_per_round: 0.61
+    damage_received_per_round: 85.03
+    headshot_ratio: 0.631
+    clutch_potential: 0.197
+    kill_efficiency: 0.700
+    kill_area_diversity: 0.688
+    primary_weapon: ak47
+    total_rounds_played: 76
+  Combat (CT Side):
+    ct_rounds_played: 40
+    ct_kills_per_round: 0.72
+    ct_damage_per_round: 103.88
+    ct_deaths_per_round: 0.50
+    ct_damage_received_per_round: 70.45
+    ct_headshot_ratio: 0.655
+  Combat (T Side):
+    t_rounds_played: 36
+    t_kills_per_round: 1.00
+    t_damage_per_round: 142.61
+    t_deaths_per_round: 0.72
+    t_damage_received_per_round: 101.22
+    t_headshot_ratio: 0.611
+  Utility (per round):
+    flashes_thrown_per_round: 1.20
+    enemies_flashed_per_round: 0.05
+    flash_assists_per_round: 0.05
+    flash_to_frag_rate: 0.044
+    smokes_thrown_per_round: 1.29
+    smoke_coverage_seconds_per_round: 6.17
+    kills_through_smoke_per_round: 0.04
+    molotovs_thrown_per_round: 1.14
+    area_denial_seconds_per_round: 1.62
+    he_damage_per_round: 1.72
+    utility_damage_per_grenade: 1.194
+
+MAGISK:
+  Movement (per round):
+    counter_strafe_frequency: 37.883
+    avg_velocity: 87.56
+    max_velocity: 437.92
+    movement_smoothness: 0.265
+    movement_distance_per_round: 9892
+    position_variance_per_round: 638606
+    avg_peek_distance_per_round: 25473
+    max_peek_distance_per_round: 2435
+    total_peek_events_per_round: 2.682
+  Positioning (Overall):
+    map_coverage_per_round: 1358768218
+    CT Side - Top positions (time spent):
+      bombsiteb: 0.566
+      backofb: 0.137
+      connector: 0.081
+    T Side - Top positions (time spent):
+      longdog: 0.415
+      backofb: 0.163
+      tsideupper: 0.117
+  Combat (Overall):
+    kills_per_round: 0.57
+    damage_per_round: 92.65
+    deaths_per_round: 0.70
+    damage_received_per_round: 95.72
+    headshot_ratio: 0.500
+    clutch_potential: 0.150
+    kill_efficiency: 0.612
+    kill_area_diversity: 0.375
+    primary_weapon: m4a1_silencer
+    total_rounds_played: 60
+  Combat (CT Side):
+    ct_rounds_played: 36
+    ct_kills_per_round: 0.72
+    ct_damage_per_round: 110.86
+    ct_deaths_per_round: 0.53
+    ct_damage_received_per_round: 75.97
+    ct_headshot_ratio: 0.615
+  Combat (T Side):
+    t_rounds_played: 24
+    t_kills_per_round: 0.33
+    t_damage_per_round: 65.33
+    t_deaths_per_round: 0.96
+    t_damage_received_per_round: 125.33
+    t_headshot_ratio: 0.125
+  Utility (per round):
+    flashes_thrown_per_round: 0.67
+    enemies_flashed_per_round: 0.02
+    flash_assists_per_round: 0.02
+    flash_to_frag_rate: 0.025
+    smokes_thrown_per_round: 1.13
+    smoke_coverage_seconds_per_round: 5.86
+    kills_through_smoke_per_round: 0.05
+    molotovs_thrown_per_round: 1.05
+    area_denial_seconds_per_round: 1.23
+    he_damage_per_round: 4.77
+    utility_damage_per_grenade: 3.049
+
+APEX:
+  Movement (per round):
+    counter_strafe_frequency: 25.895
+    avg_velocity: 88.03
+    max_velocity: 281.97
+    movement_smoothness: 0.322
+    movement_distance_per_round: 9950
+    position_variance_per_round: 1146536
+    avg_peek_distance_per_round: 32970
+    max_peek_distance_per_round: 2611
+    total_peek_events_per_round: 3.409
+  Positioning (Overall):
+    map_coverage_per_round: 3188480821
+    CT Side - Top positions (time spent):
+      bombsitea: 0.347
+      bombsiteb: 0.199
+      tunnels: 0.167
+    T Side - Top positions (time spent):
+      dumpster: 0.183
+      ivy: 0.118
+      tmain: 0.114
+  Combat (Overall):
+    kills_per_round: 0.45
+    damage_per_round: 68.57
+    deaths_per_round: 0.72
+    damage_received_per_round: 110.82
+    headshot_ratio: 0.382
+    clutch_potential: 0.158
+    kill_efficiency: 0.652
+    kill_area_diversity: 0.500
+    primary_weapon: ak47
+    total_rounds_played: 76
+  Combat (CT Side):
+    ct_rounds_played: 36
+    ct_kills_per_round: 0.56
+    ct_damage_per_round: 95.64
+    ct_deaths_per_round: 0.69
+    ct_damage_received_per_round: 119.92
+    ct_headshot_ratio: 0.400
+  Combat (T Side):
+    t_rounds_played: 40
+    t_kills_per_round: 0.35
+    t_damage_per_round: 44.20
+    t_deaths_per_round: 0.75
+    t_damage_received_per_round: 102.62
+    t_headshot_ratio: 0.357
+  Utility (per round):
+    flashes_thrown_per_round: 1.47
+    enemies_flashed_per_round: 0.17
+    flash_assists_per_round: 0.17
+    flash_to_frag_rate: 0.116
+    smokes_thrown_per_round: 1.39
+    smoke_coverage_seconds_per_round: 6.90
+    kills_through_smoke_per_round: 0.09
+    molotovs_thrown_per_round: 0.76
+    area_denial_seconds_per_round: 0.75
+    he_damage_per_round: 5.12
+    utility_damage_per_grenade: 4.936
+
+KYOUSUKE:
+  Movement (per round):
+    counter_strafe_frequency: 58.125
+    avg_velocity: 93.63
+    max_velocity: 288.05
+    movement_smoothness: 0.195
+    movement_distance_per_round: 10644
+    position_variance_per_round: 570049
+    avg_peek_distance_per_round: 10363
+    max_peek_distance_per_round: 2472
+    total_peek_events_per_round: 0.938
+  Positioning (Overall):
+    map_coverage_per_round: 1280648873
+    CT Side - Top positions (time spent):
+      bombsitea: 0.393
+      electricalbox: 0.251
+      longdog: 0.171
+    T Side - Top positions (time spent):
+      longdog: 0.411
+      tunnels: 0.105
+      tsideupper: 0.103
+  Combat (Overall):
+    kills_per_round: 1.00
+    damage_per_round: 187.25
+    deaths_per_round: 0.69
+    damage_received_per_round: 122.69
+    headshot_ratio: 0.688
+    clutch_potential: 0.312
+    kill_efficiency: 0.534
+    kill_area_diversity: 0.312
+    primary_weapon: ak47
+    total_rounds_played: 16
+  Combat (CT Side):
+    ct_rounds_played: 4
+    ct_kills_per_round: 1.25
+    ct_damage_per_round: 151.25
+    ct_deaths_per_round: 0.50
+    ct_damage_received_per_round: 95.00
+    ct_headshot_ratio: 0.600
+  Combat (T Side):
+    t_rounds_played: 12
+    t_kills_per_round: 0.92
+    t_damage_per_round: 199.25
+    t_deaths_per_round: 0.75
+    t_damage_received_per_round: 131.92
+    t_headshot_ratio: 0.727
+  Utility (per round):
+    flashes_thrown_per_round: 1.00
+    enemies_flashed_per_round: 0.00
+    flash_assists_per_round: 0.00
+    flash_to_frag_rate: 0.000
+    smokes_thrown_per_round: 1.25
+    smoke_coverage_seconds_per_round: 4.32
+    kills_through_smoke_per_round: 0.06
+    molotovs_thrown_per_round: 1.00
+    area_denial_seconds_per_round: 0.78
+    he_damage_per_round: 4.69
+    utility_damage_per_grenade: 2.512
+
+FLAMEZ:
+  Movement (per round):
+    counter_strafe_frequency: 45.145
+    avg_velocity: 81.86
+    max_velocity: 290.67
+    movement_smoothness: 0.240
+    movement_distance_per_round: 9461
+    position_variance_per_round: 731902
+    avg_peek_distance_per_round: 31379
+    max_peek_distance_per_round: 2760
+    total_peek_events_per_round: 3.409
+  Positioning (Overall):
+    map_coverage_per_round: 2881736726
+    CT Side - Top positions (time spent):
+      bombsitea: 0.305
+      longdog: 0.165
+      electricalbox: 0.103
+    T Side - Top positions (time spent):
+      tmain: 0.427
+      bombsitea: 0.129
+      tspawn: 0.102
+  Combat (Overall):
+    kills_per_round: 0.71
+    damage_per_round: 106.46
+    deaths_per_round: 0.75
+    damage_received_per_round: 115.58
+    headshot_ratio: 0.500
+    clutch_potential: 0.211
+    kill_efficiency: 0.667
+    kill_area_diversity: 0.562
+    primary_weapon: ak47
+    total_rounds_played: 76
+  Combat (CT Side):
+    ct_rounds_played: 36
+    ct_kills_per_round: 0.72
+    ct_damage_per_round: 105.67
+    ct_deaths_per_round: 0.72
+    ct_damage_received_per_round: 105.58
+    ct_headshot_ratio: 0.385
+  Combat (T Side):
+    t_rounds_played: 40
+    t_kills_per_round: 0.70
+    t_damage_per_round: 107.17
+    t_deaths_per_round: 0.78
+    t_damage_received_per_round: 124.58
+    t_headshot_ratio: 0.607
+  Utility (per round):
+    flashes_thrown_per_round: 1.21
+    enemies_flashed_per_round: 0.04
+    flash_assists_per_round: 0.04
+    flash_to_frag_rate: 0.033
+    smokes_thrown_per_round: 1.30
+    smoke_coverage_seconds_per_round: 6.19
+    kills_through_smoke_per_round: 0.04
+    molotovs_thrown_per_round: 1.43
+    area_denial_seconds_per_round: 2.06
+    he_damage_per_round: 4.33
+    utility_damage_per_grenade: 2.603
+
+============================================================
+PLAYER SIMILARITIES
+============================================================
+    Using 122 features for comparison
+    Using 119 numeric features
+    Feature matrix stats:
+      Mean: [ 0.45668799 37.14241437  0.19037081  0.53079741 37.79648727]...
+      Std: [0.07233018 9.41671239 0.04442818 0.12512964 9.67521232]...
+    Feature matrix shape: (11, 119)
+    Feature ranges after scaling: min=-3.105, max=3.078
+
+m0NESY - Most similar players:
+  ZywOo: 0.361
+  NiKo: 0.174
+  mezii: 0.098
+    Using 122 features for comparison
+    Using 119 numeric features
+    Feature matrix stats:
+      Mean: [ 0.45668799 37.14241437  0.19037081  0.53079741 37.79648727]...
+      Std: [0.07233018 9.41671239 0.04442818 0.12512964 9.67521232]...
+    Feature matrix shape: (11, 119)
+    Feature ranges after scaling: min=-3.105, max=3.078
+
+ZywOo - Most similar players:
+  m0NESY: 0.361
+  NiKo: 0.086
+  apEX: 0.017
+    Using 122 features for comparison
+    Using 119 numeric features
+    Feature matrix stats:
+      Mean: [ 0.45668799 37.14241437  0.19037081  0.53079741 37.79648727]...
+      Std: [0.07233018 9.41671239 0.04442818 0.12512964 9.67521232]...
+    Feature matrix shape: (11, 119)
+    Feature ranges after scaling: min=-3.105, max=3.078
+
+NiKo - Most similar players:
+  m0NESY: 0.174
+  ZywOo: 0.086
+  TeSeS: 0.072
+    Using 122 features for comparison
+    Using 119 numeric features
+    Feature matrix stats:
+      Mean: [ 0.45668799 37.14241437  0.19037081  0.53079741 37.79648727]...
+      Std: [0.07233018 9.41671239 0.04442818 0.12512964 9.67521232]...
+    Feature matrix shape: (11, 119)
+    Feature ranges after scaling: min=-3.105, max=3.078
+
+Magisk - Most similar players:
+  ropz: 0.420
+  kyousuke: 0.029
+  apEX: -0.028
+
+============================================================
+ANALYSIS COMPLETE!
+Analyzed 11 players across 4 matches on de_train
+============================================================

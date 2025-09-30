@@ -145,12 +145,16 @@ class DemoProcessor:
         all_ticks_t = []
         all_kills_ct = []
         all_kills_t = []
+        all_assisted_kills = []
         all_damages_ct = []
         all_damages_t = []
         all_deaths_ct = []
         all_deaths_t = []
         all_damage_taken_ct = []
         all_damage_taken_t = []
+        all_grenades = []
+        all_smokes = []
+        all_infernos = []
         all_rounds = []
         
         total_ct_rounds = 0
@@ -164,6 +168,9 @@ class DemoProcessor:
                 ticks_df = demo.ticks.to_pandas()
                 kills_df = demo.kills.to_pandas()
                 damages_df = demo.damages.to_pandas()
+                grenades_df = demo.grenades.to_pandas()
+                smokes_df = demo.smokes.to_pandas()
+                infernos_df = demo.infernos.to_pandas()
                 rounds_df = demo.rounds.to_pandas()
                 
                 print(f"    Demo has {len(rounds_df)} rounds, {len(ticks_df)} total ticks")
@@ -185,7 +192,7 @@ class DemoProcessor:
                 if len(ct_data['kills']) > 0:
                     all_kills_ct.append(ct_data['kills'])
                     print(f"    Found {len(ct_data['kills'])} CT kills for player")
-                
+
                 if len(t_data['kills']) > 0:
                     all_kills_t.append(t_data['kills'])
                     print(f"    Found {len(t_data['kills'])} T kills for player")
@@ -213,6 +220,35 @@ class DemoProcessor:
                 if not t_data['damage_taken'].empty:
                     all_damage_taken_t.append(t_data['damage_taken'])
                     print(f"    Found {len(t_data['damage_taken'])} T damage taken events for player")
+
+                player_id = int(player_steamid)
+                if not kills_df.empty:
+                    kills_assists = kills_df.copy()
+                    kills_assists['assister_steamid'] = pd.to_numeric(kills_assists['assister_steamid'], errors='coerce')
+                    assisted = kills_assists[kills_assists['assister_steamid'] == player_id]
+                    if not assisted.empty:
+                        all_assisted_kills.append(assisted)
+
+                if not grenades_df.empty:
+                    grenades_df = grenades_df.copy()
+                    grenades_df['thrower_steamid'] = pd.to_numeric(grenades_df['thrower_steamid'], errors='coerce')
+                    player_grenades = grenades_df[grenades_df['thrower_steamid'] == player_id]
+                    if not player_grenades.empty:
+                        all_grenades.append(player_grenades)
+
+                if not smokes_df.empty:
+                    smokes_df = smokes_df.copy()
+                    smokes_df['thrower_steamid'] = pd.to_numeric(smokes_df['thrower_steamid'], errors='coerce')
+                    player_smokes = smokes_df[smokes_df['thrower_steamid'] == player_id]
+                    if not player_smokes.empty:
+                        all_smokes.append(player_smokes)
+
+                if not infernos_df.empty:
+                    infernos_df = infernos_df.copy()
+                    infernos_df['thrower_steamid'] = pd.to_numeric(infernos_df['thrower_steamid'], errors='coerce')
+                    player_infernos = infernos_df[infernos_df['thrower_steamid'] == player_id]
+                    if not player_infernos.empty:
+                        all_infernos.append(player_infernos)
                 
                 total_ct_rounds += round_counts['ct']
                 total_t_rounds += round_counts['t']
@@ -229,12 +265,16 @@ class DemoProcessor:
         combined_ticks_t = pd.concat(all_ticks_t, ignore_index=True) if all_ticks_t else pd.DataFrame()
         combined_kills_ct = pd.concat(all_kills_ct, ignore_index=True) if all_kills_ct else pd.DataFrame()
         combined_kills_t = pd.concat(all_kills_t, ignore_index=True) if all_kills_t else pd.DataFrame()
+        combined_assisted_kills = pd.concat(all_assisted_kills, ignore_index=True) if all_assisted_kills else pd.DataFrame()
         combined_damages_ct = pd.concat(all_damages_ct, ignore_index=True) if all_damages_ct else pd.DataFrame()
         combined_damages_t = pd.concat(all_damages_t, ignore_index=True) if all_damages_t else pd.DataFrame()
         combined_deaths_ct = pd.concat(all_deaths_ct, ignore_index=True) if all_deaths_ct else pd.DataFrame()
         combined_deaths_t = pd.concat(all_deaths_t, ignore_index=True) if all_deaths_t else pd.DataFrame()
         combined_damage_taken_ct = pd.concat(all_damage_taken_ct, ignore_index=True) if all_damage_taken_ct else pd.DataFrame()
         combined_damage_taken_t = pd.concat(all_damage_taken_t, ignore_index=True) if all_damage_taken_t else pd.DataFrame()
+        combined_grenades = pd.concat(all_grenades, ignore_index=True) if all_grenades else pd.DataFrame()
+        combined_smokes = pd.concat(all_smokes, ignore_index=True) if all_smokes else pd.DataFrame()
+        combined_infernos = pd.concat(all_infernos, ignore_index=True) if all_infernos else pd.DataFrame()
         combined_rounds = pd.concat(all_rounds, ignore_index=True) if all_rounds else pd.DataFrame()
         
         # Add side indicators to the data
@@ -282,6 +322,10 @@ class DemoProcessor:
             damages=combined_damages,
             deaths=combined_deaths,
             damage_taken=combined_damage_taken,
+            assisted_kills=combined_assisted_kills,
+            grenades=combined_grenades,
+            smokes=combined_smokes,
+            infernos=combined_infernos,
             rounds=combined_rounds,
             total_rounds=total_rounds,
             ct_rounds=total_ct_rounds,

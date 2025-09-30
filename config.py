@@ -61,10 +61,15 @@ PCA_COMPONENTS = 2
 TOP_SIMILAR_PLAYERS = 5
 
 # Key players for detailed analysis
-KEY_PLAYERS = ['m0NESY', 'ZywOo', 'NiKo', 'Magisk', 'apEX']
+KEY_PLAYERS = ['m0NESY', 'ZywOo', 'NiKo', 'Magisk', 'apEX', 'kyousuke', 'flameZ']
 COMPARISON_PLAYERS = ['m0NESY', 'ZywOo', 'NiKo', 'Magisk']
 
 # Output formatting
 FLOAT_PRECISION_HIGH = 3  # For ratios, percentages
 FLOAT_PRECISION_MED = 2   # For general stats
 FLOAT_PRECISION_LOW = 0   # For distances, large numbers
+
+# Utility analysis constants
+TICKS_PER_SECOND = 128
+DEFAULT_SMOKE_DURATION_SECONDS = 18
+DEFAULT_MOLOTOV_DURATION_SECONDS = 7

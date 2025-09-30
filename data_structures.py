@@ -87,18 +87,18 @@ class CombatSignature:
     # Damage received stats
     damage_received_per_round: float = 0.0
     total_damage_received: int = 0
-    
+
     # CT-side specific stats (will be populated dynamically)
     # t_kills_per_round, ct_damage_per_round, etc.
-    
+
     def __post_init__(self):
         """Allow dynamic attributes for side-specific stats."""
         pass
-    
+
     def __setattr__(self, name, value):
         """Allow setting dynamic attributes."""
         super().__setattr__(name, value)
-    
+
     def get_ct_stats(self) -> Dict[str, Any]:
         """Get CT-side combat statistics."""
         ct_stats = {}
@@ -116,11 +116,29 @@ class CombatSignature:
         return t_stats
 
 @dataclass
+class UtilitySignature:
+    """Player's utility usage statistics."""
+    flashes_thrown_per_round: float = 0.0
+    enemies_flashed_per_round: float = 0.0
+    flash_assists_per_round: float = 0.0
+    flash_to_frag_rate: float = 0.0
+    smokes_thrown_per_round: float = 0.0
+    smoke_coverage_seconds_per_round: float = 0.0
+    kills_through_smoke_per_round: float = 0.0
+    molotovs_thrown_per_round: float = 0.0
+    area_denial_seconds_per_round: float = 0.0
+    he_damage_per_round: float = 0.0
+    utility_damage_per_grenade: float = 0.0
+
+    # Placeholder for potential extension (no dynamic attributes required).
+
+@dataclass
 class PlayerFingerprint:
     """Complete player style fingerprint with side separation."""
     movement: MovementSignature
     positioning: PositioningSignature
     combat: CombatSignature
+    utility: UtilitySignature
     
     def to_feature_vector(self) -> Dict[str, float]:
         """Convert fingerprint to flat feature dictionary."""
@@ -151,7 +169,11 @@ class PlayerFingerprint:
         for key, value in self.combat.__dict__.items():
             if isinstance(value, (int, float)):
                 features[f"combat_{key}"] = value
-                
+
+        for key, value in self.utility.__dict__.items():
+            if isinstance(value, (int, float)):
+                features[f"utility_{key}"] = value
+
         return features
     
     def get_side_comparison(self) -> Dict[str, Dict]:
@@ -182,6 +204,10 @@ class DemoData:
     damages: pd.DataFrame
     deaths: pd.DataFrame
     damage_taken: pd.DataFrame
+    assisted_kills: pd.DataFrame
+    grenades: pd.DataFrame
+    smokes: pd.DataFrame
+    infernos: pd.DataFrame
     rounds: pd.DataFrame
     total_rounds: int
     ct_rounds: int

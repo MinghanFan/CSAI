@@ -7,6 +7,7 @@ from data_structures import PlayerFingerprint, PlayerInfo, DemoData
 from analyzers.movement_analyzer import MovementAnalyzer
 from analyzers.positioning_analyzer import PositioningAnalyzer
 from analyzers.combat_analyzer import CombatAnalyzer
+from analyzers.utility_analyzer import UtilityAnalyzer
 from demo_processor import DemoProcessor
 
 class PlayerStyleFingerprinter:
@@ -16,6 +17,7 @@ class PlayerStyleFingerprinter:
         self.movement_analyzer = MovementAnalyzer()
         self.positioning_analyzer = PositioningAnalyzer()
         self.combat_analyzer = CombatAnalyzer()
+        self.utility_analyzer = UtilityAnalyzer()
         self.demo_processor = DemoProcessor()
         
     def extract_player_fingerprint(self, demos: List[Demo], player_steamid: str) -> Optional[PlayerFingerprint]:
@@ -51,10 +53,16 @@ class PlayerStyleFingerprinter:
             side_rounds=side_rounds
         )
 
+        utility_signature = self.utility_analyzer.analyze(
+            player_data,
+            player_steamid
+        )
+
         return PlayerFingerprint(
             movement=movement_signature,
             positioning=positioning_signature,
-            combat=combat_signature
+            combat=combat_signature,
+            utility=utility_signature
         )
     
     def extract_all_player_fingerprints(self, demos: List[Demo], 

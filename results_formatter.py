@@ -48,6 +48,9 @@ class ResultsFormatter:
                 
                 # Display combat stats
                 self._display_combat_stats(fingerprint)
+
+                # Display utility stats
+                self._display_utility_stats(fingerprint)
     
     def _display_movement_stats(self, fingerprint: PlayerFingerprint):
         """Display movement statistics for a player."""
@@ -159,6 +162,34 @@ class ResultsFormatter:
                                precision=config.FLOAT_PRECISION_MED)
                 self._print_stat("t_headshot_ratio", t_stats.get('headshot_ratio', 0.0),
                                precision=config.FLOAT_PRECISION_HIGH)
+
+    def _display_utility_stats(self, fingerprint: PlayerFingerprint):
+        """Display utility usage statistics for a player."""
+        utility = fingerprint.utility
+        if utility:
+            print("  Utility (per round):")
+            self._print_stat("flashes_thrown_per_round", utility.flashes_thrown_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("enemies_flashed_per_round", utility.enemies_flashed_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("flash_assists_per_round", utility.flash_assists_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("flash_to_frag_rate", utility.flash_to_frag_rate,
+                             precision=config.FLOAT_PRECISION_HIGH)
+            self._print_stat("smokes_thrown_per_round", utility.smokes_thrown_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("smoke_coverage_seconds_per_round", utility.smoke_coverage_seconds_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("kills_through_smoke_per_round", utility.kills_through_smoke_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("molotovs_thrown_per_round", utility.molotovs_thrown_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("area_denial_seconds_per_round", utility.area_denial_seconds_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("he_damage_per_round", utility.he_damage_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("utility_damage_per_grenade", utility.utility_damage_per_grenade,
+                             precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_player_similarities(self, all_players: Dict[str, PlayerFingerprint]):
         """Display player similarity analysis."""
