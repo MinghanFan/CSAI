@@ -118,7 +118,6 @@ class CombatAnalyzer:
                 combat_stats['multi_kill_rounds'] = int(multi_kills)
                 combat_stats['clutch_potential'] = float(multi_kills / total_rounds)
             
-            # Kill positions analysis (now map and side specific)
             # Kill positions analysis (now using enhanced detection)
             if 'attacker_X' in kills_df.columns and 'attacker_Y' in kills_df.columns:
                 kill_positions = self._analyze_kill_positions_enhanced(kills_df, kill_areas, side)
@@ -174,6 +173,8 @@ class CombatAnalyzer:
         return damage_stats
     
     def _analyze_kill_positions_enhanced(self, kills_df: pd.DataFrame, 
+                                        kill_areas: Dict, side: str = "") -> Dict[str, float]:
+        """Analyze where player gets kills using enhanced position detection."""
         total_kills = len(kills_df)
         
         if total_kills == 0:
@@ -189,6 +190,7 @@ class CombatAnalyzer:
         side_prefix = f"{side} " if side else ""
         print(f"      Analyzing {side_prefix}kill positions with enhanced detection")
         
+        # Use enhanced position detection for each kill
         position_assignments = []
         
         for idx, row in kills_df.iterrows():
@@ -196,6 +198,7 @@ class CombatAnalyzer:
             y = row['attacker_Y']
             z = row.get('attacker_Z', 0)
             
+            best_position = find_best_position_match(x, y, z, kill_areas)
             position_assignments.append(best_position)
         
         # Count kills in each area
