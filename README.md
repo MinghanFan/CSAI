@@ -1,7 +1,7 @@
 # CSAI
-### TODO: utility usage! like how much they use, how frequent, what kind of they use most and what least, how much damage it cause/blind time it cost, effective
-### TODO: death event
-### TODO features: holding knife time
+### TODO: utility usage! like how much they use, how frequent, what kind of they use most and what least, how much damage it cause/blind time it cost, effective (2nd)
+### TODO: death event (1st)
+### TODO features: holding knife time ? not important
 
 
 Utility usage

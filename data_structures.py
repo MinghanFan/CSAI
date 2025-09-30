@@ -77,6 +77,17 @@ class CombatSignature:
     ct_rounds: int = 0
     t_rounds: int = 0
     
+    # Death stats
+    deaths_per_round: float = 0.0
+    total_deaths: int = 0
+    death_area_diversity: float = 0.0
+    death_bombsite_ratio: float = 0.0
+    death_position_variance: float = 0.0
+
+    # Damage received stats
+    damage_received_per_round: float = 0.0
+    total_damage_received: int = 0
+    
     # CT-side specific stats (will be populated dynamically)
     # t_kills_per_round, ct_damage_per_round, etc.
     
@@ -169,6 +180,8 @@ class DemoData:
     ticks: pd.DataFrame
     kills: pd.DataFrame
     damages: pd.DataFrame
+    deaths: pd.DataFrame
+    damage_taken: pd.DataFrame
     rounds: pd.DataFrame
     total_rounds: int
     ct_rounds: int

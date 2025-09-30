@@ -110,6 +110,10 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_MED)
             self._print_stat("damage_per_round", combat.damage_per_round,
                            precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("deaths_per_round", combat.deaths_per_round,
+                           precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("damage_received_per_round", combat.damage_received_per_round,
+                           precision=config.FLOAT_PRECISION_MED)
             self._print_stat("headshot_ratio", combat.headshot_ratio,
                            precision=config.FLOAT_PRECISION_HIGH)
             self._print_stat("clutch_potential", combat.clutch_potential,
@@ -135,6 +139,10 @@ class ResultsFormatter:
                                precision=config.FLOAT_PRECISION_MED)
                 self._print_stat("ct_damage_per_round", ct_stats.get('damage_per_round', 0.0),
                                precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("ct_deaths_per_round", ct_stats.get('deaths_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("ct_damage_received_per_round", ct_stats.get('damage_received_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
                 self._print_stat("ct_headshot_ratio", ct_stats.get('headshot_ratio', 0.0),
                                precision=config.FLOAT_PRECISION_HIGH)
 
@@ -144,6 +152,10 @@ class ResultsFormatter:
                 self._print_stat("t_kills_per_round", t_stats.get('kills_per_round', 0.0),
                                precision=config.FLOAT_PRECISION_MED)
                 self._print_stat("t_damage_per_round", t_stats.get('damage_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("t_deaths_per_round", t_stats.get('deaths_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("t_damage_received_per_round", t_stats.get('damage_received_per_round', 0.0),
                                precision=config.FLOAT_PRECISION_MED)
                 self._print_stat("t_headshot_ratio", t_stats.get('headshot_ratio', 0.0),
                                precision=config.FLOAT_PRECISION_HIGH)

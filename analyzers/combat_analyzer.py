@@ -2,7 +2,7 @@
 """Combat performance and style analysis for CS:GO players with side separation."""
 
 import pandas as pd
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from data_structures import CombatSignature
 import config
 # Import the shared position detection functions
@@ -12,13 +12,15 @@ class CombatAnalyzer:
     """Analyzes player combat patterns and performance metrics"""
     
     def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame,
+                deaths_df: pd.DataFrame, damage_taken_df: pd.DataFrame,
                 total_rounds: int, side_rounds: Optional[Dict[str, int]] = None) -> CombatSignature:
         """Analyze combat performance separated by CT and T sides."""
 
         map_name = config.get_current_map_name()
         kill_areas = config.get_current_map_positions()
 
-        print(f"    CombatAnalyzer: {len(kills_df)} kills, {len(damages_df)} damage events "
+        print(f"    CombatAnalyzer: {len(kills_df)} kills, {len(damages_df)} damage events, "
+              f"{len(deaths_df)} deaths, {len(damage_taken_df)} damage taken events "
               f"across {total_rounds} rounds on {map_name}")
         
         # Separate by side using the 'player_side' column we added
@@ -26,14 +28,22 @@ class CombatAnalyzer:
         t_kills = kills_df[kills_df.get('player_side', '') == 'T'] if 'player_side' in kills_df.columns else pd.DataFrame()
         ct_damages = damages_df[damages_df.get('player_side', '') == 'CT'] if 'player_side' in damages_df.columns else pd.DataFrame()
         t_damages = damages_df[damages_df.get('player_side', '') == 'T'] if 'player_side' in damages_df.columns else pd.DataFrame()
+        ct_deaths = deaths_df[deaths_df.get('player_side', '') == 'CT'] if 'player_side' in deaths_df.columns else pd.DataFrame()
+        t_deaths = deaths_df[deaths_df.get('player_side', '') == 'T'] if 'player_side' in deaths_df.columns else pd.DataFrame()
+        ct_damage_taken = damage_taken_df[damage_taken_df.get('player_side', '') == 'CT'] if 'player_side' in damage_taken_df.columns else pd.DataFrame()
+        t_damage_taken = damage_taken_df[damage_taken_df.get('player_side', '') == 'T'] if 'player_side' in damage_taken_df.columns else pd.DataFrame()
         
-        print(f"    CT: {len(ct_kills)} kills, {len(ct_damages)} damages")
-        print(f"    T: {len(t_kills)} kills, {len(t_damages)} damages")
+        print(f"    CT: {len(ct_kills)} kills, {len(ct_damages)} damage events, {len(ct_deaths)} deaths, {len(ct_damage_taken)} damage taken")
+        print(f"    T: {len(t_kills)} kills, {len(t_damages)} damage events, {len(t_deaths)} deaths, {len(t_damage_taken)} damage taken")
         
         # Determine rounds played per side for proper normalization
         side_rounds = side_rounds or {}
-        ct_rounds = self._resolve_rounds_played(side_rounds.get('CT'), ct_kills, ct_damages, total_rounds)
-        t_rounds = self._resolve_rounds_played(side_rounds.get('T'), t_kills, t_damages, total_rounds)
+        ct_rounds = self._resolve_rounds_played(side_rounds.get('CT'),
+                                               [ct_kills, ct_damages, ct_deaths, ct_damage_taken],
+                                               total_rounds)
+        t_rounds = self._resolve_rounds_played(side_rounds.get('T'),
+                                              [t_kills, t_damages, t_deaths, t_damage_taken],
+                                              total_rounds)
 
         # Analyze each side separately
         combat_stats = {}
@@ -41,13 +51,20 @@ class CombatAnalyzer:
         # Overall stats (combined)
         overall_kills = self._analyze_kills(kills_df, total_rounds, kill_areas, "Overall")
         overall_damage = self._analyze_damage(damages_df, total_rounds, "Overall")
+        overall_deaths = self._analyze_deaths(deaths_df, total_rounds, kill_areas, "Overall")
+        overall_dmg_received = self._analyze_damage_received(damage_taken_df, total_rounds, "Overall")
+        
         combat_stats.update(overall_kills)
         combat_stats.update(overall_damage)
+        combat_stats.update(overall_deaths)
+        combat_stats.update(overall_dmg_received)
         
         # CT side stats
-        if not ct_kills.empty or not ct_damages.empty:
+        if not ct_kills.empty or not ct_damages.empty or not ct_deaths.empty or not ct_damage_taken.empty:
             ct_kill_stats = self._analyze_kills(ct_kills, ct_rounds, kill_areas, "CT")
             ct_damage_stats = self._analyze_damage(ct_damages, ct_rounds, "CT")
+            ct_death_stats = self._analyze_deaths(ct_deaths, ct_rounds, kill_areas, "CT")
+            ct_dmg_received_stats = self._analyze_damage_received(ct_damage_taken, ct_rounds, "CT")
             
             # Add CT prefix to stats
             for key, value in ct_kill_stats.items():
@@ -55,11 +72,17 @@ class CombatAnalyzer:
                     combat_stats[f"ct_{key}"] = value
             for key, value in ct_damage_stats.items():
                 combat_stats[f"ct_{key}"] = value
+            for key, value in ct_death_stats.items():
+                combat_stats[f"ct_{key}"] = value
+            for key, value in ct_dmg_received_stats.items():
+                combat_stats[f"ct_{key}"] = value
         
         # T side stats
-        if not t_kills.empty or not t_damages.empty:
+        if not t_kills.empty or not t_damages.empty or not t_deaths.empty or not t_damage_taken.empty:
             t_kill_stats = self._analyze_kills(t_kills, t_rounds, kill_areas, "T")
             t_damage_stats = self._analyze_damage(t_damages, t_rounds, "T")
+            t_death_stats = self._analyze_deaths(t_deaths, t_rounds, kill_areas, "T")
+            t_dmg_received_stats = self._analyze_damage_received(t_damage_taken, t_rounds, "T")
             
             # Add T prefix to stats
             for key, value in t_kill_stats.items():
@@ -67,8 +90,12 @@ class CombatAnalyzer:
                     combat_stats[f"t_{key}"] = value
             for key, value in t_damage_stats.items():
                 combat_stats[f"t_{key}"] = value
+            for key, value in t_death_stats.items():
+                combat_stats[f"t_{key}"] = value
+            for key, value in t_dmg_received_stats.items():
+                combat_stats[f"t_{key}"] = value
         
-        # TODO: need better way to difine efficiency
+        # TODO: need better way to define efficiency
         # Calculate combined efficiency stats
         total_damage = combat_stats.get('total_damage', 0)
         combat_stats['kill_efficiency'] = (
@@ -185,18 +212,142 @@ class CombatAnalyzer:
         
         return damage_stats
 
+    def _analyze_deaths(self, deaths_df: pd.DataFrame, rounds_played: int,
+                        kill_areas: Dict, side: str = "") -> Dict[str, Any]:
+        """Analyze death-related statistics for a specific side."""
+        death_stats = {
+            'death_area_diversity': 0.0,
+            'death_bombsite_ratio': 0.0,
+            'death_position_variance': 0.0
+        }
+        
+        if not deaths_df.empty and 'victim_steamid' in deaths_df.columns:
+            total_deaths = len(deaths_df)
+            death_stats['deaths_per_round'] = float(total_deaths / max(rounds_played, 1))
+            death_stats['total_deaths'] = total_deaths
+            
+            if 'victim_X' in deaths_df.columns and 'victim_Y' in deaths_df.columns:
+                death_positions = self._analyze_death_positions_enhanced(deaths_df, kill_areas, side)
+                death_stats.update(death_positions)
+            
+            if side:
+                print(f"      {side} side: {total_deaths} deaths analyzed")
+        else:
+            death_stats.update({
+                'deaths_per_round': 0.0,
+                'total_deaths': 0
+            })
+        
+        return death_stats
+
+    def _analyze_damage_received(self, damages_df: pd.DataFrame, rounds_played: int, 
+                                 side: str = "") -> Dict[str, Any]:
+        """Analyze damage received statistics for a specific side."""
+        dmg_received_stats = {}
+        
+        if not damages_df.empty and 'dmg_health' in damages_df.columns:
+            total_dmg_received = damages_df['dmg_health'].sum()
+            dmg_received_stats['damage_received_per_round'] = float(total_dmg_received / max(rounds_played, 1))
+            dmg_received_stats['total_damage_received'] = int(total_dmg_received)
+            
+            if side:
+                print(f"      {side} side: {total_dmg_received} total damage received")
+        else:
+            dmg_received_stats.update({
+                'damage_received_per_round': 0.0,
+                'total_damage_received': 0
+            })
+        
+        return dmg_received_stats
+
+    def _analyze_death_positions_enhanced(self, deaths_df: pd.DataFrame,
+                                          kill_areas: Dict, side: str = "") -> Dict[str, float]:
+        """Analyze where the player dies using enhanced position detection."""
+        total_deaths = len(deaths_df)
+        if total_deaths == 0:
+            return {
+                'death_area_diversity': 0.0,
+                'death_bombsite_ratio': 0.0,
+                'death_position_variance': 0.0
+            }
+
+        if not kill_areas:
+            try:
+                position_variance = float(
+                    deaths_df['victim_X'].var() +
+                    deaths_df['victim_Y'].var() +
+                    deaths_df.get('victim_Z', pd.Series([0]*len(deaths_df))).var()
+                )
+            except Exception:
+                position_variance = 0.0
+            return {
+                'death_area_diversity': 0.0,
+                'death_bombsite_ratio': 0.0,
+                'death_position_variance': position_variance
+            }
+
+        side_prefix = f"{side} " if side else ""
+        print(f"      Analyzing {side_prefix}death positions with enhanced detection")
+
+        position_assignments = []
+        for _, row in deaths_df.iterrows():
+            x = row['victim_X']
+            y = row['victim_Y']
+            z = row.get('victim_Z', 0)
+            best_position = find_best_position_match(x, y, z, kill_areas)
+            position_assignments.append(best_position)
+
+        area_deaths = {}
+        for position_name in set(position_assignments):
+            if position_name:
+                count = position_assignments.count(position_name)
+                area_deaths[position_name] = count
+                percentage = (count / total_deaths) * 100
+                print(f"        {side_prefix}{position_name}: {count} deaths ({percentage:.1f}%)")
+
+        total_categorized = sum(area_deaths.values())
+        non_zero_areas = len(area_deaths)
+        death_area_diversity = float(non_zero_areas / max(len(kill_areas), 1))
+
+        site_deaths = sum(
+            deaths for area_name, deaths in area_deaths.items()
+            if 'site' in area_name.lower()
+        )
+        bombsite_ratio = float(site_deaths / total_deaths)
+
+        try:
+            position_variance = float(
+                deaths_df['victim_X'].var() +
+                deaths_df['victim_Y'].var() +
+                deaths_df.get('victim_Z', pd.Series([0]*len(deaths_df))).var()
+            )
+        except Exception:
+            position_variance = 0.0
+
+        print(f"        {side_prefix}Death analysis: {non_zero_areas}/{len(kill_areas)} areas used, "
+              f"{total_categorized}/{total_deaths} deaths categorized")
+
+        return {
+            'death_area_diversity': death_area_diversity,
+            'death_bombsite_ratio': bombsite_ratio,
+            'death_position_variance': position_variance
+        }
+
     def _resolve_rounds_played(self, provided_rounds: Optional[int],
-                               kills_df: pd.DataFrame, damages_df: pd.DataFrame,
+                               data_frames: List[pd.DataFrame],
                                fallback_rounds: int) -> int:
         """Determine how many rounds were played for a side."""
         if provided_rounds and provided_rounds > 0:
             return int(provided_rounds)
 
         candidate = 0
-        if not kills_df.empty and 'round_num' in kills_df.columns:
-            candidate = max(candidate, kills_df['round_num'].nunique())
-        if not damages_df.empty and 'round_num' in damages_df.columns:
-            candidate = max(candidate, damages_df['round_num'].nunique())
+        for df in data_frames:
+            if df is None or df.empty:
+                continue
+            if 'round_id' in df.columns:
+                candidate = max(candidate, df['round_id'].nunique())
+            elif 'round_num' in df.columns:
+                candidate = max(candidate, df['round_num'].nunique())
 
         if candidate > 0:
             return int(candidate)

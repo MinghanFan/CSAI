@@ -43,7 +43,12 @@ class PlayerStyleFingerprinter:
         }
 
         combat_signature = self.combat_analyzer.analyze(
-            player_data.kills, player_data.damages, player_data.total_rounds, side_rounds=side_rounds
+            player_data.kills,
+            player_data.damages,
+            player_data.deaths,
+            player_data.damage_taken,
+            player_data.total_rounds,
+            side_rounds=side_rounds
         )
 
         return PlayerFingerprint(

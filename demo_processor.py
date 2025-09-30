@@ -147,6 +147,10 @@ class DemoProcessor:
         all_kills_t = []
         all_damages_ct = []
         all_damages_t = []
+        all_deaths_ct = []
+        all_deaths_t = []
+        all_damage_taken_ct = []
+        all_damage_taken_t = []
         all_rounds = []
         
         total_ct_rounds = 0
@@ -189,10 +193,26 @@ class DemoProcessor:
                 if len(ct_data['damages']) > 0:
                     all_damages_ct.append(ct_data['damages'])
                     print(f"    Found {len(ct_data['damages'])} CT damage events for player")
-                
+
                 if len(t_data['damages']) > 0:
                     all_damages_t.append(t_data['damages'])
                     print(f"    Found {len(t_data['damages'])} T damage events for player")
+
+                if not ct_data['deaths'].empty:
+                    all_deaths_ct.append(ct_data['deaths'])
+                    print(f"    Found {len(ct_data['deaths'])} CT deaths for player")
+
+                if not t_data['deaths'].empty:
+                    all_deaths_t.append(t_data['deaths'])
+                    print(f"    Found {len(t_data['deaths'])} T deaths for player")
+
+                if not ct_data['damage_taken'].empty:
+                    all_damage_taken_ct.append(ct_data['damage_taken'])
+                    print(f"    Found {len(ct_data['damage_taken'])} CT damage taken events for player")
+
+                if not t_data['damage_taken'].empty:
+                    all_damage_taken_t.append(t_data['damage_taken'])
+                    print(f"    Found {len(t_data['damage_taken'])} T damage taken events for player")
                 
                 total_ct_rounds += round_counts['ct']
                 total_t_rounds += round_counts['t']
@@ -211,6 +231,10 @@ class DemoProcessor:
         combined_kills_t = pd.concat(all_kills_t, ignore_index=True) if all_kills_t else pd.DataFrame()
         combined_damages_ct = pd.concat(all_damages_ct, ignore_index=True) if all_damages_ct else pd.DataFrame()
         combined_damages_t = pd.concat(all_damages_t, ignore_index=True) if all_damages_t else pd.DataFrame()
+        combined_deaths_ct = pd.concat(all_deaths_ct, ignore_index=True) if all_deaths_ct else pd.DataFrame()
+        combined_deaths_t = pd.concat(all_deaths_t, ignore_index=True) if all_deaths_t else pd.DataFrame()
+        combined_damage_taken_ct = pd.concat(all_damage_taken_ct, ignore_index=True) if all_damage_taken_ct else pd.DataFrame()
+        combined_damage_taken_t = pd.concat(all_damage_taken_t, ignore_index=True) if all_damage_taken_t else pd.DataFrame()
         combined_rounds = pd.concat(all_rounds, ignore_index=True) if all_rounds else pd.DataFrame()
         
         # Add side indicators to the data
@@ -226,23 +250,38 @@ class DemoProcessor:
             combined_damages_ct['player_side'] = 'CT'
         if not combined_damages_t.empty:
             combined_damages_t['player_side'] = 'T'
+
+        if not combined_deaths_ct.empty:
+            combined_deaths_ct['player_side'] = 'CT'
+        if not combined_deaths_t.empty:
+            combined_deaths_t['player_side'] = 'T'
+
+        if not combined_damage_taken_ct.empty:
+            combined_damage_taken_ct['player_side'] = 'CT'
+        if not combined_damage_taken_t.empty:
+            combined_damage_taken_t['player_side'] = 'T'
         
         # Combine both sides
         combined_ticks = pd.concat([combined_ticks_ct, combined_ticks_t], ignore_index=True)
         combined_kills = pd.concat([combined_kills_ct, combined_kills_t], ignore_index=True)
         combined_damages = pd.concat([combined_damages_ct, combined_damages_t], ignore_index=True)
+        combined_deaths = pd.concat([combined_deaths_ct, combined_deaths_t], ignore_index=True)
+        combined_damage_taken = pd.concat([combined_damage_taken_ct, combined_damage_taken_t], ignore_index=True)
         
         total_rounds = total_ct_rounds + total_t_rounds
         
         print(f"    Combined: {len(combined_ticks)} gameplay ticks "
               f"({len(combined_ticks_ct)} CT, {len(combined_ticks_t)} T)")
-        print(f"    {len(combined_kills)} kills, {len(combined_damages)} damages "
+        print(f"    {len(combined_kills)} kills, {len(combined_damages)} damage events, "
+              f"{len(combined_deaths)} deaths, {len(combined_damage_taken)} damage taken events "
               f"across {total_rounds} rounds ({total_ct_rounds} CT, {total_t_rounds} T)")
-        
+
         return DemoData(
             ticks=combined_ticks,
             kills=combined_kills,
             damages=combined_damages,
+            deaths=combined_deaths,
+            damage_taken=combined_damage_taken,
             rounds=combined_rounds,
             total_rounds=total_rounds,
             ct_rounds=total_ct_rounds,
@@ -254,8 +293,8 @@ class DemoProcessor:
                                          player_steamid: int) -> Tuple[Dict, Dict, Dict]:
         """Process rounds with proper freeze time filtering, separated by side."""
         
-        ct_data = {'ticks': [], 'kills': [], 'damages': []}
-        t_data = {'ticks': [], 'kills': [], 'damages': []}
+        ct_data = {'ticks': [], 'kills': [], 'damages': [], 'deaths': [], 'damage_taken': []}
+        t_data = {'ticks': [], 'kills': [], 'damages': [], 'deaths': [], 'damage_taken': []}
         round_counts = {'ct': 0, 't': 0}
         
         for _, round_row in rounds_df.iterrows():
@@ -290,7 +329,7 @@ class DemoProcessor:
                     print(f"      Skipping round {rnum} - no side information")
                     continue
                 
-                # Filter kills and damages for this round (gameplay only)
+                # Filter kills/damages dealt by player (gameplay only)
                 round_kills = kills_df[
                     (kills_df['round_num'] == rnum) & 
                     (kills_df['tick'] >= freeze_end) & 
@@ -304,6 +343,41 @@ class DemoProcessor:
                     (damages_df['tick'] <= round_end) &
                     (damages_df['attacker_steamid'] == player_steamid)
                 ]
+
+                # Filter deaths (player as victim)
+                round_deaths = kills_df[
+                    (kills_df['round_num'] == rnum) &
+                    (kills_df['tick'] >= freeze_end) &
+                    (kills_df['tick'] <= round_end) &
+                    (kills_df['victim_steamid'] == player_steamid)
+                ]
+
+                # Filter damage received (player as victim)
+                round_damage_taken = damages_df[
+                    (damages_df['round_num'] == rnum) &
+                    (damages_df['tick'] >= freeze_end) &
+                    (damages_df['tick'] <= round_end) &
+                    (damages_df['victim_steamid'] == player_steamid)
+                ]
+
+                # Annotate side info
+                if not round_kills.empty:
+                    round_kills = round_kills.copy()
+                    round_kills['player_side'] = player_side.upper()
+                    if 'victim_side' not in round_kills.columns:
+                        round_kills['victim_side'] = round_kills.get('victim_team', '')
+                if not round_damages.empty:
+                    round_damages = round_damages.copy()
+                    round_damages['player_side'] = player_side.upper()
+                    if 'victim_side' not in round_damages.columns:
+                        round_damages['victim_side'] = round_damages.get('victim_team', '')
+                if not round_deaths.empty:
+                    round_deaths = round_deaths.copy()
+                    round_deaths['player_side'] = player_side.upper()
+                    round_deaths['victim_side'] = player_side.upper()
+                if not round_damage_taken.empty:
+                    round_damage_taken = round_damage_taken.copy()
+                    round_damage_taken['player_side'] = player_side.upper()
                 
                 # Separate by side
                 if player_side.lower() == 'ct':
@@ -312,6 +386,10 @@ class DemoProcessor:
                         ct_data['kills'].append(round_kills)
                     if not round_damages.empty:
                         ct_data['damages'].append(round_damages)
+                    if not round_deaths.empty:
+                        ct_data['deaths'].append(round_deaths)
+                    if not round_damage_taken.empty:
+                        ct_data['damage_taken'].append(round_damage_taken)
                     round_counts['ct'] += 1
                     
                 elif player_side.lower() == 't':
@@ -320,6 +398,10 @@ class DemoProcessor:
                         t_data['kills'].append(round_kills)
                     if not round_damages.empty:
                         t_data['damages'].append(round_damages)
+                    if not round_deaths.empty:
+                        t_data['deaths'].append(round_deaths)
+                    if not round_damage_taken.empty:
+                        t_data['damage_taken'].append(round_damage_taken)
                     round_counts['t'] += 1
                 
                 # Debug info for first few rounds
@@ -336,6 +418,8 @@ class DemoProcessor:
             side_data['ticks'] = pd.concat(side_data['ticks'], ignore_index=True) if side_data['ticks'] else pd.DataFrame()
             side_data['kills'] = pd.concat(side_data['kills'], ignore_index=True) if side_data['kills'] else pd.DataFrame()
             side_data['damages'] = pd.concat(side_data['damages'], ignore_index=True) if side_data['damages'] else pd.DataFrame()
+            side_data['deaths'] = pd.concat(side_data['deaths'], ignore_index=True) if side_data['deaths'] else pd.DataFrame()
+            side_data['damage_taken'] = pd.concat(side_data['damage_taken'], ignore_index=True) if side_data['damage_taken'] else pd.DataFrame()
         
         print(f"    Processed {round_counts['ct']} CT rounds, {round_counts['t']} T rounds")
         
