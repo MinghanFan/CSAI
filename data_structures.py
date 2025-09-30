@@ -17,6 +17,7 @@ class MovementSignature:
     """Player's movement characteristics."""
     counter_strafe_frequency: float = 0.0
     avg_velocity: float = 0.0
+    max_velocity: float = 0.0
     movement_smoothness: float = 0.0
     avg_peek_distance_per_round: float = 0.0
     max_peek_distance_per_round: float = 0.0
@@ -36,13 +37,13 @@ class PositioningSignature:
     
     def get_ct_positions(self) -> Dict[str, float]:
         """Get CT-side position preferences."""
-        return {k.replace('ct_', ''): v for k, v in self.position_preferences.items() 
-                if k.startswith('ct_') and not k == 'ct_map_coverage'}
+        return {k[3:]: v for k, v in self.position_preferences.items() 
+                if k.startswith('ct_') and k != 'ct_map_coverage'}
     
     def get_t_positions(self) -> Dict[str, float]:
         """Get T-side position preferences."""
-        return {k.replace('t_', ''): v for k, v in self.position_preferences.items() 
-                if k.startswith('t_') and not k == 't_map_coverage'}
+        return {k[2:]: v for k, v in self.position_preferences.items() 
+                if k.startswith('t_') and k != 't_map_coverage'}
     
     def get_ct_coverage(self) -> float:
         """Get CT-side map coverage."""
@@ -72,6 +73,9 @@ class CombatSignature:
     kill_area_diversity: float = 0.0
     aggressive_kill_ratio: float = 0.0
     kill_position_variance: float = 0.0
+    total_rounds: int = 0
+    ct_rounds: int = 0
+    t_rounds: int = 0
     
     # CT-side specific stats (will be populated dynamically)
     # t_kills_per_round, ct_damage_per_round, etc.
@@ -89,15 +93,15 @@ class CombatSignature:
         ct_stats = {}
         for key, value in self.__dict__.items():
             if key.startswith('ct_'):
-                ct_stats[key.replace('ct_', '')] = value
+                ct_stats[key[3:]] = value
         return ct_stats
-    
+
     def get_t_stats(self) -> Dict[str, Any]:
         """Get T-side combat statistics."""
         t_stats = {}
         for key, value in self.__dict__.items():
             if key.startswith('t_'):
-                t_stats[key.replace('t_', '')] = value
+                t_stats[key[2:]] = value
         return t_stats
 
 @dataclass
@@ -167,3 +171,5 @@ class DemoData:
     damages: pd.DataFrame
     rounds: pd.DataFrame
     total_rounds: int
+    ct_rounds: int
+    t_rounds: int

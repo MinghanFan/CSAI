@@ -2,7 +2,7 @@
 """Combat performance and style analysis for CS:GO players with side separation."""
 
 import pandas as pd
-from typing import Dict
+from typing import Any, Dict, Optional
 from data_structures import CombatSignature
 import config
 # Import the shared position detection functions
@@ -11,13 +11,13 @@ from analyzers.positioning_analyzer import find_best_position_match
 class CombatAnalyzer:
     """Analyzes player combat patterns and performance metrics"""
     
-    def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame, 
-                total_rounds: int) -> CombatSignature:
+    def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame,
+                total_rounds: int, side_rounds: Optional[Dict[str, int]] = None) -> CombatSignature:
         """Analyze combat performance separated by CT and T sides."""
-        
+
         map_name = config.get_current_map_name()
         kill_areas = config.get_current_map_positions()
-        
+
         print(f"    CombatAnalyzer: {len(kills_df)} kills, {len(damages_df)} damage events "
               f"across {total_rounds} rounds on {map_name}")
         
@@ -30,9 +30,14 @@ class CombatAnalyzer:
         print(f"    CT: {len(ct_kills)} kills, {len(ct_damages)} damages")
         print(f"    T: {len(t_kills)} kills, {len(t_damages)} damages")
         
+        # Determine rounds played per side for proper normalization
+        side_rounds = side_rounds or {}
+        ct_rounds = self._resolve_rounds_played(side_rounds.get('CT'), ct_kills, ct_damages, total_rounds)
+        t_rounds = self._resolve_rounds_played(side_rounds.get('T'), t_kills, t_damages, total_rounds)
+
         # Analyze each side separately
         combat_stats = {}
-        
+
         # Overall stats (combined)
         overall_kills = self._analyze_kills(kills_df, total_rounds, kill_areas, "Overall")
         overall_damage = self._analyze_damage(damages_df, total_rounds, "Overall")
@@ -41,8 +46,8 @@ class CombatAnalyzer:
         
         # CT side stats
         if not ct_kills.empty or not ct_damages.empty:
-            ct_kill_stats = self._analyze_kills(ct_kills, total_rounds, kill_areas, "CT")
-            ct_damage_stats = self._analyze_damage(ct_damages, total_rounds, "CT")
+            ct_kill_stats = self._analyze_kills(ct_kills, ct_rounds, kill_areas, "CT")
+            ct_damage_stats = self._analyze_damage(ct_damages, ct_rounds, "CT")
             
             # Add CT prefix to stats
             for key, value in ct_kill_stats.items():
@@ -53,8 +58,8 @@ class CombatAnalyzer:
         
         # T side stats
         if not t_kills.empty or not t_damages.empty:
-            t_kill_stats = self._analyze_kills(t_kills, total_rounds, kill_areas, "T")
-            t_damage_stats = self._analyze_damage(t_damages, total_rounds, "T")
+            t_kill_stats = self._analyze_kills(t_kills, t_rounds, kill_areas, "T")
+            t_damage_stats = self._analyze_damage(t_damages, t_rounds, "T")
             
             # Add T prefix to stats
             for key, value in t_kill_stats.items():
@@ -65,13 +70,16 @@ class CombatAnalyzer:
         
         # TODO: need better way to difine efficiency
         # Calculate combined efficiency stats
-        if combat_stats['total_damage'] > 0:
-            combat_stats['kill_efficiency'] = float(
-                combat_stats['total_kills'] / (combat_stats['total_damage'] / 100)
-            )
-        else:
-            combat_stats['kill_efficiency'] = 0.0
+        total_damage = combat_stats.get('total_damage', 0)
+        combat_stats['kill_efficiency'] = (
+            float((combat_stats.get('total_kills', 0) / max(total_damage, 1)) * 100)
+            if total_damage > 0 else 0.0
+        )
         
+        combat_stats['total_rounds'] = int(total_rounds)
+        combat_stats['ct_rounds'] = int(ct_rounds)
+        combat_stats['t_rounds'] = int(t_rounds)
+
         print(f"    Combat analysis result: {len(combat_stats)} metrics")
         
         # Create CombatSignature and add dynamic attributes for side-specific stats
@@ -85,16 +93,16 @@ class CombatAnalyzer:
         
         return signature
     
-    def _analyze_kills(self, kills_df: pd.DataFrame, total_rounds: int, 
-                      kill_areas: Dict, side: str = "") -> Dict[str, any]:
+    def _analyze_kills(self, kills_df: pd.DataFrame, rounds_played: int,
+                      kill_areas: Dict, side: str = "") -> Dict[str, Any]:
         """Analyze kill-related statistics for a specific side."""
         combat_stats = {}
-        
+
         if not kills_df.empty:
             total_kills = len(kills_df)
-            combat_stats['kills_per_round'] = float(total_kills / total_rounds)
+            combat_stats['kills_per_round'] = float(total_kills / max(rounds_played, 1))
             combat_stats['total_kills'] = total_kills
-            
+
             # Weapon preferences
             if 'weapon' in kills_df.columns:
                 weapon_counts = kills_df['weapon'].value_counts()
@@ -116,7 +124,7 @@ class CombatAnalyzer:
                 kills_per_round_series = kills_df.groupby('round_num').size()
                 multi_kills = (kills_per_round_series >= 2).sum()
                 combat_stats['multi_kill_rounds'] = int(multi_kills)
-                combat_stats['clutch_potential'] = float(multi_kills / total_rounds)
+                combat_stats['clutch_potential'] = float(multi_kills / max(rounds_played, 1))
             
             # Kill positions analysis (now using enhanced detection)
             if 'attacker_X' in kills_df.columns and 'attacker_Y' in kills_df.columns:
@@ -138,18 +146,23 @@ class CombatAnalyzer:
         
         return combat_stats
     
-    def _analyze_damage(self, damages_df: pd.DataFrame, total_rounds: int, 
-                       side: str = "") -> Dict[str, any]:
+    def _analyze_damage(self, damages_df: pd.DataFrame, rounds_played: int, 
+                       side: str = "") -> Dict[str, Any]:
         """Analyze damage-related statistics for a specific side."""
         damage_stats = {}
-        
+
         # TODO: consider 'dmg_health_real'?
         if not damages_df.empty and 'dmg_health' in damages_df.columns:
             total_damage = damages_df['dmg_health'].sum()
-            damage_stats['damage_per_round'] = float(total_damage / total_rounds)
+            damage_stats['damage_per_round'] = float(total_damage / max(rounds_played, 1))
             damage_stats['total_damage'] = int(total_damage)
             damage_stats['avg_damage_per_hit'] = float(damages_df['dmg_health'].mean())
-            damage_stats['damage_consistency'] = float(1 / (1 + damages_df['dmg_health'].std()))
+            mean_damage = damages_df['dmg_health'].mean()
+            std_damage = damages_df['dmg_health'].std()
+            if mean_damage and mean_damage > 0:
+                damage_stats['damage_consistency'] = float(1 / (1 + (std_damage / mean_damage)))
+            else:
+                damage_stats['damage_consistency'] = 0.0
             
             # TODO: modify this to be more meaningful
             if 'round_num' in damages_df.columns and 'victim_steamid' in damages_df.columns:
@@ -171,7 +184,25 @@ class CombatAnalyzer:
             })
         
         return damage_stats
-    
+
+    def _resolve_rounds_played(self, provided_rounds: Optional[int],
+                               kills_df: pd.DataFrame, damages_df: pd.DataFrame,
+                               fallback_rounds: int) -> int:
+        """Determine how many rounds were played for a side."""
+        if provided_rounds and provided_rounds > 0:
+            return int(provided_rounds)
+
+        candidate = 0
+        if not kills_df.empty and 'round_num' in kills_df.columns:
+            candidate = max(candidate, kills_df['round_num'].nunique())
+        if not damages_df.empty and 'round_num' in damages_df.columns:
+            candidate = max(candidate, damages_df['round_num'].nunique())
+
+        if candidate > 0:
+            return int(candidate)
+
+        return max(int(fallback_rounds), 1)
+
     def _analyze_kill_positions_enhanced(self, kills_df: pd.DataFrame, 
                                         kill_areas: Dict, side: str = "") -> Dict[str, float]:
         """Analyze where player gets kills using enhanced position detection."""
@@ -214,30 +245,15 @@ class CombatAnalyzer:
         # Calculate diversity (how spread out kills are)
         total_categorized_kills = sum(area_kills.values())
         non_zero_areas = len(area_kills)
-        kill_area_diversity = float(non_zero_areas / len(kill_areas)) if len(kill_areas) > 0 else 0.0
-        
-        # Calculate aggressive vs defensive based on specific areas and side
-        aggressive_kills = 0
-        
-        # Different aggression metrics based on side
-        if side == "CT":
-            # For CT: kills in T areas or bomb sites are aggressive
-            for area_name, kills in area_kills.items():
-                if any(keyword in area_name.lower() for keyword in ['tspawn', 'bombsite', 'site']):
-                    aggressive_kills += kills
-        elif side == "T":
-            # For T: kills in CT areas or defensive positions are aggressive
-            for area_name, kills in area_kills.items():
-                if any(keyword in area_name.lower() for keyword in ['ctspawn', 'site']):
-                    aggressive_kills += kills
-        else:
-            # Overall: general aggressive areas
-            for area_name, kills in area_kills.items():
-                if any(keyword in area_name.lower() for keyword in ['bombsite', 'site']) and 'spawn' not in area_name.lower():
-                    aggressive_kills += kills
-        
-        aggressive_ratio = float(aggressive_kills / total_kills) if total_kills > 0 else 0.0
-        
+        kill_area_diversity = float(non_zero_areas / max(len(kill_areas), 1))
+
+        # Share of kills taken at bomb sites (useful aggression proxy)
+        site_kills = sum(
+            kills for area_name, kills in area_kills.items()
+            if 'site' in area_name.lower()
+        )
+        aggressive_ratio = float(site_kills / total_kills)
+
         # Position variance (spread of kill locations)
         try:
             position_variance = float(

@@ -43,14 +43,14 @@ class PositioningAnalyzer:
         # Calculate side-specific coverage
         if not ct_ticks.empty:
             ct_coverage = self._calculate_map_coverage(ct_ticks)
-            position_preferences['ct_map_coverage'] = ct_coverage / max(1, len(ct_ticks)) * 1000
-        
+            position_preferences['ct_map_coverage'] = ct_coverage
+
         if not t_ticks.empty:
             t_coverage = self._calculate_map_coverage(t_ticks)
-            position_preferences['t_map_coverage'] = t_coverage / max(1, len(t_ticks)) * 1000
-        
+            position_preferences['t_map_coverage'] = t_coverage
+
         return PositioningSignature(
-            map_coverage_per_round=map_coverage / total_rounds,
+            map_coverage_per_round=map_coverage,
             position_preferences=position_preferences
         )
     
@@ -87,15 +87,32 @@ class PositioningAnalyzer:
         return position_time
     
     def _calculate_map_coverage(self, ticks_df: pd.DataFrame) -> float:
-        """Calculate total map area covered."""
-        try:
-            if ticks_df.empty:
-                return 0.0
-            x_range = ticks_df['X'].max() - ticks_df['X'].min()
-            y_range = ticks_df['Y'].max() - ticks_df['Y'].min()
-            return float(x_range * y_range)
-        except Exception:
+        """Average coverage per round using a 3D bounding box when available."""
+        if ticks_df.empty or 'X' not in ticks_df.columns or 'Y' not in ticks_df.columns:
             return 0.0
+
+        coord_cols = ['X', 'Y'] + (['Z'] if 'Z' in ticks_df.columns else [])
+
+        def _coverage(frame: pd.DataFrame) -> float:
+            x_range = frame['X'].max() - frame['X'].min()
+            y_range = frame['Y'].max() - frame['Y'].min()
+            base_area = max(float(x_range * y_range), 0.0)
+
+            if 'Z' in frame.columns:
+                z_range = frame['Z'].max() - frame['Z'].min()
+                if z_range > 0:
+                    return base_area * float(z_range)
+            return base_area
+
+        if 'round_num' in ticks_df.columns:
+            per_round_coverage = (
+                ticks_df.groupby('round_num')[coord_cols]
+                .apply(_coverage)
+            )
+            if not per_round_coverage.empty:
+                return float(per_round_coverage.mean())
+
+        return float(_coverage(ticks_df[coord_cols]))
 
 
 # ============================================================================

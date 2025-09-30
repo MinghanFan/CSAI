@@ -244,7 +244,9 @@ class DemoProcessor:
             kills=combined_kills,
             damages=combined_damages,
             rounds=combined_rounds,
-            total_rounds=total_rounds
+            total_rounds=total_rounds,
+            ct_rounds=total_ct_rounds,
+            t_rounds=total_t_rounds
         )
     
     def _process_rounds_with_freeze_filter(self, ticks_df: pd.DataFrame, kills_df: pd.DataFrame, 

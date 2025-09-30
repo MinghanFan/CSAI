@@ -36,11 +36,16 @@ class PlayerStyleFingerprinter:
         positioning_signature = self.positioning_analyzer.analyze(
             player_data.ticks, player_data.total_rounds
         )
-        
+
+        side_rounds = {
+            'CT': player_data.ct_rounds,
+            'T': player_data.t_rounds
+        }
+
         combat_signature = self.combat_analyzer.analyze(
-            player_data.kills, player_data.damages, player_data.total_rounds
+            player_data.kills, player_data.damages, player_data.total_rounds, side_rounds=side_rounds
         )
-        
+
         return PlayerFingerprint(
             movement=movement_signature,
             positioning=positioning_signature,

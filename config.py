@@ -5,7 +5,7 @@ import pathlib
 from all_maps_3d_positions import *  # Import all position definitions
 
 # Demo file paths
-DEMO_DIR = pathlib.Path("/Users/minghanfan/Documents/Test/test")
+DEMO_DIR = pathlib.Path("/Users/minghanfan/Documents/Test/train")
 DEMO_FILES = [str(f) for f in sorted(DEMO_DIR.glob("*.dem")) if not f.name.startswith("._")]
 
 # Output settings
@@ -66,5 +66,5 @@ COMPARISON_PLAYERS = ['m0NESY', 'ZywOo', 'NiKo', 'Magisk']
 
 # Output formatting
 FLOAT_PRECISION_HIGH = 3  # For ratios, percentages
-FLOAT_PRECISION_MED = 1   # For general stats
+FLOAT_PRECISION_MED = 2   # For general stats
 FLOAT_PRECISION_LOW = 0   # For distances, large numbers

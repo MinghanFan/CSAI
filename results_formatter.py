@@ -58,12 +58,20 @@ class ResultsFormatter:
                            precision=config.FLOAT_PRECISION_HIGH)
             self._print_stat("avg_velocity", movement.avg_velocity, 
                            precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("max_velocity", movement.max_velocity,
+                           precision=config.FLOAT_PRECISION_MED)
             self._print_stat("movement_smoothness", movement.movement_smoothness,
                            precision=config.FLOAT_PRECISION_HIGH)
             self._print_stat("movement_distance_per_round", movement.movement_distance_per_round,
                            precision=config.FLOAT_PRECISION_LOW)
             self._print_stat("position_variance_per_round", movement.position_variance_per_round,
                            precision=config.FLOAT_PRECISION_LOW)
+            self._print_stat("avg_peek_distance_per_round", movement.avg_peek_distance_per_round,
+                           precision=config.FLOAT_PRECISION_LOW)
+            self._print_stat("max_peek_distance_per_round", movement.max_peek_distance_per_round,
+                           precision=config.FLOAT_PRECISION_LOW)
+            self._print_stat("total_peek_events_per_round", movement.total_peek_events_per_round,
+                           precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_positioning_stats(self, fingerprint: PlayerFingerprint):
         """Display positioning statistics for a player with side breakdown."""
@@ -113,22 +121,32 @@ class ResultsFormatter:
             
             if combat.primary_weapon != 'none':
                 print(f"    primary_weapon: {combat.primary_weapon}")
+
+            print(f"    total_rounds_played: {combat.total_rounds}")
             
             # Show side-specific stats
             ct_stats = combat.get_ct_stats()
             t_stats = combat.get_t_stats()
-            
+
             if ct_stats:
                 print("  Combat (CT Side):")
-                for key, value in ct_stats.items():
-                    if isinstance(value, (int, float)) and key in ['kills_per_round', 'damage_per_round', 'headshot_ratio']:
-                        self._print_stat(f"ct_{key}", value, precision=config.FLOAT_PRECISION_MED)
-            
+                print(f"    ct_rounds_played: {combat.ct_rounds}")
+                self._print_stat("ct_kills_per_round", ct_stats.get('kills_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("ct_damage_per_round", ct_stats.get('damage_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("ct_headshot_ratio", ct_stats.get('headshot_ratio', 0.0),
+                               precision=config.FLOAT_PRECISION_HIGH)
+
             if t_stats:
                 print("  Combat (T Side):")
-                for key, value in t_stats.items():
-                    if isinstance(value, (int, float)) and key in ['kills_per_round', 'damage_per_round', 'headshot_ratio']:
-                        self._print_stat(f"t_{key}", value, precision=config.FLOAT_PRECISION_MED)
+                print(f"    t_rounds_played: {combat.t_rounds}")
+                self._print_stat("t_kills_per_round", t_stats.get('kills_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("t_damage_per_round", t_stats.get('damage_per_round', 0.0),
+                               precision=config.FLOAT_PRECISION_MED)
+                self._print_stat("t_headshot_ratio", t_stats.get('headshot_ratio', 0.0),
+                               precision=config.FLOAT_PRECISION_HIGH)
     
     def _display_player_similarities(self, all_players: Dict[str, PlayerFingerprint]):
         """Display player similarity analysis."""
