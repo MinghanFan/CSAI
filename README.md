@@ -13,3 +13,6 @@ Utility efficiency: (utility damage)/(grenades thrown), (enemies flashed)/(flash
 Timing & context splits
 Early (0–20 s), mid (20–50), late (post-plant) stats; first-duel attempts & win rate; trade latency percentiles.
 Economy bins (eco/half/buy) averages so models don’t confuse low-buy rounds with “passive style.”
+
+
+### TODO: need to output to csv
