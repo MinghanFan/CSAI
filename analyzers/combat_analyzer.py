@@ -7,7 +7,7 @@ from data_structures import CombatSignature
 import config
 
 class CombatAnalyzer:
-    """Analyzes player combat patterns and performance metrics by side."""
+    """Analyzes player combat patterns and performance metrics"""
     
     def analyze(self, kills_df: pd.DataFrame, damages_df: pd.DataFrame, 
                 total_rounds: int) -> CombatSignature:
@@ -61,6 +61,7 @@ class CombatAnalyzer:
             for key, value in t_damage_stats.items():
                 combat_stats[f"t_{key}"] = value
         
+        # TODO: need better way to difine efficiency
         # Calculate combined efficiency stats
         if combat_stats['total_damage'] > 0:
             combat_stats['kill_efficiency'] = float(
@@ -107,7 +108,8 @@ class CombatAnalyzer:
                 headshot_ratio = kills_df['headshot'].sum() / len(kills_df) if len(kills_df) > 0 else 0
                 combat_stats['headshot_ratio'] = float(headshot_ratio)
             
-            # Multi-kill rounds (clutch potential)
+            # TODO: rename clutch potential
+            # Multi-kill rounds
             if 'round_num' in kills_df.columns:
                 kills_per_round_series = kills_df.groupby('round_num').size()
                 multi_kills = (kills_per_round_series >= 2).sum()
@@ -139,6 +141,7 @@ class CombatAnalyzer:
         """Analyze damage-related statistics for a specific side."""
         damage_stats = {}
         
+        # TODO: consider 'dmg_health_real'?
         if not damages_df.empty and 'dmg_health' in damages_df.columns:
             total_damage = damages_df['dmg_health'].sum()
             damage_stats['damage_per_round'] = float(total_damage / total_rounds)
@@ -146,7 +149,7 @@ class CombatAnalyzer:
             damage_stats['avg_damage_per_hit'] = float(damages_df['dmg_health'].mean())
             damage_stats['damage_consistency'] = float(1 / (1 + damages_df['dmg_health'].std()))
             
-            # First shot accuracy (proxy through damage)
+            # TODO: modify this to be more meaningful
             if 'round_num' in damages_df.columns and 'victim_steamid' in damages_df.columns:
                 first_damages = damages_df.groupby(['round_num', 'victim_steamid']).first()
                 if len(first_damages) > 0:
@@ -246,7 +249,7 @@ class CombatAnalyzer:
         
         # Position variance (spread of kill locations)
         try:
-            position_variance = float(kills_df['attacker_X'].var() + kills_df['attacker_Y'].var())
+            position_variance = float(kills_df['attacker_X'].var() + kills_df['attacker_Y'].var() + kills_df['attacker_Z'].var())
         except:
             position_variance = 0.0
         

@@ -36,7 +36,7 @@ def set_current_map(map_name: str):
     global CURRENT_MAP_NAME, CURRENT_MAP_POSITIONS
     CURRENT_MAP_NAME = map_name
     CURRENT_MAP_POSITIONS = MAP_POSITIONS.get(map_name, {})
-    print(f"🗺️  Using position definitions for {map_name} ({len(CURRENT_MAP_POSITIONS)} areas)")
+    print(f"  Using position definitions for {map_name} ({len(CURRENT_MAP_POSITIONS)} areas)")
 
 def get_current_map_positions():
     """Get position definitions for the current map."""
