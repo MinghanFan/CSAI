@@ -1,5 +1,5 @@
 # analyzers/movement_analyzer.py
-"""Movement pattern analysis for CS:GO players."""
+"""Movement pattern analysis for Counter-Strike players."""
 
 import numpy as np
 import pandas as pd

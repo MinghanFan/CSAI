@@ -5,6 +5,8 @@ import pandas as pd
 from typing import Dict
 from data_structures import CombatSignature
 import config
+# Import the shared position detection functions
+from analyzers.positioning_analyzer import find_best_position_match
 
 class CombatAnalyzer:
     """Analyzes player combat patterns and performance metrics"""
@@ -117,8 +119,9 @@ class CombatAnalyzer:
                 combat_stats['clutch_potential'] = float(multi_kills / total_rounds)
             
             # Kill positions analysis (now map and side specific)
+            # Kill positions analysis (now using enhanced detection)
             if 'attacker_X' in kills_df.columns and 'attacker_Y' in kills_df.columns:
-                kill_positions = self._analyze_kill_positions(kills_df, kill_areas, side)
+                kill_positions = self._analyze_kill_positions_enhanced(kills_df, kill_areas, side)
                 combat_stats.update(kill_positions)
                 
             if side:
@@ -170,9 +173,7 @@ class CombatAnalyzer:
         
         return damage_stats
     
-    def _analyze_kill_positions(self, kills_df: pd.DataFrame, 
-                               kill_areas: Dict, side: str = "") -> Dict[str, float]:
-        """Analyze where player gets kills to determine playstyle by side."""
+    def _analyze_kill_positions_enhanced(self, kills_df: pd.DataFrame, 
         total_kills = len(kills_df)
         
         if total_kills == 0:
@@ -186,44 +187,31 @@ class CombatAnalyzer:
             return {'kill_area_diversity': 0.0, 'aggressive_kill_ratio': 0.0, 'kill_position_variance': position_variance}
         
         side_prefix = f"{side} " if side else ""
-        print(f"      Analyzing {side_prefix}kill positions across {len(kill_areas)} areas")
+        print(f"      Analyzing {side_prefix}kill positions with enhanced detection")
+        
+        position_assignments = []
+        
+        for idx, row in kills_df.iterrows():
+            x = row['attacker_X']
+            y = row['attacker_Y']
+            z = row.get('attacker_Z', 0)
+            
+            position_assignments.append(best_position)
         
         # Count kills in each area
         area_kills = {}
-        total_categorized_kills = 0
-        
-        for area_name, coords in kill_areas.items():
-            try:
-                x_range = coords['x_range']
-                y_range = coords['y_range']
+        for position_name in set(position_assignments):
+            if position_name:
+                count = position_assignments.count(position_name)
+                area_kills[position_name] = count
                 
-                area_filter = (
-                    (kills_df['attacker_X'].between(x_range[0], x_range[1])) &
-                    (kills_df['attacker_Y'].between(y_range[0], y_range[1]))
-                )
-                
-                # Add Z-axis filtering if available
-                if 'attacker_Z' in kills_df.columns and 'z_range' in coords:
-                    z_range = coords['z_range']
-                    area_filter = area_filter & (
-                        kills_df['attacker_Z'].between(z_range[0], z_range[1])
-                    )
-                
-                kills_in_area = area_filter.sum()
-                area_kills[area_name] = kills_in_area
-                total_categorized_kills += kills_in_area
-                
-                if kills_in_area > 0:
-                    percentage = (kills_in_area / total_kills) * 100
-                    print(f"        {side_prefix}{area_name}: {kills_in_area} kills ({percentage:.1f}%)")
-                    
-            except Exception as e:
-                print(f"        Error analyzing {side_prefix}kills in {area_name}: {e}")
-                area_kills[area_name] = 0
+                percentage = (count / total_kills) * 100
+                print(f"        {side_prefix}{position_name}: {count} kills ({percentage:.1f}%)")
         
         # Calculate diversity (how spread out kills are)
-        non_zero_areas = sum(1 for kills in area_kills.values() if kills > 0)
-        kill_area_diversity = float(non_zero_areas / len(area_kills)) if len(area_kills) > 0 else 0.0
+        total_categorized_kills = sum(area_kills.values())
+        non_zero_areas = len(area_kills)
+        kill_area_diversity = float(non_zero_areas / len(kill_areas)) if len(kill_areas) > 0 else 0.0
         
         # Calculate aggressive vs defensive based on specific areas and side
         aggressive_kills = 0
@@ -249,11 +237,15 @@ class CombatAnalyzer:
         
         # Position variance (spread of kill locations)
         try:
-            position_variance = float(kills_df['attacker_X'].var() + kills_df['attacker_Y'].var() + kills_df['attacker_Z'].var())
+            position_variance = float(
+                kills_df['attacker_X'].var() + 
+                kills_df['attacker_Y'].var() + 
+                kills_df.get('attacker_Z', pd.Series([0]*len(kills_df))).var()
+            )
         except:
             position_variance = 0.0
         
-        print(f"        {side_prefix}Kill analysis: {non_zero_areas}/{len(area_kills)} areas used, "
+        print(f"        {side_prefix}Kill analysis: {non_zero_areas}/{len(kill_areas)} areas used, "
               f"{total_categorized_kills}/{total_kills} kills categorized")
         
         return {

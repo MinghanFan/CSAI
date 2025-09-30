@@ -8,6 +8,16 @@ from all_maps_3d_positions import *  # Import all position definitions
 DEMO_DIR = pathlib.Path("/Users/minghanfan/Documents/Test/test")
 DEMO_FILES = [str(f) for f in sorted(DEMO_DIR.glob("*.dem")) if not f.name.startswith("._")]
 
+# Output settings
+OUTPUT_DIR = pathlib.Path("results")  # Directory for output files
+OUTPUT_TO_FILE = True  # Set to True to save results to file
+OUTPUT_TO_CONSOLE = False  # Set to True to also print to console
+CREATE_VISUALIZATIONS = True  # Set to True to create plots
+
+# Visualization options
+SHOW_PLOTS = False  # Set to True to display plots interactively
+SAVE_PLOTS = True  # Set to True to save plots to files
+
 # Analysis parameters
 DEFAULT_ROUNDS_ESTIMATE = 20
 COUNTER_STRAFE_MIN_VELOCITY = 50
