@@ -18,6 +18,10 @@ CREATE_VISUALIZATIONS = True  # Set to True to create plots
 SHOW_PLOTS = False  # Set to True to display plots interactively
 SAVE_PLOTS = True  # Set to True to save plots to files
 
+# Feature export options
+EXPORT_FEATURE_CSV = True
+CSV_FILENAME_PREFIX = "player_features"
+
 # Analysis parameters
 DEFAULT_ROUNDS_ESTIMATE = 20
 COUNTER_STRAFE_MIN_VELOCITY = 50

@@ -2,6 +2,9 @@
 """Formats and displays analysis results."""
 
 from typing import Dict, List, Optional
+from datetime import datetime
+
+import pandas as pd
 from data_structures import PlayerFingerprint
 from player_comparison import PlayerComparison
 import config
@@ -27,7 +30,9 @@ class ResultsFormatter:
         # Compare players if we have enough data
         if len(all_players) >= 2:
             self._display_player_similarities(all_players)
-        
+
+        self.export_feature_matrix(all_players, map_name)
+
         print(f"\n{'='*60}")
         print("ANALYSIS COMPLETE!")
         print(f"Analyzed {len(all_players)} players across {demos_processed} matches on {map_name}")
@@ -230,3 +235,34 @@ class ResultsFormatter:
             }
         
         return results
+
+    def export_feature_matrix(self, all_players: Dict[str, PlayerFingerprint], map_name: str) -> Optional[str]:
+        """Export flattened feature vectors to CSV for downstream analysis."""
+        if not config.EXPORT_FEATURE_CSV:
+            return None
+
+        rows: List[Dict[str, float]] = []
+        for player_name, fingerprint in all_players.items():
+            feature_dict = fingerprint.to_feature_vector()
+            feature_dict['player'] = player_name
+            feature_dict['map'] = map_name
+            rows.append(feature_dict)
+
+        if not rows:
+            return None
+
+        df = pd.DataFrame(rows)
+        # Ensure consistent column order with player/map first
+        for column in ['player', 'map']:
+            if column in df.columns:
+                df.insert(0, column, df.pop(column))
+
+        df = df.fillna(0)
+
+        config.OUTPUT_DIR.mkdir(exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{config.CSV_FILENAME_PREFIX}_{map_name}_{timestamp}.csv"
+        filepath = config.OUTPUT_DIR / filename
+        df.to_csv(filepath, index=False)
+        print(f"    Feature matrix exported to {filepath}")
+        return str(filepath)
