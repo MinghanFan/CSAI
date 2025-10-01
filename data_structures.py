@@ -130,6 +130,21 @@ class UtilitySignature:
     he_damage_per_round: float = 0.0
     utility_damage_per_grenade: float = 0.0
 
+
+@dataclass
+class EngagementSignature:
+    """Player's duel, trade, and economy characteristics."""
+    first_duel_attempts_per_round: float = 0.0
+    first_duel_wins_per_round: float = 0.0
+    first_duel_win_rate: float = 0.0
+    trades_per_round: float = 0.0
+    trade_latency_average: float = 0.0
+    trade_latency_median: float = 0.0
+    trade_latency_p90: float = 0.0
+    economy_avg_cash_spent: float = 0.0
+    economy_median_cash_spent: float = 0.0
+    economy_std_cash_spent: float = 0.0
+
     # Placeholder for potential extension (no dynamic attributes required).
 
 @dataclass
@@ -139,6 +154,7 @@ class PlayerFingerprint:
     positioning: PositioningSignature
     combat: CombatSignature
     utility: UtilitySignature
+    engagement: EngagementSignature
     
     def to_feature_vector(self) -> Dict[str, float]:
         """Convert fingerprint to flat feature dictionary."""
@@ -174,6 +190,10 @@ class PlayerFingerprint:
             if isinstance(value, (int, float)):
                 features[f"utility_{key}"] = value
 
+        for key, value in self.engagement.__dict__.items():
+            if isinstance(value, (int, float)):
+                features[f"engagement_{key}"] = value
+
         return features
     
     def get_side_comparison(self) -> Dict[str, Dict]:
@@ -205,6 +225,7 @@ class DemoData:
     deaths: pd.DataFrame
     damage_taken: pd.DataFrame
     assisted_kills: pd.DataFrame
+    all_kills: pd.DataFrame
     grenades: pd.DataFrame
     smokes: pd.DataFrame
     infernos: pd.DataFrame

@@ -4,10 +4,12 @@
 from typing import Dict, Optional, List
 from awpy import Demo
 from data_structures import PlayerFingerprint, PlayerInfo, DemoData
+import config
 from analyzers.movement_analyzer import MovementAnalyzer
 from analyzers.positioning_analyzer import PositioningAnalyzer
 from analyzers.combat_analyzer import CombatAnalyzer
 from analyzers.utility_analyzer import UtilityAnalyzer
+from analyzers.engagement_analyzer import EngagementAnalyzer
 from demo_processor import DemoProcessor
 
 class PlayerStyleFingerprinter:
@@ -18,10 +20,14 @@ class PlayerStyleFingerprinter:
         self.positioning_analyzer = PositioningAnalyzer()
         self.combat_analyzer = CombatAnalyzer()
         self.utility_analyzer = UtilityAnalyzer()
+        self.engagement_analyzer = EngagementAnalyzer()
         self.demo_processor = DemoProcessor()
         
     def extract_player_fingerprint(self, demos: List[Demo], player_steamid: str) -> Optional[PlayerFingerprint]:
         """Extract a complete style fingerprint for a specific player."""
+        if config.get_current_map_name():
+            self.demo_processor.detected_map = config.get_current_map_name()
+
         # Remove the extra map_name parameter
         player_data = self.demo_processor.aggregate_player_data(demos, player_steamid)
         
@@ -31,6 +37,7 @@ class PlayerStyleFingerprinter:
         print(f"Extracting fingerprint for player {player_steamid}")
         
         # Extract signatures from each analyzer (they now use global map config)
+
         movement_signature = self.movement_analyzer.analyze(
             player_data.ticks, player_data.total_rounds
         )
@@ -58,11 +65,17 @@ class PlayerStyleFingerprinter:
             player_steamid
         )
 
+        engagement_signature = self.engagement_analyzer.analyze(
+            player_data,
+            player_steamid
+        )
+
         return PlayerFingerprint(
             movement=movement_signature,
             positioning=positioning_signature,
             combat=combat_signature,
-            utility=utility_signature
+            utility=utility_signature,
+            engagement=engagement_signature
         )
     
     def extract_all_player_fingerprints(self, demos: List[Demo], 

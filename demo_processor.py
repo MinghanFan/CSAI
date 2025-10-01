@@ -28,7 +28,8 @@ class DemoProcessor:
                     player_props=[
                         "team_name", "X", "Y", "Z", "health", "steamid", "name",
                         "velocity_X", "velocity_Y", "velocity_Z",
-                        "last_place_name", "pitch", "yaw", "armor_value"
+                        "last_place_name", "pitch", "yaw", "armor_value",
+                        "total_cash_spent", "cash", "equipment_value"
                     ]
                 )
                 
@@ -107,7 +108,7 @@ class DemoProcessor:
         """Extract unique players from demos."""
         steamid_to_names = {}
         
-        for demo in demos:
+        for match_index, demo in enumerate(demos):
             try:
                 ticks_df = demo.ticks.to_pandas()
                 
@@ -146,6 +147,7 @@ class DemoProcessor:
         all_kills_ct = []
         all_kills_t = []
         all_assisted_kills = []
+        all_kills_all = []
         all_damages_ct = []
         all_damages_t = []
         all_deaths_ct = []
@@ -160,24 +162,28 @@ class DemoProcessor:
         total_ct_rounds = 0
         total_t_rounds = 0
         
-        for demo in demos:
+        for match_index, demo in enumerate(demos):
             try:
                 print(f"    Processing {self.detected_map} demo")
                 
                 # Get all demo data
-                ticks_df = demo.ticks.to_pandas()
-                kills_df = demo.kills.to_pandas()
-                damages_df = demo.damages.to_pandas()
-                grenades_df = demo.grenades.to_pandas()
-                smokes_df = demo.smokes.to_pandas()
-                infernos_df = demo.infernos.to_pandas()
-                rounds_df = demo.rounds.to_pandas()
+                ticks_df = demo.ticks.to_pandas().copy()
+                kills_df = demo.kills.to_pandas().copy()
+                damages_df = demo.damages.to_pandas().copy()
+                grenades_df = demo.grenades.to_pandas().copy()
+                smokes_df = demo.smokes.to_pandas().copy()
+                infernos_df = demo.infernos.to_pandas().copy()
+                rounds_df = demo.rounds.to_pandas().copy()
+
+                for df in [ticks_df, kills_df, damages_df, grenades_df, smokes_df, infernos_df, rounds_df]:
+                    if df is not None and not df.empty:
+                        df['match_id'] = match_index
                 
                 print(f"    Demo has {len(rounds_df)} rounds, {len(ticks_df)} total ticks")
                 
                 # Process each round with proper freeze time filtering
                 ct_data, t_data, round_counts = self._process_rounds_with_freeze_filter(
-                    ticks_df, kills_df, damages_df, rounds_df, int(player_steamid)
+                    ticks_df, kills_df, damages_df, rounds_df, int(player_steamid), match_index
                 )
                 
                 # Accumulate data by side
@@ -227,7 +233,13 @@ class DemoProcessor:
                     kills_assists['assister_steamid'] = pd.to_numeric(kills_assists['assister_steamid'], errors='coerce')
                     assisted = kills_assists[kills_assists['assister_steamid'] == player_id]
                     if not assisted.empty:
+                        assisted = assisted.copy()
+                        assisted['round_id'] = match_index * 1000 + assisted['round_num'].astype(int)
+                        assisted['match_id'] = match_index
                         all_assisted_kills.append(assisted)
+                    all_kills_all.append(kills_df)
+                else:
+                    all_kills_all.append(kills_df)
 
                 if not grenades_df.empty:
                     grenades_df = grenades_df.copy()
@@ -275,6 +287,7 @@ class DemoProcessor:
         combined_grenades = pd.concat(all_grenades, ignore_index=True) if all_grenades else pd.DataFrame()
         combined_smokes = pd.concat(all_smokes, ignore_index=True) if all_smokes else pd.DataFrame()
         combined_infernos = pd.concat(all_infernos, ignore_index=True) if all_infernos else pd.DataFrame()
+        combined_all_kills = pd.concat(all_kills_all, ignore_index=True) if all_kills_all else pd.DataFrame()
         combined_rounds = pd.concat(all_rounds, ignore_index=True) if all_rounds else pd.DataFrame()
         
         # Add side indicators to the data
@@ -323,6 +336,7 @@ class DemoProcessor:
             deaths=combined_deaths,
             damage_taken=combined_damage_taken,
             assisted_kills=combined_assisted_kills,
+            all_kills=combined_all_kills,
             grenades=combined_grenades,
             smokes=combined_smokes,
             infernos=combined_infernos,
@@ -334,7 +348,7 @@ class DemoProcessor:
     
     def _process_rounds_with_freeze_filter(self, ticks_df: pd.DataFrame, kills_df: pd.DataFrame, 
                                          damages_df: pd.DataFrame, rounds_df: pd.DataFrame, 
-                                         player_steamid: int) -> Tuple[Dict, Dict, Dict]:
+                                         player_steamid: int, match_index: int) -> Tuple[Dict, Dict, Dict]:
         """Process rounds with proper freeze time filtering, separated by side."""
         
         ct_data = {'ticks': [], 'kills': [], 'damages': [], 'deaths': [], 'damage_taken': []}
@@ -355,6 +369,8 @@ class DemoProcessor:
                     print(f"      Skipping round {rnum} - missing timing data")
                     continue
                 
+                round_id = match_index * 1000 + int(rnum)
+
                 # Filter ticks for this round (gameplay only, no freeze time)
                 round_ticks = ticks_df[
                     (ticks_df['round_num'] == rnum) & 
@@ -362,16 +378,20 @@ class DemoProcessor:
                     (ticks_df['tick'] <= round_end) &
                     (ticks_df['steamid'] == player_steamid)
                 ]
-                
+
                 if round_ticks.empty:
                     continue
-                
+
                 # Determine player's side for this round
                 player_side = round_ticks['side'].iloc[0] if 'side' in round_ticks.columns else None
-                
+
                 if player_side is None:
                     print(f"      Skipping round {rnum} - no side information")
                     continue
+
+                round_ticks = round_ticks.copy()
+                round_ticks['round_id'] = round_id
+                round_ticks['match_id'] = match_index
                 
                 # Filter kills/damages dealt by player (gameplay only)
                 round_kills = kills_df[
@@ -408,20 +428,28 @@ class DemoProcessor:
                 if not round_kills.empty:
                     round_kills = round_kills.copy()
                     round_kills['player_side'] = player_side.upper()
+                    round_kills['round_id'] = round_id
+                    round_kills['match_id'] = match_index
                     if 'victim_side' not in round_kills.columns:
                         round_kills['victim_side'] = round_kills.get('victim_team', '')
                 if not round_damages.empty:
                     round_damages = round_damages.copy()
                     round_damages['player_side'] = player_side.upper()
+                    round_damages['round_id'] = round_id
+                    round_damages['match_id'] = match_index
                     if 'victim_side' not in round_damages.columns:
                         round_damages['victim_side'] = round_damages.get('victim_team', '')
                 if not round_deaths.empty:
                     round_deaths = round_deaths.copy()
                     round_deaths['player_side'] = player_side.upper()
                     round_deaths['victim_side'] = player_side.upper()
+                    round_deaths['round_id'] = round_id
+                    round_deaths['match_id'] = match_index
                 if not round_damage_taken.empty:
                     round_damage_taken = round_damage_taken.copy()
                     round_damage_taken['player_side'] = player_side.upper()
+                    round_damage_taken['round_id'] = round_id
+                    round_damage_taken['match_id'] = match_index
                 
                 # Separate by side
                 if player_side.lower() == 'ct':

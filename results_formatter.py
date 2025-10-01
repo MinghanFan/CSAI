@@ -56,6 +56,9 @@ class ResultsFormatter:
 
                 # Display utility stats
                 self._display_utility_stats(fingerprint)
+
+                # Display engagement stats
+                self._display_engagement_stats(fingerprint)
     
     def _display_movement_stats(self, fingerprint: PlayerFingerprint):
         """Display movement statistics for a player."""
@@ -195,6 +198,32 @@ class ResultsFormatter:
                              precision=config.FLOAT_PRECISION_MED)
             self._print_stat("utility_damage_per_grenade", utility.utility_damage_per_grenade,
                              precision=config.FLOAT_PRECISION_HIGH)
+
+    def _display_engagement_stats(self, fingerprint: PlayerFingerprint):
+        """Display engagement-related statistics for a player."""
+        engagement = fingerprint.engagement
+        if engagement:
+            print("  Engagement:")
+            self._print_stat("first_duel_attempts_per_round", engagement.first_duel_attempts_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("first_duel_wins_per_round", engagement.first_duel_wins_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("first_duel_win_rate", engagement.first_duel_win_rate,
+                             precision=config.FLOAT_PRECISION_HIGH)
+            self._print_stat("trades_per_round", engagement.trades_per_round,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("trade_latency_average", engagement.trade_latency_average,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("trade_latency_median", engagement.trade_latency_median,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("trade_latency_p90", engagement.trade_latency_p90,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_avg_cash_spent", engagement.economy_avg_cash_spent,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_median_cash_spent", engagement.economy_median_cash_spent,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_std_cash_spent", engagement.economy_std_cash_spent,
+                             precision=config.FLOAT_PRECISION_MED)
     
     def _display_player_similarities(self, all_players: Dict[str, PlayerFingerprint]):
         """Display player similarity analysis."""
@@ -231,7 +260,9 @@ class ResultsFormatter:
                     'map_coverage_per_round': fingerprint.positioning.map_coverage_per_round,
                     'position_preferences': fingerprint.positioning.position_preferences
                 } if fingerprint.positioning else {},
-                'combat': fingerprint.combat.__dict__ if fingerprint.combat else {}
+                'combat': fingerprint.combat.__dict__ if fingerprint.combat else {},
+                'utility': fingerprint.utility.__dict__ if fingerprint.utility else {},
+                'engagement': fingerprint.engagement.__dict__ if fingerprint.engagement else {}
             }
         
         return results
