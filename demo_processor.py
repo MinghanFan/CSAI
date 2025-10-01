@@ -29,7 +29,7 @@ class DemoProcessor:
                         "team_name", "X", "Y", "Z", "health", "steamid", "name",
                         "velocity_X", "velocity_Y", "velocity_Z",
                         "last_place_name", "pitch", "yaw", "armor_value",
-                        "total_cash_spent", "cash", "equipment_value"
+                        "inventory", "total_cash_spent", "cash", "equipment_value"
                     ]
                 )
                 

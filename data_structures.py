@@ -144,6 +144,9 @@ class EngagementSignature:
     economy_avg_cash_spent: float = 0.0
     economy_median_cash_spent: float = 0.0
     economy_std_cash_spent: float = 0.0
+    economy_avg_weapon_value: float = 0.0
+    economy_median_weapon_value: float = 0.0
+    economy_std_weapon_value: float = 0.0
 
     # Placeholder for potential extension (no dynamic attributes required).
 

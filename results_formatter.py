@@ -224,6 +224,12 @@ class ResultsFormatter:
                              precision=config.FLOAT_PRECISION_MED)
             self._print_stat("economy_std_cash_spent", engagement.economy_std_cash_spent,
                              precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_avg_weapon_value", engagement.economy_avg_weapon_value,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_median_weapon_value", engagement.economy_median_weapon_value,
+                             precision=config.FLOAT_PRECISION_MED)
+            self._print_stat("economy_std_weapon_value", engagement.economy_std_weapon_value,
+                             precision=config.FLOAT_PRECISION_MED)
     
     def _display_player_similarities(self, all_players: Dict[str, PlayerFingerprint]):
         """Display player similarity analysis."""

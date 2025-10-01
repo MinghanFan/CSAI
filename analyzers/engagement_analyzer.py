@@ -3,11 +3,120 @@
 
 from __future__ import annotations
 
+import ast
+import json
 import numpy as np
 import pandas as pd
 
 from data_structures import EngagementSignature, DemoData
 import config
+
+
+def _normalize_weapon_label(label: str | None) -> str:
+    if not label:
+        return ""
+    cleaned = ''.join(ch.lower() for ch in str(label) if ch.isalnum())
+    for prefix in ('weapon', 'item'):
+        if cleaned.startswith(prefix):
+            cleaned = cleaned[len(prefix):]
+    return cleaned
+
+
+_RAW_WEAPON_PRICES: dict[str, int] = {
+    # Pistols
+    "Glock-18": 200,
+    "USP-S": 200,
+    "P250": 300,
+    "P2000": 200,
+    "Five-SeveN": 500,
+    "Tec-9": 500,
+    "Dual Berettas": 300,
+    "Desert Eagle": 700,
+    "CZ75-Auto": 500,
+    "R8 Revolver": 600,
+    # SMGs
+    "MAC-10": 1050,
+    "MP9": 1250,
+    "MP7": 1500,
+    "MP5-SD": 1500,
+    "UMP-45": 1200,
+    "P90": 2350,
+    "PP-Bizon": 1400,
+    # Rifles
+    "Galil AR": 1800,
+    "FAMAS": 1950,
+    "AK-47": 2700,
+    "M4A1-S": 2900,
+    "M4A4": 2900,
+    "SG 553": 3000,
+    "AUG": 3300,
+    # Sniper Rifles
+    "SSG 08": 1700,
+    "AWP": 4750,
+    "G3SG1": 5000,
+    "SCAR-20": 5000,
+    # Shotguns
+    "Nova": 1050,
+    "XM1014": 2000,
+    "MAG-7": 1300,
+    "Sawed-Off": 1100,
+    # Machine Guns
+    "Negev": 1700,
+    "M249": 5200,
+    # Misc
+    "Zeus x27": 200,
+}
+
+
+WEAPON_PRICES: dict[str, int] = {
+    _normalize_weapon_label(name): price for name, price in _RAW_WEAPON_PRICES.items()
+}
+
+_WEAPON_ALIASES: dict[str, str] = {
+    'glock': 'glock18',
+    'usp': 'usps',
+    'usps': 'usps',
+    'uspsilencer': 'usps',
+    'uspsilenceroff': 'usps',
+    'cz75a': 'cz75auto',
+    'cz75': 'cz75auto',
+    'dualberettas': 'dualberettas',
+    'duelberettas': 'dualberettas',
+    'elite': 'dualberettas',
+    'five7': 'fiveseven',
+    'tec9': 'tec9',
+    'deagle': 'deserteagle',
+    'revolver': 'r8revolver',
+    'mac10': 'mac10',
+    'mp5': 'mp5sd',
+    'bizon': 'ppbizon',
+    'ppbizon': 'ppbizon',
+    'galil': 'galilar',
+    'famas': 'famas',
+    'ak': 'ak47',
+    'sg556': 'sg553',
+    'm4a1s': 'm4a1s',
+    'm4a1silencer': 'm4a1s',
+    'm4a1silenceroff': 'm4a1s',
+    'm4a1': 'm4a4',
+    'm4': 'm4a4',
+    'scar20': 'scar20',
+    'g3sg1': 'g3sg1',
+    'mag7': 'mag7',
+    'sawedoff': 'sawedoff',
+    'ssg08': 'ssg08',
+    'scout': 'ssg08',
+    'zeus': 'zeusx27',
+    'zeusx': 'zeusx27',
+    'hkp2000': 'p2000',
+}
+
+for alias, base in _WEAPON_ALIASES.items():
+    normalized_alias = _normalize_weapon_label(alias)
+    normalized_base = _normalize_weapon_label(base)
+    price = WEAPON_PRICES.get(normalized_base)
+    if price is not None:
+        WEAPON_PRICES.setdefault(normalized_alias, price)
 
 
 class EngagementAnalyzer:
@@ -28,6 +137,7 @@ class EngagementAnalyzer:
         first_duel_attempts, first_duel_wins = self._compute_first_duels(kills_all, player_id)
         trade_latencies = self._compute_trade_latencies(kills_all, player_id)
         economy_stats = self._compute_economy_stats(ticks_df, player_id)
+        weapon_value_stats = self._compute_weapon_value_stats(ticks_df, player_id)
 
         first_duel_attempts_per_round = first_duel_attempts / total_rounds
         first_duel_wins_per_round = first_duel_wins / total_rounds
@@ -49,6 +159,9 @@ class EngagementAnalyzer:
             economy_avg_cash_spent=float(economy_stats.get('mean', 0.0)),
             economy_median_cash_spent=float(economy_stats.get('median', 0.0)),
             economy_std_cash_spent=float(economy_stats.get('std', 0.0)),
+            economy_avg_weapon_value=float(weapon_value_stats.get('mean', 0.0)),
+            economy_median_weapon_value=float(weapon_value_stats.get('median', 0.0)),
+            economy_std_weapon_value=float(weapon_value_stats.get('std', 0.0)),
         )
 
     def _prepare_df(self, df: pd.DataFrame | None) -> pd.DataFrame:
@@ -168,3 +281,103 @@ class EngagementAnalyzer:
             'median': float(np.median(per_round_spend)),
             'std': float(per_round_spend.std(ddof=0)),
         }
+
+    def _compute_weapon_value_stats(self, ticks_df: pd.DataFrame, player_id: int) -> dict[str, float]:
+        default = {'mean': 0.0, 'median': 0.0, 'std': 0.0}
+        if ticks_df.empty or 'inventory' not in ticks_df.columns:
+            return default
+
+        ticks_df = ticks_df.copy()
+        ticks_df['steamid'] = pd.to_numeric(ticks_df['steamid'], errors='coerce')
+        ticks_df = ticks_df[ticks_df['steamid'] == player_id]
+        if ticks_df.empty:
+            return default
+
+        if 'round_id' not in ticks_df.columns:
+            match_ids = pd.to_numeric(ticks_df.get('match_id', 0), errors='coerce').fillna(0).astype(int)
+            round_nums = pd.to_numeric(ticks_df.get('round_num', 0), errors='coerce').fillna(0).astype(int)
+            ticks_df['round_id'] = match_ids * 1000 + round_nums
+
+        ticks_df['round_id'] = pd.to_numeric(ticks_df['round_id'], errors='coerce')
+        ticks_df['tick'] = pd.to_numeric(ticks_df['tick'], errors='coerce')
+        ticks_df = ticks_df.dropna(subset=['round_id', 'tick', 'inventory'])
+        if ticks_df.empty:
+            return default
+
+        ticks_df['round_id'] = ticks_df['round_id'].astype(int)
+
+        per_round_values: list[float] = []
+        for _, round_ticks in ticks_df.groupby('round_id'):
+            round_ticks = round_ticks.sort_values('tick')
+            if round_ticks.empty:
+                continue
+            start_tick = round_ticks['tick'].iloc[0]
+            window_ticks = round_ticks[round_ticks['tick'] <= start_tick + 16]
+            values = [self._calc_inventory_value(inv) for inv in window_ticks['inventory']]
+            values = [value for value in values if value > 0]
+            if not values:
+                continue
+            mode_value = max(set(values), key=values.count)
+            per_round_values.append(float(mode_value))
+
+        if not per_round_values:
+            return default
+
+        per_round_values = np.array(per_round_values, dtype=float)
+        return {
+            'mean': float(per_round_values.mean()),
+            'median': float(np.median(per_round_values)),
+            'std': float(per_round_values.std(ddof=0)),
+        }
+
+    def _calc_inventory_value(self, inventory: object) -> int:
+        items = self._coerce_inventory_items(inventory)
+        if not items:
+            return 0
+
+        total_value = 0
+        for item in items:
+            name = None
+            if isinstance(item, dict):
+                name = (
+                    item.get('name')
+                    or item.get('weapon_name')
+                    or item.get('item_name')
+                    or item.get('weapon')
+                )
+            elif isinstance(item, str):
+                name = item
+            if not name:
+                continue
+            normalized = _normalize_weapon_label(name)
+            total_value += WEAPON_PRICES.get(normalized, 0)
+        return total_value
+
+    def _coerce_inventory_items(self, inventory: object) -> list:
+        if inventory is None:
+            return []
+
+        parsed = inventory
+        if isinstance(parsed, str):
+            parsed = parsed.strip()
+            if not parsed:
+                return []
+            raw_text = parsed
+            parsed_obj = None
+            for loader in (json.loads, ast.literal_eval):
+                try:
+                    parsed_obj = loader(raw_text)
+                    break
+                except Exception:
+                    continue
+            if parsed_obj is None:
+                return [raw_text]
+            parsed = parsed_obj
+
+        if isinstance(parsed, dict):
+            return [parsed]
+        if isinstance(parsed, (list, tuple, set)):
+            return list(parsed)
+        if hasattr(np, 'ndarray') and isinstance(parsed, np.ndarray):
+            return parsed.tolist()
+        return []
